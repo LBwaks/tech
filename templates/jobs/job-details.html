@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %} Job Details {% endblock title %}
+
+{% block content %}
+    
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
+    <script>
+        var m = "{{message}}"
+        swal("Good job!", m, "success");
+    </script>
+    {% endfor %}
+</ul>
+{% endif %}
+
+job details  
+<P>job_id: {{job.id}}</P>
+<p>user:{{job.user}}</p>
+<p>reference id :{{job.reference_id}}</p>
+<p>title:{{job.title}}</p>
+<p>category{{job.category}}</p>
+<p>tags: </p>
+<p>description:{{job.content}}</p>
+<p>deadline:{{job.deadline}}</p>
+<p>End time :{{job.job_end_time}}</p>
+<p>skills: {{job.skills}}</p>
+<p>job_type : {{job.job_type}}</p>
+<p>seeker_type : {{job.seeker_type}}</p>
+<p>positions :{{job.positions }}</p>
+<p>county : {{job.county}}</p>
+<p>location :{{job.location}}</p>
+<p>address :{{job.address}}</p>
+<p>created : {{job.created}}</p>
+
+<a href="{% url 'apply-job' job.slug %}" class="btn btn-info">Apply</a>
+<br><br><br><br><br>
+
+{% endblock content %}
+    

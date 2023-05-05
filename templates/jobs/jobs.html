@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %} Job {% endblock title %}
+
+{% block content %}
+    
+{% for job in object_list %}
+<p>user:{{job.user}}</p>
+<p>{{job.reference_id}}</p>
+<p>title:   <a href="{{job.get_absolute_url}}">{{job.title}}</a> </p>
+<p>category{{job.category}}</p>
+<p>description:{{job.content}}</p>
+<p>deadline:{{job.deadline}}</p>
+
+{% comment %} <p></p> {% endcomment %}
+<hr>
+<br>
+{% endfor %}
+{% endblock content %}
+    
