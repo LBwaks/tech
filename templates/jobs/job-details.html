@@ -36,6 +36,15 @@ job details
 <p>created : {{job.created}}</p>
 
 <a href="{% url 'apply-job' job.slug %}" class="btn btn-info">Apply</a>
+<a href="{% url 'delete-job' job.slug %}" class="btn btn-danger">Delete</a>
+<a href="{% url 'update-job' job.slug %}" class="btn btn-primary">Edit</a>
+<a href="{% url 'delete-job' job.slug %}" class="btn btn-secondary">Save this job</a>
+
+{% if job.savedJob %}
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-secondary" >Bookmarked <i class="lni lni-bookmark"></i></a>
+  {% else %}
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-secondary" >Bookmark <i class="lni lni-bookmark"></i></a>
+  {% endif %}
 <br><br><br><br><br>
 
 {% endblock content %}

@@ -53,7 +53,7 @@ class Job(models.Model):
     reference_id = models.CharField(_("reference_id"), unique=True)
     title = models.CharField(_("Title"), max_length=50)
     slug = AutoSlugField(populate_from="title")
-    category = models.ForeignKey(Category, verbose_name=_(""), on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, verbose_name=_("Category"), on_delete=models.CASCADE)
     tags = TaggableManager(_("Tags"))
     content = RichTextField(_("Description"))
     deadline = models.DateTimeField(
@@ -82,6 +82,7 @@ class Job(models.Model):
 
         verbose_name = "Job"
         verbose_name_plural = "Jobs"
+        ordering = ["-created"]
 
     def __str__(self):
         """Unicode representation of Job."""
@@ -96,6 +97,22 @@ class Job(models.Model):
             self.reference_id = self.generate_reference_id()
         super().save(*args, **kwargs)
 
+    
+    def get_absolute_url(self):
+        """Return absolute url for Job."""
+        return reverse ("job-details",kwargs={"slug": self.slug})
+    @classmethod
+    def published(cls):
+        """Return published jobs."""
+        return cls.objects.filter(is_published=True)
+
+    @classmethod
+    def featured(cls):
+        """Return featured jobs."""
+        return cls.objects.filter(is_featured=True)
+
+
+    # TODO: Define custom methods here
     def generate_reference_id(self):
         timestamp = int(time.time() * 1000)  # Convert timestamp to milliseconds
         random_num = random.randint(100000, 999999)  # Generate random 6-digit number
@@ -103,11 +120,6 @@ class Job(models.Model):
         hashed_id = hashlib.sha256(unique_id.encode()).hexdigest()[:10]
         return hashed_id
 
-    def get_absolute_url(self):
-        """Return absolute url for Job."""
-        return reverse ("job-details",kwargs={"slug": self.slug})
-
-    # TODO: Define custom methods here
 class JobImage(models.Model):
     """Model definition for JobImage."""
 
@@ -125,3 +137,34 @@ class JobImage(models.Model):
     def __str__(self):
         """Unicode representation of JobImage."""
         return  f'{self.job.title}-{self.id}'
+    
+    
+class SavedJob(models.Model):
+    """Model definition for SavedJob."""
+
+    # TODO: Define fields here
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    saved_date = models.DateTimeField(auto_now_add=True)
+    
+
+    class Meta:
+        """Meta definition for SavedJob."""
+
+        verbose_name = 'SavedJob'
+        verbose_name_plural = 'SavedJobs'
+        unique_together = ('user', 'job')
+
+    def __str__(self):
+        """Unicode representation of SavedJob."""
+        return f"{self.user.username} saved {self.job.title}"
+
+    # def save(self):
+    #     """Save method for SavedJob."""
+    #     pass
+
+    # def get_absolute_url(self):
+    #     """Return absolute url for SavedJob."""
+    #     return ('')
+
+    # TODO: Define custom methods here

@@ -15,17 +15,15 @@
 </ul>
 {% endif %}
 
-{% for job in object_list %}
-<p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
-<p>{{job.reference_id}}</p>
-<p>title:   <a href="{{job.get_absolute_url}}">{{job.title}}</a> </p>
-<p>category  <a href="{% url 'category-jobs' job.category.slug %}">{{job.category}}</a> </p>
-<p>tags:  {% for tag in job.tags.all %}
-            <li><a 
-                href="{% url 'tag-jobs' tag.slug %}">{{ tag.name }}</a></li>
-          {% endfor %}</p>
-<p>description:{{job.content}}</p>
-<p>deadline:{{job.deadline}}</p>
+{% for saved_job in jobs %}
+
+<p> job _id {{saved_job.job.id}}</p>
+<p>user:{{saved_job.job.user}}</p>
+<p>{{saved_job.job.reference_id}}</p>
+<p>title:   <a href="{{saved_job.job.get_absolute_url}}">{{saved_job.job.title}}</a> </p>
+<p>category{{saved_job.job.category}}</p>
+<p>description:{{saved_job.job.content}}</p>
+<p>deadline:{{saved_job.job.deadline}}</p>
 
 {% comment %} <p></p> {% endcomment %}
 <hr>
