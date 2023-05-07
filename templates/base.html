@@ -1,5 +1,6 @@
 {% autoescape off %}
     {% load static %}
+    {% load django_browser_reload %}
     <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
@@ -108,7 +109,7 @@
     evt.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; // add a new parameter into the mix
 });
     </script>
-   
+  {% django_browser_reload_script %}  
 </body>
 
 </html>

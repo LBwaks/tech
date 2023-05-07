@@ -20,12 +20,18 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from taggit.models import Tag
 from django.db.models import Prefetch
+from django_filters.views import FilterView
+from .filters import JobFilter
 # Create your views here.
 
 
 class JobListView(ListView):
     model = Job
     template_name = "jobs/jobs.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
+        return context
     
 
 class JobDetailView(DetailView):
@@ -183,3 +189,13 @@ class JobsByTagView(ListView):
         context['tag'] = get_object_or_404(Tag, slug=self.kwargs.get('slug'))
         return context
 
+class JobFilterView(FilterView):
+    model = Job
+    template_name ='jobs/jobs.html'
+    filterset_class= JobFilter
+    paginate_by =10
+    
+    def get_queryset(self):
+        return super().get_queryset().select_related('category').prefetch_related('tags').order_by('-created')
+
+    

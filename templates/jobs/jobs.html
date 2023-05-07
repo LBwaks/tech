@@ -2,20 +2,9 @@
 {% block title %} Job {% endblock title %}
 
 {% block content %}
-    {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
-    <script>
-        var m = "{{message}}"
-        swal("Good job!", m, "success");
-    </script>
-    {% endfor %}
-</ul>
-{% endif %}
-
-{% for job in object_list %}
+<div class="container"><div class="row">
+    <div class="col-6">
+        {% for job in object_list %}
 <p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
 <p>{{job.reference_id}}</p>
 <p>title:   <a href="{{job.get_absolute_url}}">{{job.title}}</a> </p>
@@ -31,5 +20,37 @@
 <hr>
 <br>
 {% endfor %}
+    </div> 
+    <div class="col-6">
+        <h2>filtereed jobs </h2>
+        <form method="GET">
+    {{ filter.form.as_p }}
+    <button type="submit">Filter</button>
+  </form>
+        
+        {% if filter.qs  %}
+            {% for job in filter.qs %}{% endfor %}
+            <p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
+<p>{{job.reference_id}}</p>
+<p>title:   <a href="{{job.get_absolute_url}}">{{job.title}}</a> </p>
+<p>category  <a href="{% url 'category-jobs' job.category.slug %}">{{job.category}}</a> </p>
+        {% endif %}
+            
+    </div>
+</div></div>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
+    <script>
+        var m = "{{message}}"
+        swal("Good job!", m, "success");
+    </script>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
 {% endblock content %}
     
