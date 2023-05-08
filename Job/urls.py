@@ -12,6 +12,7 @@ from .views import (
     JobsByUserView,
     JobsByCategoryView,
     JobsByTagView,
+    JobApplicationsListView,
 )
 
 urlpatterns = [
@@ -26,4 +27,5 @@ urlpatterns = [
     path("user-jobs/<username>", JobsByUserView.as_view(), name="user-jobs"),
     path("category-jobs/<slug>", JobsByCategoryView.as_view(), name="category-jobs"),
     path("tag-jobs/<slug>", JobsByTagView.as_view(), name="tag-jobs"),
+    path('job/<slug>/applications/', JobApplicationsListView.as_view(), name='job-applications'),
 ]

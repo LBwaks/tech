@@ -22,6 +22,7 @@ from taggit.models import Tag
 from django.db.models import Prefetch
 from django_filters.views import FilterView
 from .filters import JobFilter
+from Application.models import Application
 # Create your views here.
 
 
@@ -39,9 +40,9 @@ class JobDetailView(DetailView):
     template_name = "jobs/job-details.html"
     
     def get_context_data(self, **kwargs):
-        context = super(JobDetailView, self).get_context_data(**kwargs)
-        context['job']= get_object_or_404(Job,slug=self.kwargs.get("slug"))
-        return context
+       context = super().get_context_data(**kwargs)
+       context['job'] = self.object
+       return context
 
 class JobCreateView(SuccessMessageMixin, CreateView):
     model = Job
@@ -198,4 +199,19 @@ class JobFilterView(FilterView):
     def get_queryset(self):
         return super().get_queryset().select_related('category').prefetch_related('tags').order_by('-created')
 
+class JobApplicationsListView(ListView):
+    model = Application
+    context_object_name = 'applications'
+    template_name = 'applications/job-applications.html'
+    paginate_by = 10
     
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        job = get_object_or_404(Job, slug=slug)
+        return job.job_application.all()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs['slug']
+        context['job'] = get_object_or_404(Job, slug=slug)
+        return context

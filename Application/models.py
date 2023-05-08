@@ -38,6 +38,6 @@ class Application(models.Model):
 
     def get_absolute_url(self):
         """Return absolute url for Application."""
-        return reverse ('jobs')
+        return reverse ('application-details', kwargs={'slug': self.object.uuid})
 
     # TODO: Define custom methods here

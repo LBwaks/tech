@@ -39,6 +39,7 @@ job details
 <a href="{% url 'delete-job' job.slug %}" class="btn btn-danger">Delete</a>
 <a href="{% url 'update-job' job.slug %}" class="btn btn-primary">Edit</a>
 <a href="{% url 'delete-job' job.slug %}" class="btn btn-secondary">Save this job</a>
+<a href="{% url 'job-applications' job.slug %}" class="btn btn-secondary">All applucations({{job.job_application.count}})</a>
 
 {% if job.savedJob %}
   <a href="{% url 'save-job' job.slug %}" class="btn btn-secondary" >Bookmarked <i class="lni lni-bookmark"></i></a>

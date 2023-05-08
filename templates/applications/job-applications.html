@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} Job Details {% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+{% for application in applications %}
+<hr>
+<p>job :  <a href="{% url 'job-details' application.job.slug %}">{{application.job.title}}</a>  </p>
+<p>charge :{{application.charge}} </p>
+<p>description : {{application.description}}</p>
+<p>status : {{application.status}}</p>
+
+<a href="{% url 'update-application' application.uuid %}" class="btn btn-primary">Update</a>
+<a href="{% url 'delete-application' application.uuid %}" class="btn btn-danger"> delete</a>
+<hr>
+{% endfor %}
+<br><br><br><br><br>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}
+    

@@ -28,13 +28,13 @@
     <button type="submit">Filter</button>
   </form>
         
-        {% if filter.qs  %}
+        {% comment %} {% if filter.qs  %}
             {% for job in filter.qs %}{% endfor %}
             <p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
 <p>{{job.reference_id}}</p>
 <p>title:   <a href="{{job.get_absolute_url}}">{{job.title}}</a> </p>
 <p>category  <a href="{% url 'category-jobs' job.category.slug %}">{{job.category}}</a> </p>
-        {% endif %}
+        {% endif %} {% endcomment %}
             
     </div>
 </div></div>
