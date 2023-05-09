@@ -6,8 +6,9 @@ from .views import (
     ApplicationDetailView,
     ApplicationUpdateView,
     MyApplicationsView,
+    ApplicationStatusUpdateView,
 )
-
+app_name = 'applications'
 urlpatterns = [
     # path('',JobListView.as_view(),name='jobs'),
     path(
@@ -23,4 +24,5 @@ urlpatterns = [
     ),
     path('delete-application/<pk>',ApplicationDeleteView.as_view(),name='delete-application'),
     path("my-applications/", MyApplicationsView.as_view(), name="my-applications"),
+    path('approve-application/<uuid:pk>',ApplicationStatusUpdateView.as_view(),name='approve-application')
 ]

@@ -35,7 +35,7 @@ job details
 <p>address :{{job.address}}</p>
 <p>created : {{job.created}}</p>
 
-<a href="{% url 'apply-job' job.slug %}" class="btn btn-info">Apply</a>
+<a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-info">Apply</a>
 <a href="{% url 'delete-job' job.slug %}" class="btn btn-danger">Delete</a>
 <a href="{% url 'update-job' job.slug %}" class="btn btn-primary">Edit</a>
 <a href="{% url 'delete-job' job.slug %}" class="btn btn-secondary">Save this job</a>
