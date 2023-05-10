@@ -9,13 +9,32 @@
         <div class="col-8">
 {% for application in applications %}
 <hr>
+<p>job id  : {{application.job.id}} </p>
+<p>job status  : {{application.job.status}} </p>
+<p>uuiid  : {{application.uuid}} </p>
+<p>status : {{application.status}}</p>
 <p>job :  <a href="{% url 'job-details' application.job.slug %}">{{application.job.title}}</a>  </p>
 <p>charge :{{application.charge}} </p>
 <p>description : {{application.description}}</p>
 <p>status : {{application.status}}</p>
-
-<a href="{% url 'update-application' application.uuid %}" class="btn btn-primary">Update</a>
-<a href="{% url 'delete-application' application.uuid %}" class="btn btn-danger"> delete</a>
+{% if application.status == 'Accepted' %}
+    <form method="POST" action="{% url 'applications:accept-job' application.uuid %}">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="AcceptJob">
+        <button type="submit" class="btn btn-secondary">Accept Approvall</button>
+    </form>
+{% endif %}
+<br>    
+<br>    
+{% if application.status == 'Accepted' %}
+    <form method="POST" action="{% url 'applications:reject-application' application.uuid %}">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="Rejected">
+        <button type="submit" class="btn btn-warning">Reject Application</button>
+    </form>
+{% endif %}
+<a href="{% url 'applications:update-application' application.uuid %}" class="btn btn-primary">Update</a>
+<a href="{% url 'applications:delete-application' application.uuid %}" class="btn btn-danger"> delete</a>
 <hr>
 {% endfor %}
 <br><br><br><br><br>

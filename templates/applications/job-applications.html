@@ -16,6 +16,7 @@
 <p>charge :{{application.charge}} </p>
 <p>description : {{application.description}}</p>
 <p>status : {{application.status}}</p>
+cancel-application
 {% if application.status == 'Pending' %}
     <form method="POST" action="{% url 'applications:approve-application' application.uuid %}">
         {% csrf_token %}
@@ -23,8 +24,15 @@
         <button type="submit" class="btn btn-success">Accept</button>
     </form>
 {% endif %}
-<a href="{% url 'applications:update-application' application.uuid %}" class="btn btn-primary">Update</a>
-<a href="{% url 'applications:delete-application' application.uuid %}" class="btn btn-danger"> delete</a>
+{% if application.status == 'Accepted' %}
+    <form method="POST" action="{% url 'applications:cancel-application' application.uuid %}">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="Pending">
+        <button type="submit" class="btn btn-success">Cancel Application</button>
+    </form>
+{% endif %}
+{% comment %} <a href="{% url 'applications:update-application' application.uuid %}" class="btn btn-primary">Update</a>
+<a href="{% url 'applications:delete-application' application.uuid %}" class="btn btn-danger"> delete</a> {% endcomment %}
 <hr>
 {% endfor %}
 <br><br><br><br><br>

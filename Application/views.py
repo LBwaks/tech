@@ -1,6 +1,6 @@
 from typing import Any, Optional
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.db import models
@@ -61,7 +61,7 @@ class MyApplicationsView(LoginRequiredMixin, ListView):
     model = Application
     template_name = "applications/my-applications.html"
     context_object_name = "applications"
-    paginate_by = 10
+    paginate_by = 1000
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -114,12 +114,109 @@ class ApplicationStatusUpdateView(UpdateView):
         job = self.object.job
         new_status = form.cleaned_data["status"]
         if new_status == "Accepted":
-            job.status = "In progress"
+            job.status = "Waiting"
             Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
                 status="Not Accepted"
             )
         else:
             self.object.status = new_status
+        self.object.save()
+        job.save()
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse(
+            "applications:job_applications", kwargs={"slug": self.object.job.slug}
+        )
+
+class ApplicationCancelView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Application
+    fields = ["status"]
+    template_name_suffix = '_confirm_delete'
+    
+    def test_func(self):
+        application = self.get_object()
+        return self.request.user == application.job.user
+    
+    def form_valid(self, form):
+        job = self.object.job
+        new_status = form.cleaned_data["status"]
+        if new_status == "Pending":
+            job.status = "Open"
+            Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
+                status="Pending"
+            )
+        else:
+            self.object.status = new_status
+        self.object.save()
+        job.save()
+        return super().form_valid(form)
+    
+    # def delete(self,request,*args, **kwargs):
+    #     application = self.get_object()
+    #     application.status = 'Not Accepted'
+    #     application.job.status = 'Open'
+    #     application.job.save()
+    #     application.save()
+    #     return self.redirect_to_success_url()
+    
+    def get_success_url(self):
+        return reverse_lazy('applications:job_applications', kwargs={'slug': self.object.job.slug})
+    from django.shortcuts import get_object_or_404
+
+
+class ApplicationRejectView(UpdateView):
+    model = Application
+    fields = ["status"]
+    template_name_suffix = "_reject_form"
+
+    def form_valid(self, form):
+        job = self.object.job
+        new_status = form.cleaned_data["status"]
+        # if new_status == "Accepted":
+        #     job.status = "In progress"
+        #     Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
+        #         status="Not Accepted"
+        #     )
+        if new_status == "Rejected": #and self.object.status == "Accepted":
+            job.status = "Open"
+            Application.objects.filter(job=job, status="Not Accepted").exclude(
+                pk=self.object.pk
+            ).update(status="Pending")
+        else:
+            self.object.status = new_status
+
+        self.object.save()
+        job.save()
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse(
+            "applications:job_applications", kwargs={"slug": self.object.job.slug}
+        )
+
+   
+class ApplicationApprovalAcceptedView(UpdateView):
+    model = Application
+    fields = ["status"]
+    template_name_suffix = "_reject_form"
+
+    def form_valid(self, form):
+        job = self.object.job
+        new_status = form.cleaned_data["status"]
+        # if new_status == "Accepted":
+        #     job.status = "In progress"
+        #     Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
+        #         status="Not Accepted"
+        #     )
+        if new_status == "AcceptJob": #and self.object.status == "Accepted":
+            job.status = "In Progress"
+            Application.objects.filter(job=job, status="Not Accepted").exclude(
+                pk=self.object.pk
+            ).update(status="Failed")
+        else:
+            self.object.status = new_status
+
         self.object.save()
         job.save()
         return super().form_valid(form)
