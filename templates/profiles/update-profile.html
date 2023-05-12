@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %} Job Details {% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form | crispy }}
+    <button type="submit" class="btn btn-success">Submit <span class="dir-part"></span></button>
+
+</form>
+<br><br><br><br><br>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+{% endblock content %}
+    

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Job Details {% endblock title %}
+
+{% block content %}
+    
+
+
+job details  
+<P>name: {{profile.firstname}} {{profile.lastname}}</P>
+<p>gender:{{profile.gender}}</p>
+<p>bio:{{profile.bio}}</p>
+<p>dob:{{profile.dob}}</p>
+<p>jobs :{{jobs}}</p>
+<p>application :{{applications}}</p>
+<p>documents 
+    
+    {% for document in profile.profile_cv.all %}
+    <a href="{{document.cv.url}}">{{document.cv.name}}</a>
+</p>
+    {% endfor %}
+    
+
+
+
+
+<a href="{% url 'update-profile' profile.slug %}" class="btn btn-danger">Profie Update</a>
+
+
+<br><br><br><br><br>
+
+{% endblock content %}
+    

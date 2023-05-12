@@ -15,18 +15,26 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'jobs' %}">Add Jobs</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'jobs' %}">Profile</a>
+        
+       
+        
+        {% if user.is_authenticated %}
+          
+       <li class="nav-item">
+          <a class="nav-link" href="{% url 'user-profile' user.user_profile.slug %}">{{user.username}}</a>
         </li>
+          
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+        </li>
+        {% else %}
+         <li class="nav-item">
           <a class="nav-link" href="{% url 'account_signup' %}">Sign up</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'account_login' %}">Log in</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-        </li>
+         {% endif %}
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

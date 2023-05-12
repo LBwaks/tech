@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # created
     "Job",
     "Application",
+    "Account",
     # installed
     "ckeditor",
     "taggit",
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "django_browser_reload",
     "django_filters",
+     "phonenumber_field",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -116,24 +118,35 @@ DATABASES = {
         "PORT": os.getenv("PORT"),
     }
 }
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+RECIPIENT_ADDRESS = os.getenv("RECIPIENT_ADDRESS")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", default='noreply@gmail.com')
 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    # },
+    # {
+    #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    # },
 ]
 
 
@@ -229,3 +242,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_MIN_LENGTH = 5
 ACCOUNT_USERNAME_REQUIRED = True
 # SOCIALACCOUNT_LOGIN_ON_GET =True
+
+# phonenumber_field
+PHONENUMBER_DEFAULT_REGION = 'KE'

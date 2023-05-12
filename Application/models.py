@@ -14,7 +14,7 @@ class Application(models.Model):
          primary_key = True,
          default = uuid.uuid4,
          editable = False)
-    user = models.ForeignKey(User,related_name='user_applicatiom', on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name='user_application', on_delete=models.CASCADE)
     job = models.ForeignKey(Job, related_name='job_application', on_delete=models.CASCADE)
     charge = models.CharField(_("Fees"), max_length=50)
     description = RichTextField()

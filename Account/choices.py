@@ -1,14 +1,3 @@
-SEEKER_TYPE =[
-    ('Individual','Individual'),
-    ('Company','Company'),
-    # ('Open','Open')
-]
-JOB_TYPE =[
-    ('Contract','Contract'),
-    ('Fulltime','Fulltime'),
-    
-]
-
 COUNTY= [
         ('Mombasa', 'Mombasa'),
         ('Kwale', 'Kwale'),
@@ -58,3 +47,12 @@ COUNTY= [
         ('Nyamira', 'Nyamira'),
         ('Nairobi', 'Nairobi'),
     ]
+MY_GENDER = [
+    ("Male", "Male"),
+    ("Female", "Female"),
+    ("Prefer not to say", "Prefer not to say"),
+]
+USER_TYPE = [
+    ('Individual', 'Individual'),
+    ('Agency', 'Agency'),
+]
