@@ -43,7 +43,7 @@
 
 </head>
 
-<body>
+<body hx-ext="ws" ws-connect="/ws/notifications/">
      <!-- Preloader -->
    <div class="preloader">
         <div class="preloader-inner">
@@ -109,6 +109,7 @@
     evt.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; // add a new parameter into the mix
 });
     </script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
   {% django_browser_reload_script %}  
 </body>
 
