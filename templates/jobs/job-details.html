@@ -8,15 +8,22 @@
     {% for message in messages %}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
-    <script>
+    {% comment %} <script>
         var m = "{{message}}"
         swal("Good job!", m, "success");
-    </script>
+    </script> {% endcomment %}
     {% endfor %}
 </ul>
 {% endif %}
 
 job details  
+<hr>
+<br>
+<li id="notification-dropdown">
+          <a" >notification</a>
+        </li> 
+<br>
+<hr>
 <P>job_id: {{job.id}}</P>
 <p>user:{{job.user}}</p>
 <p>reference id :{{job.reference_id}}</p>

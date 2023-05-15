@@ -4,10 +4,10 @@ from django.dispatch import receiver
 from .models import Job
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+from Job.consumers import NotificationConsumer
 
-
-@receiver(post_save ,sender =Job)
-def send_notification_on_job_added(sender,created,instance,**kwargs):
+@receiver(post_save, sender=Job)
+def send_notification_on_job_added(sender, instance, created, **kwargs):
     if created:
         channel_layer = get_channel_layer()
         group_name = 'user-notifications'
@@ -16,3 +16,9 @@ def send_notification_on_job_added(sender,created,instance,**kwargs):
             'text':instance.id
         }
         async_to_sync(channel_layer.group_send)(group_name, event)
+        # consumer = NotificationConsumer()
+        # event = {
+        #     'type': 'job_added',
+        #     'text': str(instance.id)
+        # }
+        # consumer.job_added(event)

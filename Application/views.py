@@ -15,11 +15,12 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
-
+from django.conf import settings
 from Job.models import Job
-
+from  django.core.mail import EmailMessage
 from .forms import ApplicationEditForm, ApplicationForm
 from .models import Application
+from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -118,6 +119,19 @@ class ApplicationStatusUpdateView(UpdateView):
             Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
                 status="Not Accepted"
             )
+            applicant_email =self.object.user.email
+            subject = 'Application Accepted'
+            context ={
+                'job':job,
+                'application': self.object,
+                'applicant':self.object.user
+            }
+            message = render_to_string('emails/application-approved.html',context)
+            email = EmailMessage(subject,message,settings.DEFAULT_FROM_EMAIL,[applicant_email])
+            email.content_subtype = "html"
+            email.send()
+            print(applicant_email,job.title)
+            
         else:
             self.object.status = new_status
         self.object.save()

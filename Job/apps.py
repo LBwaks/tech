@@ -6,5 +6,5 @@ class JobConfig(AppConfig):
     name = "Job"
     
     def ready(self):
-        from . import signals 
-        # return super().ready()
+        import Job.signals 
+       
