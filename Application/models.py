@@ -14,11 +14,11 @@ class Application(models.Model):
          primary_key = True,
          default = uuid.uuid4,
          editable = False)
-    user = models.ForeignKey(User,related_name='user_application', on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, related_name='job_application', on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name='user_application', on_delete=models.CASCADE,db_index=True)
+    job = models.ForeignKey(Job, related_name='job_application', on_delete=models.CASCADE,db_index=True)
     charge = models.CharField(_("Fees"), max_length=50)
     description = RichTextField()
-    status = models.CharField(default='Pending', max_length=50)
+    status = models.CharField(default='Pending', max_length=50, db_index=True)
     
     created = models.DateTimeField( auto_now_add=True)
 

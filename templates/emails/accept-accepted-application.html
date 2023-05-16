@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title> ACCEPT Application Accepted</title>
+</head>
+<body>
+    <h1>Congratulations!</h1>
+    
+    <p>Your application for the job "{{ job.title }}" has been accepted.</p>
+    
+    <h2>Job Details:</h2>
+    <ul>
+        <li>Title: {{ job.title }}</li>
+        <li>Company: {{ job.company }}</li>
+        <li>Location: {{ job.location }}</li>
+        <!-- Include other relevant job details here -->
+    </ul>
+    <p>To accept or reject the job approval, please click the appropriate link below:</p>
+    <ul>
+        
+        <li>Application charge 3: {{application.charge}}</li>
+        {% if application.status == 'Accepted' %}
+            <li>
+                <form method="POST" action="{% url 'applications:accept-job' application.uuid %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="AcceptJob">
+                    <button type="submit" class="btn btn-secondary">Accept Job</button>
+                </form>
+            </li>
+            <li>
+                <form method="POST" action="{% url 'applications:reject-application' application.uuid %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="status" value="Rejected">
+                    <button type="submit" class="btn btn-warning">Reject Job</button>
+                </form>
+            </li>
+        {% endif %}
+    </ul>
+    
+    <h2>Contact Information:</h2>
+    <p>Please reach out to the hiring manager at the following email address for further instructions:</p>
+    <p>{{ job.contact_email }}</p>
+   
+  
+
+    <p>Thank you for your interest and good luck!</p>
+</body>
+</html>

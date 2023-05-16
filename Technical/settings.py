@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "Job",
     "Application",
     "Account",
+    "Page",
     # installed
     "ckeditor",
     "taggit",
@@ -132,7 +133,9 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 # SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 RECIPIENT_ADDRESS = os.getenv("RECIPIENT_ADDRESS")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", default="noreply@gmail.com")
-
+# twilio
+TWILIO_ACCOUNT_SID = os.getenv("account_sid")
+TWILIO_AUTH_TOKEN= os.getenv("auth_token")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

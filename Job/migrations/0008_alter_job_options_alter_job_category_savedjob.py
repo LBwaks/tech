@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        
         migrations.AlterModelOptions(
             name="job",
             options={

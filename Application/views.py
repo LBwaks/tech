@@ -21,6 +21,7 @@ from  django.core.mail import EmailMessage
 from .forms import ApplicationEditForm, ApplicationForm
 from .models import Application
 from django.template.loader import render_to_string
+from twilio.rest import Client 
 
 # Create your views here.
 
@@ -119,6 +120,7 @@ class ApplicationStatusUpdateView(UpdateView):
             Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
                 status="Not Accepted"
             )
+            # sending email notification
             applicant_email =self.object.user.email
             subject = 'Application Accepted'
             context ={
@@ -131,6 +133,16 @@ class ApplicationStatusUpdateView(UpdateView):
             email.content_subtype = "html"
             email.send()
             print(applicant_email,job.title)
+            
+            # sending sms notification
+            twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)  # Initialize Twilio client
+            # twilio_phone = settings.TWILIO_PHONE_NUMBER  # Get Twilio phone number from settings
+            twilio_message = f"Congratulations! Your application for the job '{job.title}' has been accepted."  # Compose the message
+            twilio_client.messages.create(
+                body=twilio_message,
+                from_='+15005550006',
+                to='+254797407274'
+            )
             
         else:
             self.object.status = new_status
@@ -160,43 +172,82 @@ class ApplicationCancelView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
             Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
                 status="Pending"
             )
+            # sending email notification
+            applicant_email =self.object.user.email
+            subject = 'Application Accepted'
+            context ={
+                'job':job,
+                'application': self.object,
+                'applicant':self.object.user
+            }
+            message = render_to_string('emails/cancel-accepted-application.html',context)
+            email = EmailMessage(subject,message,settings.DEFAULT_FROM_EMAIL,[applicant_email])
+            email.content_subtype = "html"
+            email.send()
+            print(applicant_email,job.title)
+            
+            # sending sms notification
+            twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)  # Initialize Twilio client
+            # twilio_phone = settings.TWILIO_PHONE_NUMBER  # Get Twilio phone number from settings
+            twilio_message = f"Congratulations! Your application for the job '{job.title}' has been accepted."  # Compose the message
+            twilio_client.messages.create(
+                body=twilio_message,
+                from_='+15005550006',
+                to='+254797407274'
+            )
         else:
             self.object.status = new_status
         self.object.save()
         job.save()
         return super().form_valid(form)
     
-    # def delete(self,request,*args, **kwargs):
-    #     application = self.get_object()
-    #     application.status = 'Not Accepted'
-    #     application.job.status = 'Open'
-    #     application.job.save()
-    #     application.save()
-    #     return self.redirect_to_success_url()
+    
     
     def get_success_url(self):
         return reverse_lazy('applications:job_applications', kwargs={'slug': self.object.job.slug})
-    from django.shortcuts import get_object_or_404
+   
 
 
-class ApplicationRejectView(UpdateView):
+class ApplicationRejectView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
     model = Application
     fields = ["status"]
     template_name_suffix = "_reject_form"
-
+    def test_func(self):
+        application = self.get_object()
+        return self.request.user == application.job.user
+    
     def form_valid(self, form):
         job = self.object.job
         new_status = form.cleaned_data["status"]
-        # if new_status == "Accepted":
-        #     job.status = "In progress"
-        #     Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
-        #         status="Not Accepted"
-        #     )
+        
         if new_status == "Rejected": #and self.object.status == "Accepted":
             job.status = "Open"
             Application.objects.filter(job=job, status="Not Accepted").exclude(
                 pk=self.object.pk
             ).update(status="Pending")
+            # sending email notification
+            applicant_email =self.object.user.email
+            subject = 'Application Accepted'
+            context ={
+                'job':job,
+                'application': self.object,
+                'applicant':self.object.user
+            }
+            message = render_to_string('emails/reject-accepted-application.html',context)
+            email = EmailMessage(subject,message,settings.DEFAULT_FROM_EMAIL,[applicant_email])
+            email.content_subtype = "html"
+            email.send()
+            print(applicant_email,job.title)
+            
+            # sending sms notification
+            twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)  # Initialize Twilio client
+            # twilio_phone = settings.TWILIO_PHONE_NUMBER  # Get Twilio phone number from settings
+            twilio_message = f"Congratulations! Your application for the job '{job.title}' has been accepted."  # Compose the message
+            twilio_client.messages.create(
+                body=twilio_message,
+                from_='+15005550006',
+                to='+254797407274'
+            )
         else:
             self.object.status = new_status
 
@@ -210,11 +261,14 @@ class ApplicationRejectView(UpdateView):
         )
 
    
-class ApplicationApprovalAcceptedView(UpdateView):
+class ApplicationApprovalAcceptedView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
     model = Application
     fields = ["status"]
     template_name_suffix = "_reject_form"
-
+    def test_func(self):
+        application = self.get_object()
+        return self.request.user == application.job.user
+    
     def form_valid(self, form):
         job = self.object.job
         new_status = form.cleaned_data["status"]
@@ -228,6 +282,29 @@ class ApplicationApprovalAcceptedView(UpdateView):
             Application.objects.filter(job=job, status="Not Accepted").exclude(
                 pk=self.object.pk
             ).update(status="Failed")
+            # sending email notification
+            applicant_email =self.object.user.email
+            subject = 'Application Accepted'
+            context ={
+                'job':job,
+                'application': self.object,
+                'applicant':self.object.user
+            }
+            message = render_to_string('emails/accept-accepted-application.html',context)
+            email = EmailMessage(subject,message,settings.DEFAULT_FROM_EMAIL,[applicant_email])
+            email.content_subtype = "html"
+            email.send()
+            print(applicant_email,job.title)
+            
+            # sending sms notification
+            twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)  # Initialize Twilio client
+            # twilio_phone = settings.TWILIO_PHONE_NUMBER  # Get Twilio phone number from settings
+            twilio_message = f"Congratulations! Your application for the job '{job.title}' has been accepted."  # Compose the message
+            twilio_client.messages.create(
+                body=twilio_message,
+                from_='+15005550006',
+                to='+254797407274'
+            )
         else:
             self.object.status = new_status
 

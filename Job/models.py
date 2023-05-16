@@ -1,5 +1,4 @@
 from django.db import models
-
 from django_extensions.db.fields import AutoSlugField
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
@@ -10,7 +9,7 @@ import hashlib
 import random
 import time
 from django.urls import reverse
-
+from django.contrib.postgres.indexes import GinIndex
 # Create your models here.
 
 
@@ -49,33 +48,33 @@ class Job(models.Model):
     """Model definition for Job."""
 
     # TODO: Define fields here
-    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE,db_index=True)
     reference_id = models.CharField(_("reference_id"), unique=True)
     title = models.CharField(_("Title"), max_length=50)
-    slug = AutoSlugField(populate_from="title")
-    category = models.ForeignKey(Category, verbose_name=_("Category"), on_delete=models.CASCADE)
+    slug = AutoSlugField(populate_from="title",db_index=True)
+    category = models.ForeignKey(Category,db_index=True, verbose_name=_("Category"), on_delete=models.CASCADE)
     tags = TaggableManager(_("Tags"))
     content = RichTextField(_("Description"))
     deadline = models.DateTimeField(
-        _("Application Deadline"), auto_now=False, auto_now_add=False
+        _("Application Deadline"), auto_now=False, auto_now_add=False,db_index=True
     )
     job_end_time = models.DateTimeField(
-        _("To be done time"), auto_now=False, auto_now_add=False
+        _("To be done time"), auto_now=False, auto_now_add=False,db_index=True
     )
     skills = RichTextField(_("Skills"))
     job_type = models.CharField(_("Job type"), choices=JOB_TYPE, max_length=50)
     seeker_type = models.CharField(_("Seeker Type"), choices=SEEKER_TYPE, max_length=50)
     positions = models.IntegerField(_("Available position"))
 
-    county = models.CharField(_("County"), choices=COUNTY, max_length=50)
-    location = models.CharField(_("Location/Town/City"), max_length=50)
+    county = models.CharField(_("County"), choices=COUNTY, max_length=50,db_index=True)
+    location = models.CharField(_("Location/Town/City"), max_length=50,db_index=True)
     address = models.CharField(_("Address"), max_length=50)
 
-    status = models.CharField(default="Open")
-    is_featured = models.BooleanField(default=True)
-    is_published = models.BooleanField(default=True)
+    status = models.CharField(default="Open",max_length=50, db_index=True)
+    is_featured = models.BooleanField(default=True,db_index=True)
+    is_published = models.BooleanField(default=True,db_index=True)
 
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True,db_index=True)
 
     class Meta:
         """Meta definition for Job."""
@@ -83,6 +82,9 @@ class Job(models.Model):
         verbose_name = "Job"
         verbose_name_plural = "Jobs"
         ordering = ["-created"]
+        indexes = [
+            GinIndex(name='NewGinIndex',fields=['title',],opclasses=['gin_trgm_ops']),
+        ]
 
     def __str__(self):
         """Unicode representation of Job."""
