@@ -4,43 +4,29 @@
 {% block content %}
 <div class="container"><div class="row">
     <div class="col-6">
-        {% for job in object_list %}
-<p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
+        {% for job in results %}
+ <p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
 <p>{{job.reference_id}}</p>
 <p>{{job.county}}</p>
 <p>{{job.location}}</p>
 <p>{{job.address}}</p>
-<p>title:   <a href="{{job.get_absolute_url}}">{{job.title}}</a> </p>
+<p>title:   <a href="{{job.get_absolute_url}}">{{job.headline|safe}}</a> </p>
 <p>category  <a href="{% url 'category-jobs' job.category.slug %}">{{job.category}}</a> </p>
 <p>tags:  {% for tag in job.tags.all %}
             <li><a 
                 href="{% url 'tag-jobs' tag.slug %}">{{ tag.name }}</a></li>
           {% endfor %}</p>
 <p>description:{{job.content}}</p>
-<p>deadline:{{job.deadline}}</p>
+<p>deadline:{{job.deadline}}</p> 
 
-{% comment %} <p></p> {% endcomment %}
+
 <hr>
 <br>
+{% empty %} 
+<p>No search job</p>
 {% endfor %}
     </div> 
-    <div class="col-6">
-        <h2>filtereed jobs </h2>
-        <form method="GET">
-    {{ filter.form.as_p }}
-    <button type="submit">Filter</button>
-  </form>
-        
-        {% comment %} {% if filter.qs  %}
-            {% for job in filter.qs %}{% endfor %}
-            <p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
-<p>{{job.reference_id}}</p>
-<p>title:   <a href="{{job.get_absolute_url}}">{{job.title}}</a> </p>
-<p>category  <a href="{% url 'category-jobs' job.category.slug %}">{{job.category}}</a> </p>
-        {% endif %} {% endcomment %}
-            
-    </div>
-</div></div>
+    
     {% if messages %}
 <ul class="messages">
     {% for message in messages %}

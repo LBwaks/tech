@@ -34,7 +34,7 @@ class JobAdmin(admin.ModelAdmin):
     # ]
     # raw_id_fields = ('',)
     readonly_fields = ('user','reference_id')
-    # search_fields = ('',)
+    search_fields = ('reference_id','title')
     # date_hierarchy = ''
     # ordering = ('',)
     def save_model(self, request, obj, form, change) :
