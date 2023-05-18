@@ -8,7 +8,21 @@ JOB_TYPE =[
     ('Fulltime','Fulltime'),
     
 ]
-
+INDUSTRY =[
+    ('Hotel','Hotel'),
+    ('Home','Home'),
+    
+]
+PUBLISHED =[
+   ('', 'Any'),
+   ('hour', 'Last hour'),
+    ('day', 'Last 24 hours'),
+    ('month', 'Last month'),
+]
+FIELD =[
+    ('Kitchen','Kitchen'),
+    
+]
 COUNTY= [
         ('Mombasa', 'Mombasa'),
         ('Kwale', 'Kwale'),

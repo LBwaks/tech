@@ -3,8 +3,26 @@
 
 {% block content %}
 <div class="container"><div class="row">
+    <h2>filtereed jobs </h2>
+        <form method="GET" action="{% url 'jobs-filter' %}">
+    {{ job_filter.form.as_p }}
+    <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="latest" name="latest">
+    <label class="form-check-label" for="latest">Show Latest Jobs</label>
+  </div>
+  <label for="id_date_published">Date Published:</label>
+  <select name="created" id="id_date_published">
+    <option value="">Any</option>
+    <option value="hour">Last hour</option>
+    <option value="day">Last 24 hours</option>
+    <option value="week">Last Week</option>
+    <option value="month">Last month</option>
+  </select>
+    <button type="submit">Filter</button>
+  </form>
     <div class="col-6">
-        {% for job in object_list %}
+        {% for job in jobs %}
+        <p>created :{{job.created}}</p>
 <p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
 <p>{{job.reference_id}}</p>
 <p>{{job.county}}</p>
@@ -24,31 +42,7 @@
 <br>
 {% endfor %}
     </div> 
-    <div class="col-6">
-        <h2>filtereed jobs </h2>
-        <form method="GET" action="{% url 'jobs-filter' %}">
-    {{ filter.form.as_p }}
-    <div class="form-check">
-    <input class="form-check-input" type="checkbox" id="latest" name="latest">
-    <label class="form-check-label" for="latest">Show Latest Jobs</label>
-     
-  </div>
-  <label for="id_date_published">Date Published:</label>
-  <select name="created" id="id_date_published">
-    <option value="">Any</option>
-    <option value="hour">Last hour</option>
-    <option value="day">Last 24 hours</option>
-    <option value="week">Last Week</option>
-    <option value="month">Last month</option>
-  </select>
-    <button type="submit">Filter</button>
-  </form>
-        
-       
-            
-    </div>
-</div></div>
    
-
+   
 {% endblock content %}
     

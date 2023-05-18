@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
-from .choices import COUNTY, JOB_TYPE, SEEKER_TYPE
+from .choices import COUNTY, JOB_TYPE, SEEKER_TYPE,INDUSTRY
 import hashlib
 import random
 import time
@@ -64,6 +64,7 @@ class Job(models.Model):
     skills = RichTextField(_("Skills"))
     job_type = models.CharField(_("Job type"), choices=JOB_TYPE, max_length=50)
     seeker_type = models.CharField(_("Seeker Type"), choices=SEEKER_TYPE, max_length=50)
+    industry = models.CharField(_("Industry"), choices=INDUSTRY, max_length=50)
     positions = models.IntegerField(_("Available position"))
 
     county = models.CharField(_("County"), choices=COUNTY, max_length=50,db_index=True)

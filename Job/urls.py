@@ -13,6 +13,7 @@ from .views import (
     JobsByCategoryView,
     JobsByTagView,
     JobApplicationsListView,
+    JobFilterView,
 )
 
 urlpatterns = [
@@ -24,6 +25,7 @@ urlpatterns = [
     path("save-job/<slug>", savedJob, name="save-job"),
     path("saved-jobs/", SavedJobListView.as_view(), name="saved-jobs"),
     path("my-jobs/", MyJobListView.as_view(), name="my-jobs"),
+    path("jobs-filter/", JobFilterView.as_view(), name="jobs-filter"),
     path("user-jobs/<username>", JobsByUserView.as_view(), name="user-jobs"),
     path("category-jobs/<slug>", JobsByCategoryView.as_view(), name="category-jobs"),
     path("tag-jobs/<slug>", JobsByTagView.as_view(), name="tag-jobs"),

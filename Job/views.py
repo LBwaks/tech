@@ -23,6 +23,7 @@ from django.db.models import Prefetch
 from django_filters.views import FilterView
 from .filters import JobFilter
 from Application.models import Application
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -192,13 +193,29 @@ class JobsByTagView(ListView):
 
 class JobFilterView(FilterView):
     model = Job
-    template_name ='jobs/jobs.html'
+    template_name ='jobs/job-filter.html'
     filterset_class= JobFilter
     paginate_by =10
     
+    def get(self, request, *args, **kwargs):
+        job_filter = JobFilter(request.GET,queryset=self.get_queryset())
+        paginator = Paginator(job_filter.qs,self.paginate_by)
+        page_number = request.GET.get('page')
+        jobs = paginator.get_page(page_number)
+        return render(request,self.template_name,{'jobs':jobs,'job_filter':job_filter})
+    
     def get_queryset(self):
-        return super().get_queryset().select_related('category').prefetch_related('tags').order_by('-created')
+        queryset = Job.objects.select_related('category','user').prefetch_related('tags').order_by('-created')
+        job_filter = JobFilter(self.request.GET, queryset=queryset)
+        if 'latest' in self.request.GET:
+            queryset = queryset.order_by('-created')
 
+        return job_filter.qs
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["job_filter"] = JobFilter(self.request.GET,queryset=self.get_queryset())
+        return context
+    
 class JobApplicationsListView(ListView):
     model = Application
     context_object_name = 'applications'

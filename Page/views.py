@@ -4,7 +4,7 @@ from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import FormView, ListView, TemplateView
 from taggit.models import Tag
-
+from django.core.paginator import Paginator
 from Job.models import Job
 
 from .forms import JobSearchForm
@@ -26,7 +26,7 @@ class JobSearchView(ListView):
     model = Job
     template_name = "pages/search.html"
     context_object_name ='results'    
-    paginate_by =30
+    paginate_by =5
     form = JobSearchForm()
 
     
@@ -69,9 +69,12 @@ class JobSearchView(ListView):
         context['tag'] = self.request.GET.get('tag',None)
         context['title']= self.request.GET.get('title',None)
         context['location'] =self.request.GET.get('location',None)
-        # paginator = Paginator(context['results'], self.paginate_by)
-        # page_number = self.request.GET.get('page')
-        # context['results'] = paginator.get_page(page_number) 
+        
+        paginator = Paginator(context['results'], self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)        
+        context['page_obj'] = page_obj
+        
         return context
     
     
