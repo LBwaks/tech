@@ -7,6 +7,9 @@ from taggit.managers import TaggableManager
 from .choices import COUNTY, JOB_TYPE, SEEKER_TYPE,INDUSTRY
 import hashlib
 import random
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils import timezone
 import time
 from django.urls import reverse
 from django.contrib.postgres.indexes import GinIndex
@@ -122,6 +125,12 @@ class Job(models.Model):
         unique_id = f"{timestamp}{random_num}"
         hashed_id = hashlib.sha256(unique_id.encode()).hexdigest()[:10]
         return hashed_id
+    def update_expiry_status(self):
+        if self.deadline <= timezone.now() and self.status == "Open":
+            self.status = 'Expired'
+@receiver(pre_save,sender =Job)
+def update_job_expiry_status(sender,instance,**kwargs):
+        instance.update_expiry_status()
 
 class JobImage(models.Model):
     """Model definition for JobImage."""

@@ -1,22 +1,27 @@
 from typing import Any, Dict
+from django import http
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.http.response import HttpResponse
+from django.shortcuts import render,redirect
 from .models import Category,Job,JobImage,SavedJob
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.shortcuts import get_object_or_404
 from .forms import JobForm,JobEditForm
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
+from django.contrib import messages
+from django.urls import reverse_lazy,reverse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.utils.text import slugify
 from django.http import HttpResponseRedirect
 from django.core.cache import cache
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from taggit.models import Tag
 from django.db.models import Prefetch
@@ -24,12 +29,21 @@ from django_filters.views import FilterView
 from .filters import JobFilter
 from Application.models import Application
 from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 # Create your views here.
 
 
 class JobListView(ListView):
     model = Job
     template_name = "jobs/jobs.html"
+    paginate_by = 30
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.select_related('category','user').prefetch_related('tags')
+        return queryset
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
@@ -40,12 +54,31 @@ class JobDetailView(DetailView):
     model = Job
     template_name = "jobs/job-details.html"
     
+    # @method_decorator(cache_page(60*15))    
+    # def dispatch(self, request, *args, **kwargs):
+    #     return super(JobDetailView, self).dispatch(request, *args, **kwargs)
+    
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
-       context['job'] = self.object
+       job = self.object
+       
+        # Get IDs of the tags associated with the current job
+    #    tag_ids = job.tags.values_list('id', flat=True)
+    #     # Fetch similar jobs based on category and tags
+    #    similar_jobs =cache.get(f'similar_jobs_{job.id}')
+        
+       
+    #    if similar_jobs is None:
+    # #    fetch similar_jobs
+    #      similar_jobs = Job.objects.select_related('category','user').prefetch_related('tags').filter(Q(category=job.category)|Q(tags__in=tag_ids)).exclude(id=job.id)[:5]
+    #      cache.set(f'similar_job_{job.id}',similar_jobs,60*15)
+       
+       context['job']=job
+    #    context['similar_jobs']=similar_jobs
+       
        return context
 
-class JobCreateView(SuccessMessageMixin, CreateView):
+class JobCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Job
     form_class = JobForm
     template_name = "jobs/add-jobs.html"
@@ -60,11 +93,19 @@ class JobCreateView(SuccessMessageMixin, CreateView):
             JobImage.objects.create(job=job,image=image)
         return super(JobCreateView,self).form_valid(form)
 
-class JobUpdateView(SuccessMessageMixin,UpdateView):
+class JobUpdateView(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
     model = Job
     template_name = "jobs/update-jobs.html"
     form_class = JobEditForm
     success_message ='Job Edited Successfully !'
+    
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user != self.request.user:
+            messages.error(request,"You dont have permission to edit this job")
+            return redirect(reverse('job-details',args=[obj.slug]))
+            # raise  PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
     
     def form_valid(self, form) :
         job = form.save(commit=False)
@@ -76,12 +117,21 @@ class JobUpdateView(SuccessMessageMixin,UpdateView):
         return super(JobUpdateView,self).form_valid(form)
 
 
-class JobDeleteView(SuccessMessageMixin,DeleteView):
+class JobDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = Job
     template_name = "jobs/delete-jobs.html"
     success_message ='Job deete Successfully !'
     success_url = reverse_lazy("jobs") # add your custom URL here
 
+    
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user != self.request.user:
+            messages.error(request,"You dont have permission to Delete this job")
+            return redirect(reverse('job-details',args=[obj.slug]))
+            # raise  PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+    
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
@@ -101,7 +151,7 @@ def savedJob(request,slug):
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
     
 
-class SavedJobListView(ListView):
+class SavedJobListView(LoginRequiredMixin,ListView):
     model = SavedJob
     template_name = "jobs/saved-jobs.html"
     context_object_name = 'jobs'
@@ -118,7 +168,7 @@ class SavedJobListView(ListView):
             return saved_jobs
         return []
         
-class MyJobListView(ListView):
+class MyJobListView(LoginRequiredMixin,ListView):
     template_name = 'jobs/my-jobs.html'
     context_object_name = 'jobs'
     paginate_by = 10
@@ -216,7 +266,7 @@ class JobFilterView(FilterView):
         context["job_filter"] = JobFilter(self.request.GET,queryset=self.get_queryset())
         return context
     
-class JobApplicationsListView(ListView):
+class JobApplicationsListView(LoginRequiredMixin,ListView):
     model = Application
     context_object_name = 'applications'
     template_name = 'applications/job-applications.html'

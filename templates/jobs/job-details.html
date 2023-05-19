@@ -6,12 +6,24 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
-    {% comment %} <script>
+    
+    {% if message.tags == 'error' %}
+       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
+     <script>
+        var m = "{{message}}"
+        swal("Ooops!", m, "error");
+    </script> 
+    {% elif  message.tags == 'success' %}
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
+     <script>
         var m = "{{message}}"
         swal("Good job!", m, "success");
-    </script> {% endcomment %}
+    </script> 
+    {% endif %}
+      
+   
     {% endfor %}
 </ul>
 {% endif %}
@@ -28,8 +40,12 @@ job details
 <p>user:{{job.user}}</p>
 <p>reference id :{{job.reference_id}}</p>
 <p>title:{{job.title}}</p>
-<p>category{{job.category}}</p>
+<p>category :<a href="{% url 'category-jobs' job.category.slug %}" class="btn btn-sm btn-outline-info">{{job.category}}</a> </p>
 <p>tags: </p>
+{% for tag in job.tags.all %}
+<a href="{% url 'tag-jobs' tag.slug %}" class="btn btn-sm btn-outline-secondary">{{tag.name}}</a>
+
+{% endfor %}
 <p>description:{{job.content}}</p>
 <p>deadline:{{job.deadline}}</p>
 <p>End time :{{job.job_end_time}}</p>
@@ -41,19 +57,39 @@ job details
 <p>location :{{job.location}}</p>
 <p>address :{{job.address}}</p>
 <p>created : {{job.created}}</p>
+<p>status : {{job.status}}</p>
 
-<a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-info">Apply</a>
-<a href="{% url 'delete-job' job.slug %}" class="btn btn-danger">Delete</a>
+
+
+{% comment %} {% if user.is_authenticated and job.user == request.user %} {% endcomment %}
+  <a href="{% url 'delete-job' job.slug %}" class="btn btn-danger">Delete</a>
 <a href="{% url 'update-job' job.slug %}" class="btn btn-primary">Edit</a>
-<a href="{% url 'delete-job' job.slug %}" class="btn btn-secondary">Save this job</a>
 <a href="{% url 'job-applications' job.slug %}" class="btn btn-secondary">All applucations({{job.job_application.count}})</a>
-
+ <a href="{% url 'delete-job' job.slug %}" class="btn btn-danger">Status: Active</a>
+{% comment %} {% elif user.is_authenticated and job.user != request.user %} {% endcomment %}
+<a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-info">Apply</a>
 {% if job.savedJob %}
   <a href="{% url 'save-job' job.slug %}" class="btn btn-secondary" >Bookmarked <i class="lni lni-bookmark"></i></a>
   {% else %}
   <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-secondary" >Bookmark <i class="lni lni-bookmark"></i></a>
   {% endif %}
-<br><br><br><br><br>
+<br>
+{% comment %} {% endif %} {% endcomment %}
+  
 
+
+
+ttt
+{% for job in similar_jobs %}
+tttt
+<hr>
+<p>reference id :{{job.reference_id}}</p>
+<p>title:{{job.title}}</p>
+<p>category{{job.category}}</p>
+<p>tags: </p>
+<hr>
+{% empty %}
+<p>no silimar</p>
+{% endfor %}
 {% endblock content %}
     

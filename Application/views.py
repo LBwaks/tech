@@ -16,6 +16,7 @@ from django.views.generic import (
     UpdateView,
 )
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from Job.models import Job
 from  django.core.mail import EmailMessage
 from .forms import ApplicationEditForm, ApplicationForm
@@ -26,7 +27,7 @@ from twilio.rest import Client
 # Create your views here.
 
 
-class ApplicationCreateView(SuccessMessageMixin, CreateView):
+class ApplicationCreateView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
     model = Application
     template_name = "applications/add-application.html"
     form_class = ApplicationForm
@@ -47,7 +48,7 @@ class ApplicationCreateView(SuccessMessageMixin, CreateView):
         return super(ApplicationCreateView, self).form_valid(form)
 
 
-class ApplicationDetailView(DetailView):
+class ApplicationDetailView(LoginRequiredMixin,DetailView):
     model = Application
     template_name = "applications/application-details.html"
     context_object_name = "application"
@@ -77,7 +78,7 @@ class MyApplicationsView(LoginRequiredMixin, ListView):
         return context
 
 
-class ApplicationUpdateView(UpdateView):
+class ApplicationUpdateView(LoginRequiredMixin,UpdateView):
     model = Application
     template_name = "applications/update-applications.html"
     form_class = ApplicationEditForm

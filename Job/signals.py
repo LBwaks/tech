@@ -1,5 +1,5 @@
 from django.conf import settings
-from  django.db.models.signals import post_save
+from  django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
 from .models import Job
 from channels.layers import get_channel_layer
@@ -22,3 +22,7 @@ def send_notification_on_job_added(sender, instance, created, **kwargs):
         #     'text': str(instance.id)
         # }
         # consumer.job_added(event)
+@receiver(pre_save,sender =Job)
+def update_job_expiry_status(sender,instance,**kwargs):
+        instance.update_expiry_status()
+    

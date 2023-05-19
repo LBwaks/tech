@@ -28,9 +28,9 @@ urlpatterns = [
     path("", include("Page.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
    
-    # path("__debug__/", include("debug_toolbar.urls")),
+    path("__debug__/", include("debug_toolbar.urls")),
     path("profile/", include("Account.urls")),
-    # path("ckeditor/", include("ckeditor_uploader.urls")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
     path("accounts/", include("allauth.urls")),
     # path("hitcount/", include(("hitcount.urls", "hitcount"), namespace="hitcount")),
     
