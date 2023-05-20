@@ -265,3 +265,7 @@ ACCOUNT_USERNAME_REQUIRED = True
 
 # phonenumber_field
 PHONENUMBER_DEFAULT_REGION = "KE"
+# celery redis 
+CELERY_BROKER_URL = 'redis-cli -u redis://default:OBgrtnjK0sChLUoHxGXx@containers-us-west-59.railway.app:5586'
+CELERY_ACCEPT_CONTENT =['json']
+CELERY_TASK_SERIALIZER = ['json']

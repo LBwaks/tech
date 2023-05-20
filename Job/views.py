@@ -127,7 +127,7 @@ class JobDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     def dispatch(self, request, *args, **kwargs):
         obj = self.get_object()
         if obj.user != self.request.user:
-            messages.error(request,"You dont have permission to Delete this job")
+            messages.error(request,"You dont have permission to Delete  this job")
             return redirect(reverse('job-details',args=[obj.slug]))
             # raise  PermissionDenied
         return super().dispatch(request, *args, **kwargs)
