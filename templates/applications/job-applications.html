@@ -18,7 +18,7 @@
 <p>status : {{application.status}}</p>
 cancel-application
 {% if application.status == 'Pending' %}
-    <form method="POST" action="{% url 'applications:approve-application' application.uuid %}">
+    <form method="POST" action="{% url 'approve-application2' application.uuid %}">
         {% csrf_token %}
         <input type="hidden" name="status" value="Accepted">
         <button type="submit" class="btn btn-success">Accept</button>

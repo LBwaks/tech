@@ -31,6 +31,10 @@ from Application.models import Application
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
+from Job.tasks import update_job_expiry_status
+from django.template.loader import render_to_string
+from twilio.rest import Client 
+from Job.tasks import send_email_notification,send_sms_notification
 # Create your views here.
 
 
@@ -38,6 +42,7 @@ class JobListView(ListView):
     model = Job
     template_name = "jobs/jobs.html"
     paginate_by = 30
+    
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -47,6 +52,7 @@ class JobListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
+        update_job_expiry_status.delay()
         return context
     
 
@@ -282,3 +288,58 @@ class JobApplicationsListView(LoginRequiredMixin,ListView):
         slug = self.kwargs['slug']
         context['job'] = get_object_or_404(Job, slug=slug)
         return context
+    
+class ApplicationApprovalView(UpdateView):
+    model = Application
+    fields = ["status"]
+    template_name_suffix = "_status_form"
+
+    def form_valid(self, form):
+        job = self.object.job
+        new_status = form.cleaned_data["status"]
+        if new_status == "Accepted":
+            job.status = "Waiting"
+            Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
+                status="Not Accepted"
+            )
+            # sending email notification
+            applicant_email =self.object.user.email
+            applicant_email ='victorobwaku@gmail.com'
+            subject = 'Application Accepted'
+            context ={
+                'job':job,
+                'application': self.object,
+                'applicant':self.object.user
+            }
+            message = render_to_string('emails/application-approved.html',context)
+            # email = EmailMessage(subject,message,settings.DEFAULT_FROM_EMAIL,[applicant_email])
+            # email.content_subtype = "html"
+            # email.send()
+            # print(applicant_email,job.title)
+            send_email_notification.delay(subject,message,applicant_email)
+            
+            # sending sms notification
+            # twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)  # Initialize Twilio client
+            # twilio_phone = settings.TWILIO_PHONE_NUMBER  # Get Twilio phone number from settings
+             # twilio_client.messages.create(
+            #     body=twilio_message,
+            #     from_='+15005550006',
+            #     to='+254797407274'
+            # )
+            
+            # use this
+            # twilio_message = f"Congratulations! Your application for the job '{job.title}' has been accepted."  # Compose the message
+                      
+            # recipient_phone_number ='+245342323'
+            # send_sms_notification.delay(twilio_message,recipient_phone_number)
+            
+        else:
+            self.object.status = new_status
+        self.object.save()
+        job.save()
+        return super().form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse(
+            "job-applications", kwargs={"slug": self.object.job.slug}
+        )
