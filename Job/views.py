@@ -5,6 +5,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
+from django.views import View
 from .models import Category,Job,JobImage,SavedJob
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.shortcuts import get_object_or_404
@@ -14,7 +15,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy,reverse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.utils.text import slugify
@@ -35,6 +36,7 @@ from Job.tasks import update_job_expiry_status
 from django.template.loader import render_to_string
 from twilio.rest import Client 
 from Job.tasks import send_email_notification,send_sms_notification
+from django_daraja.mpesa.core import MpesaClient
 # Create your views here.
 
 
@@ -312,21 +314,11 @@ class ApplicationApprovalView(UpdateView):
                 'applicant':self.object.user
             }
             message = render_to_string('emails/application-approved.html',context)
-            # email = EmailMessage(subject,message,settings.DEFAULT_FROM_EMAIL,[applicant_email])
-            # email.content_subtype = "html"
-            # email.send()
-            # print(applicant_email,job.title)
+           
             send_email_notification.delay(subject,message,applicant_email)
             
             # sending sms notification
-            # twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)  # Initialize Twilio client
-            # twilio_phone = settings.TWILIO_PHONE_NUMBER  # Get Twilio phone number from settings
-             # twilio_client.messages.create(
-            #     body=twilio_message,
-            #     from_='+15005550006',
-            #     to='+254797407274'
-            # )
-            
+           
             # use this
             # twilio_message = f"Congratulations! Your application for the job '{job.title}' has been accepted."  # Compose the message
                       
@@ -342,4 +334,61 @@ class ApplicationApprovalView(UpdateView):
     def get_success_url(self) -> str:
         return reverse(
             "job-applications", kwargs={"slug": self.object.job.slug}
+        
         )
+class ApplicationCancelView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Application
+    fields = ["status"]
+    template_name_suffix = '_confirm_delete'
+    
+    def test_func(self):
+        application = self.get_object()
+        return self.request.user == application.job.user
+    
+    def form_valid(self, form):
+        job = self.object.job
+        new_status = form.cleaned_data["status"]
+        if new_status == "Pending":
+            job.status = "Open"
+            Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
+                status="Pending"
+            )
+            # sending email notification
+            job_owner_email =self.object.job.user.email
+            job_owner_email='victorobwaku@gmail.com'
+            subject = 'Application Accepted'
+            context ={
+                'job':job,
+                'application': self.object,
+                'applicant':self.object.user
+            }
+            message = render_to_string('emails/cancel-accepted-application.html',context)           
+            print(job_owner_email,job.title)
+            send_email_notification.delay(subject,message,job_owner_email)
+            
+            # sending sms notification           
+            # recipient_phone_number = "077899877"
+            # twilio_message = f"Congratulations! Your application for the job '{job.title}' has been accepted."  # Compose the message
+            # send_sms_notification.delay(twilio_message,recipient_phone_number)
+        else:
+            self.object.status = new_status
+        self.object.save()
+        job.save()
+        return super().form_valid(form)
+    
+    
+    
+    def get_success_url(self):
+        return reverse_lazy('job-applications', kwargs={'slug': self.object.job.slug})
+    
+class MakePaymentView(View):
+    def get(self, request, *args, **kwargs):
+        cl = MpesaClient()
+        # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+        phone_number = '0714900634'
+        amount = 1
+        account_reference = 'reference'
+        transaction_desc = 'Description'
+        callback_url = 'https://api.darajambili.com/express-payment'
+        response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+        return HttpResponse(response)

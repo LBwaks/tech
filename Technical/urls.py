@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
+
 # from Blog.sitemaps import BlogSitemap
 
 urlpatterns = [
@@ -27,7 +28,7 @@ urlpatterns = [
     path("applications/", include("Application.urls")),
     path("", include("Page.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
-   
+#    path('mpesa/', include(mpesa_urls)),
     path("__debug__/", include("debug_toolbar.urls")),
     path("profile/", include("Account.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),

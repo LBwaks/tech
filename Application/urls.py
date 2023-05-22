@@ -6,10 +6,9 @@ from .views import (
     ApplicationDetailView,
     ApplicationUpdateView,
     MyApplicationsView,
-    ApplicationStatusUpdateView,
-    ApplicationCancelView,
-    ApplicationRejectView,
     ApplicationApprovalAcceptedView,
+    ApplicationRejectView,
+  
 )
 app_name = 'applications'
 urlpatterns = [
@@ -27,10 +26,9 @@ urlpatterns = [
     ),
     path('delete-application/<pk>',ApplicationDeleteView.as_view(),name='delete-application'),
     path("my-applications/", MyApplicationsView.as_view(), name="my-applications"),
-    path('approve-application/<uuid:pk>',ApplicationStatusUpdateView.as_view(),name='approve-application'),
-    path('application/<uuid:pk>/cancel/', ApplicationCancelView.as_view(), name='cancel-application'),
+   path('accept-job/<uuid:pk>/', ApplicationApprovalAcceptedView.as_view(), name='accept-job'),
     path('reject-application/<uuid:pk>/', ApplicationRejectView.as_view(), name='reject-application'),
-    path('accept-job/<uuid:pk>/', ApplicationApprovalAcceptedView.as_view(), name='accept-job'),
+   
     
 ]
 

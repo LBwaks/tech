@@ -16,19 +16,32 @@
 <p>charge :{{application.charge}} </p>
 <p>description : {{application.description}}</p>
 <p>status : {{application.status}}</p>
+<form action="{% url 'make-payment' %}" method="get">
+    <!-- Add any necessary form fields -->
+    <button type="submit">Pay with M-Pesa</button>
+</form>
+
+{% if application.status == 'AcceptJob' %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="Accepted">
+        <button type="submit" class="btn btn-success">Make Payments</button>
+    </form>
+{% endif %}
+    
 cancel-application
 {% if application.status == 'Pending' %}
-    <form method="POST" action="{% url 'approve-application2' application.uuid %}">
+    <form method="POST" action="{% url 'approve-application' application.uuid %}">
         {% csrf_token %}
         <input type="hidden" name="status" value="Accepted">
         <button type="submit" class="btn btn-success">Accept</button>
     </form>
 {% endif %}
 {% if application.status == 'Accepted' %}
-    <form method="POST" action="{% url 'applications:cancel-application' application.uuid %}">
+    <form method="POST" action="{% url 'cancel-application' application.uuid %}">
         {% csrf_token %}
         <input type="hidden" name="status" value="Pending">
-        <button type="submit" class="btn btn-success">Cancel Application</button>
+        <button type="submit" class="btn btn-success">Cancel ApplicatioNNNNn</button>
     </form>
 {% endif %}
 {% comment %} <a href="{% url 'applications:update-application' application.uuid %}" class="btn btn-primary">Update</a>

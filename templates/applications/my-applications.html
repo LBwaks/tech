@@ -17,8 +17,17 @@
 <p>charge :{{application.charge}} </p>
 <p>description : {{application.description}}</p>
 <p>status : {{application.status}}</p>
+
+{% if application.status == 'AcceptJob' %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="AcceptJob">
+        <button type="submit" class="btn btn-success">Request Payments </button>
+    </form>
+{% endif %}
+    
 {% if application.status == 'Accepted' %}
-    <form method="POST" action="{% url 'applications:accept-job' application.uuid %}">
+    <form method="POST" action="{% url 'accept-job' application.uuid %}">
         {% csrf_token %}
         <input type="hidden" name="status" value="AcceptJob">
         <button type="submit" class="btn btn-secondary">Accept Approvall</button>

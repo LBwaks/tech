@@ -15,6 +15,9 @@ from .views import (
     JobApplicationsListView,
     JobFilterView,
     ApplicationApprovalView,
+    ApplicationCancelView,
+    MakePaymentView,
+   
 )
 
 urlpatterns = [
@@ -31,5 +34,8 @@ urlpatterns = [
     path("category-jobs/<slug>", JobsByCategoryView.as_view(), name="category-jobs"),
     path("tag-jobs/<slug>", JobsByTagView.as_view(), name="tag-jobs"),
     path('job/<slug>/applications/', JobApplicationsListView.as_view(), name='job-applications'),
-     path('approve-application/<uuid:pk>',ApplicationApprovalView.as_view(),name='approve-application2'),
+    path('approve-application/<uuid:pk>',ApplicationApprovalView.as_view(),name='approve-application'),     
+    path('application/<uuid:pk>/cancel/', ApplicationCancelView.as_view(), name='cancel-application'),
+    path('make-payment/', MakePaymentView.as_view(), name='make-payment'),
+     
 ]
