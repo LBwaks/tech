@@ -43,7 +43,7 @@ from django_daraja.mpesa.core import MpesaClient
 class JobListView(ListView):
     model = Job
     template_name = "jobs/jobs.html"
-    paginate_by = 30
+    paginate_by = 10
     
     
     def get_queryset(self):

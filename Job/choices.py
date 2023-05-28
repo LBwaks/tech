@@ -1,7 +1,7 @@
 SEEKER_TYPE =[
-    ('Individual','Individual'),
-    ('Company','Company'),
-    # ('Open','Open')
+    ('Individuals','Individuals'),
+    ('Agencies','Agencies'),
+    ('Any','Any')
 ]
 JOB_TYPE =[
     ('Contract','Contract'),

@@ -1,8 +1,446 @@
 {% extends 'base.html' %}
+{% load social_share %}
 {% block title %} Job Details {% endblock title %}
 
 {% block content %}
-    
+     <div class="main-content">
+
+                <div class="page-content">
+
+                    <!-- Start home -->
+                    {% comment %} <section class="page-title-box">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="text-center text-white">
+                                        <h3 class="mb-4">Job Details</h3>
+                                        <div class="page-next">
+                                            <nav class="d-inline-block" aria-label="breadcrumb text-center">
+                                                <ol class="breadcrumb justify-content-center">
+                                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
+                                                    <li class="breadcrumb-item active" aria-current="page"> Job Details </li>
+                                                </ol>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                        </div>
+                        <!--end container-->
+                    </section> {% endcomment %}
+                    <!-- end home -->
+
+                    <!-- START SHAPE -->
+                    {% comment %} <div class="position-relative" style="z-index: 1">
+                        <div class="shape">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
+                                <path fill="#FFFFFF" fill-opacity="1"
+                                    d="M0,192L120,202.7C240,213,480,235,720,234.7C960,235,1200,213,1320,202.7L1440,192L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
+                            </svg>
+                        </div>
+                    </div> {% endcomment %}
+                    <!-- END SHAPE -->
+
+
+                    <!-- START JOB-DEATILS -->
+                    <section class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="card job-detail overflow-hidden">
+                                        <div>
+                                          {% for image in job.job_images.all %}
+                                          <img src="{{image.image.url}}" alt="..." class="img-fluid">
+                                          {% endfor %}
+                                           
+                                            
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mb-1">{{job.title}}</h5>
+                                                        <ul class="list-inline text-muted mb-0">
+                                                            <li class="list-inline-item">
+                                                                <i class="mdi mdi-account"></i> {{job.positions }} slot{{job.positions|pluralize }}
+                                                            </li>
+                                                            <li class="list-inline-item text-warning review-rating">
+                                                                <span class="badge bg-warning">4.8</span> <i class="mdi mdi-star align-middle"></i><i class="mdi mdi-star align-middle"></i><i class="mdi mdi-star align-middle"></i><i class="mdi mdi-star align-middle"></i><i class="mdi mdi-star-half-full align-middle"></i>
+                                                            </li>
+                                                        </ul>
+                                                    </div><!--end col-->
+                                                    <div class="col-lg-4">
+                                                        <ul class="list-inline mb-0 text-lg-end mt-3 mt-lg-0">
+                                                            <li class="list-inline-item">
+                                                                <div class="favorite-icon">
+                                                                    <a href="javascript:void(0)"><i class="uil uil-heart-alt"></i>bookmark</a>
+                                                                </div>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <div class="favorite-icon">
+                                                                    <a href="javascript:void(0)"><i class="uil uil-setting"></i></a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div><!--end col-->
+                                                </div><!--end row-->    
+                                            </div>
+
+                                            <div class="mt-4">
+                                                <div class="row g-2">
+                                                    <div class="col-lg-4">
+                                                        <div class="border rounded-start p-3">
+                                                            <p class="text-muted mb-0 fs-13">Category</p>
+                                                            <p class="fw-medium fs-15 mb-0"><a href="{% url 'category-jobs' job.category.slug %}" class="link-text badge text-bg-primary">{{job.category}}</a></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="border p-3">
+                                                            <p class="text-muted fs-13 mb-0">Tags</p>
+                                                            <p class="fw-medium mb-0">
+                                                              
+                                                              {% for tag in job.tags.all %}
+                                                             <a href="{% url 'tag-jobs' tag.slug %}"> <span class="badge bg-secondary">  {{tag.name}} </span></a>
+                                                              {% endfor %}
+                                                                                              </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="border p-3">
+                                                            <p class="text-muted fs-13 mb-0">Status</p>
+                                                            <p class="fw-medium mb-0"><span class="badge rounded-pill text-bg-warning">{{job.status}}</span>
+</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div><!--end Experience-->
+
+                                            <div class="mt-4">
+                                                <h5 class="mb-3">Job Description</h5>
+                                                <div class="job-detail-desc">
+                                                    <p class="text-muted mb-0">{{job.content}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-4">
+                                                <h5 class="mb-3">Responsibilities</h5>
+                                                <div class="job-detail-desc mt-2">
+                                                   {{job.responsibility}}
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mt-4">
+                                                <h5 class="mb-3">Qualification </h5>
+                                                <div class="job-detail-desc mt-2">
+                                                   {{job.qualification}}
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-4">
+                                                <h5 class="mb-3">Skill & Experience</h5>
+                                                <div class="job-details-desc">
+                                                    {{job.skills}}
+                                                    
+                                                </div>
+                                            </div>
+<div class="mt-4">
+                                            <h6 class="fs-16 mb-3">Job location</h6>
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1628067715234!5m2!1sen!2sin" style="width:100%"  height="250" allowfullscreen="" loading="lazy"></iframe>
+                                        </div>
+                                        <div class="favorite-icon">
+                                                        <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
+                                                    </div>
+
+                                                    {% comment %} {% if user.is_authenticated and job.user == request.user %} {% endcomment %}
+  
+                                            <div class="mt-4 pt-3 ">
+                                                <ul class="list-inline mb-0 d-flex justify-content-around">
+                                                    <li class="list-inline-item mt-1">
+                                                        <a href="{% url 'delete-job' job.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                                                    </li>
+                                                    <li class="list-inline-item mt-1">
+<a href="{% url 'update-job' job.slug %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                                    </li>
+                                                    <li class="list-inline-item mt-1">
+                                                        <a href="{% url 'job-applications' job.slug %}" class="btn btn-sm btn-outline-secondary">Applications <span class="badge text-bg-danger">({{job.job_application.count}})</span></a>
+                             
+                                                    </li>
+
+{% comment %} {% elif user.is_authenticated and job.user != request.user %} {% endcomment %}
+                                                    <li class="list-inline-item mt-1">
+                                                        <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
+                                                    </li>
+                                                     <li class="list-inline-item mt-1">
+                                                       {% if job.savedJob %}
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-secondary" >Bookmarked <i class="lni lni-bookmark"></i></a>
+  {% else %}
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-outline-secondary" >Bookmark <i class="lni lni-bookmark"></i></a>
+  {% endif %}
+                                                    </li>
+                                                     
+                                                </ul>
+                                            </div>
+
+                                            {% comment %} {% endif %} {% endcomment %}
+                                        </div><!--end card-body-->
+                                    </div><!--end job-detail-->
+
+                                    
+                                </div><!--end col-->
+
+                                <div class="col-lg-4 mt-4 mt-lg-0">
+                                    <!--start side-bar-->
+                                    <div class="side-bar ms-lg-4">
+                                        <div class="card job-overview">
+                                            <div class="card-body p-4">
+                                                <h6 class="fs-17">Job Overview</h6>
+                                                <ul class="list-unstyled mt-4 mb-0">
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-user icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Job Reference ID</h6>
+                                                                <p class="text-muted mb-0">{{job.reference_id}}</p> 
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-star-half-alt icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Recruiter</h6>
+                                                                <p class="text-muted mb-0"><a href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a></p> 
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-usd-circle icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Job Type</h6>
+                                                                <p class="text-muted mb-0">{{job.job_type}}</p> 
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-usd-circle icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Applicants Allowed</h6>
+                                                                <p class="text-muted mb-0">{{job.seeker_type}}</p> 
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-location-point icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Location</h6>
+                                                                <p class="text-muted mb-0"> {{job.county}}, {{job.location}}, {{job.address}}</p> 
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-usd-circle icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Application Deadline</h6>
+                                                                <p class="text-muted mb-0">{{job.deadline}}</p> 
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-graduation-cap icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Job Finish Time</h6>
+                                                                <p class="text-muted mb-0">{{job.job_end_time}}</p> 
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-building icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Industry</h6>
+                                                                <p class="text-muted mb-0"> {{job.industry}}</p> 
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="d-flex mt-4">
+                                                            <i class="uil uil-history icon bg-soft-primary"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Date Posted</h6>
+                                                                <p class="text-muted mb-0"> {{job.created}}</p> 
+                                                            </div>
+                                                        </div>
+                                                       
+                                                    </li>
+                                                </ul>
+                                                <div class="mt-3">
+                                                    <a href="{% url 'applications:apply-job' job.slug %}"  class="btn btn-primary btn-hover w-100 mt-2">Apply Now <i class="uil uil-arrow-right"></i></a>
+                                                    {% if job.savedJob %}
+                                                    <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-warning  w-100 mt-2"><i class="uil uil-bookmark"></i> Add Bookmark</a>
+                                               
+  {% else %}
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-warning  w-100 mt-2"><i class="uil uil-bookmark"></i> Add Bookmark</a>
+  {% endif %}
+                                                  </div>
+                                            </div><!--end card-body-->
+                                        </div><!--end job-overview-->
+
+                                        {% comment %} <div class="card company-profile mt-4">
+                                            <div class="card-body p-4">
+                                                <div class="text-center">
+                                                    <img src="assets/images/featured-job/img-02.png" alt="" class="img-fluid rounded-3">
+
+                                                    <div class="mt-4">
+                                                        <h6 class="fs-17 mb-1">Jobvia Technology Pvt.Ltd</h6>
+                                                        <p class="text-muted">Since July 2017</p>
+                                                    </div>
+                                                </div>
+                                                <ul class="list-unstyled mt-4">
+                                                    <li>
+                                                        <div class="d-flex">
+                                                            <i class="uil uil-phone-volume text-primary fs-4"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Phone</h6>
+                                                                <p class="text-muted fs-14 mb-0">+589 560 56555</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="mt-3">
+                                                        <div class="d-flex">
+                                                            <i class="uil uil-envelope text-primary fs-4"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Email</h6>
+                                                                <p class="text-muted fs-14 mb-0">pixltechnology@info.com</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="mt-3">
+                                                        <div class="d-flex">
+                                                            <i class="uil uil-globe text-primary fs-4"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Website</h6>
+                                                                <p class="text-muted fs-14 text-break mb-0">www.jobviatechnology.pvt.ltd.com</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="mt-3">
+                                                        <div class="d-flex">
+                                                            <i class="uil uil-map-marker text-primary fs-4"></i>
+                                                            <div class="ms-3">
+                                                                <h6 class="fs-14 mb-2">Location</h6>
+                                                                <p class="text-muted fs-14 mb-0">Oakridge Lane Richardson.</p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="mt-4">
+                                                    <a href="company-details.html" class="btn btn-primary btn-hover w-100 rounded"><i class="mdi mdi-eye"></i> View Profile</a>
+                                                </div>
+                                            </div>
+                                        </div> {% endcomment %}
+
+                                        <div class="mt-4 pt-3">
+                                                <ul class="list-inline mb-0">
+                                                    <li class="list-inline-item mt-1">
+                                                        Share this job:
+                                                    </li>
+                                                    <li class="list-inline-item mt-1">
+{% post_to_facebook object_or_url '<i class="uil uil-facebook-f"></i>' %}
+                                                    </li>
+                                                    <li class="list-inline-item mt-1">
+                                                        {% post_to_twitter "{{object.title}}" object_or_url '<i class="uil uil-twitter">' %}
+                                                    </li>
+                                                    <li class="list-inline-item mt-1">
+                                                        {% post_to_linkedin "{{object.title}}" object_or_url %}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        <div class="mt-4">
+                                        <h5>Related Jobs</h5>
+                                        {% for job in  similar_jobs %}
+                                         <div class="job-box card mt-4">
+                                            <div class="p-4">
+                                                <div class="row">
+                                                    {% comment %} <div class="col-lg-1">
+                                                        <img src="assets/images/featured-job/img-01.png" alt="" class="img-fluid rounded-3">
+                                                    </div><!--end col--> {% endcomment %}
+                                                    <div class="col-lg-11">
+                                                        <div class="mt-3 mt-lg-0">
+                                                            <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark">{{job.title}}</a> <small class="text-muted fw-normal">(0-2 Yrs Exp.)</small></h5>
+                                                            <ul class="list-inline mb-0">
+                                                                <li class="list-inline-item">
+                                                                    <p class="text-muted fs-14 mb-0"><a href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname }} {{job.user.user_profile.lastname}}</a></p>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i>{{job.county}} ,{{job.location}},{{job.address}}</p>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <p class="text-muted fs-14 mb-0"><i class="uil uil-wallet"></i> {{job.created}}</p>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="mt-2">
+                                                                <span class="badge bg-soft-success mt-1">Deadline: {{job.deadline}}</span>
+                                                                    <span class="badge bg-soft-warning mt-1">open to: {{job.seeker_type}}</span>
+                                                                    <span class="badge bg-soft-info mt-1">{{job.job_type}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div><!--end col-->
+                                                </div><!--end row-->
+                                                
+                                            </div>
+                                            <div class="p-3 bg-light">
+                                                <div class="row justify-content-between">
+                                                    <div class="col-12">
+                                                        <div>
+                                                            <ul class="list-inline mb-0">
+                                                               {% for tag in job.tags.all %}
+                                                                    <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted">{{ tag.name }}</a>,</li>
+                                                                   
+                                                                    {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!--end col-->
+                                                    
+                                                    <!--end col-->
+                                                </div>
+                                                <!--end row-->
+                                            </div>
+                                        </div>
+                                        <!--end job-box-->
+                                        {% empty %}
+                                        <p class="text-center"> No Similar Jobs !</p>
+                                        {% endfor %}
+                                       
+
+                                           
+
+                                    </div>
+
+                                    
+                                    </div>
+                                    <!--end side-bar-->
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div><!--end container-->
+                    </section>
+                    <!-- START JOB-DEATILS -->
+
+                   
+
+                </div>
+                <!-- End Page-content -->
+
+               
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
@@ -28,68 +466,8 @@
 </ul>
 {% endif %}
 
-job details  
-<hr>
-<br>
-<li id="notification-dropdown">
-          <a" >notification</a>
-        </li> 
-<br>
-<hr>
-<P>job_id: {{job.id}}</P>
-<p>user:{{job.user}}</p>
-<p>reference id :{{job.reference_id}}</p>
-<p>title:{{job.title}}</p>
-<p>category :<a href="{% url 'category-jobs' job.category.slug %}" class="btn btn-sm btn-outline-info">{{job.category}}</a> </p>
-<p>tags: </p>
-{% for tag in job.tags.all %}
-<a href="{% url 'tag-jobs' tag.slug %}" class="btn btn-sm btn-outline-secondary">{{tag.name}}</a>
-
-{% endfor %}
-<p>description:{{job.content}}</p>
-<p>deadline:{{job.deadline}}</p>
-<p>End time :{{job.job_end_time}}</p>
-<p>skills: {{job.skills}}</p>
-<p>job_type : {{job.job_type}}</p>
-<p>seeker_type : {{job.seeker_type}}</p>
-<p>positions :{{job.positions }}</p>
-<p>county : {{job.county}}</p>
-<p>location :{{job.location}}</p>
-<p>address :{{job.address}}</p>
-<p>created : {{job.created}}</p>
-<p>status : {{job.status}}</p>
 
 
 
-{% comment %} {% if user.is_authenticated and job.user == request.user %} {% endcomment %}
-  <a href="{% url 'delete-job' job.slug %}" class="btn btn-danger">Delete</a>
-<a href="{% url 'update-job' job.slug %}" class="btn btn-primary">Edit</a>
-<a href="{% url 'job-applications' job.slug %}" class="btn btn-secondary">All applucations({{job.job_application.count}})</a>
- <a href="{% url 'delete-job' job.slug %}" class="btn btn-danger">Status: Active</a>
-{% comment %} {% elif user.is_authenticated and job.user != request.user %} {% endcomment %}
-<a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-info">Apply</a>
-{% if job.savedJob %}
-  <a href="{% url 'save-job' job.slug %}" class="btn btn-secondary" >Bookmarked <i class="lni lni-bookmark"></i></a>
-  {% else %}
-  <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-secondary" >Bookmark <i class="lni lni-bookmark"></i></a>
-  {% endif %}
-<br>
-{% comment %} {% endif %} {% endcomment %}
-  
-
-
-
-ttt
-{% for job in similar_jobs %}
-tttt
-<hr>
-<p>reference id :{{job.reference_id}}</p>
-<p>title:{{job.title}}</p>
-<p>category{{job.category}}</p>
-<p>tags: </p>
-<hr>
-{% empty %}
-<p>no silimar</p>
-{% endfor %}
 {% endblock content %}
     

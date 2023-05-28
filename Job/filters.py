@@ -1,3 +1,4 @@
+from django import forms
 from django.shortcuts import render
 import django_filters
 from .models import Job ,Category
@@ -6,14 +7,14 @@ from datetime import datetime,timedelta
 from .choices import COUNTY, JOB_TYPE, SEEKER_TYPE,INDUSTRY,PUBLISHED
 
 class JobFilter(django_filters.FilterSet):
-    title = django_filters.CharFilter(lookup_expr='icontains' ,field_name='title')
+    
     category =django_filters.ModelChoiceFilter(queryset = Category.objects.all())
-    tags = django_filters.ModelMultipleChoiceFilter(queryset = Tag.objects.all())
+    tags = django_filters.ModelChoiceFilter(queryset = Tag.objects.all())
     county = django_filters.ChoiceFilter(choices = COUNTY)
     location =django_filters.CharFilter(lookup_expr='iexact' ,field_name='location')   
-    job_type =django_filters.ChoiceFilter(choices = JOB_TYPE)
-    industry =django_filters.ChoiceFilter(choices = INDUSTRY)
-    seeker_type =django_filters.ChoiceFilter(choices = SEEKER_TYPE)
+    job_type =django_filters.MultipleChoiceFilter(choices = JOB_TYPE,widget=forms.CheckboxSelectMultiple)
+    industry = django_filters.ChoiceFilter( choices=INDUSTRY,  )
+    seeker_type =django_filters.MultipleChoiceFilter(choices = SEEKER_TYPE,widget=forms.CheckboxSelectMultiple)
     created= django_filters.ChoiceFilter(choices=PUBLISHED,method="filter_date_created")
     
     def filter_date_created(self,queryset,name,value):
@@ -35,7 +36,7 @@ class JobFilter(django_filters.FilterSet):
         return queryset
     class Meta:
         model = Job        
-        fields =['title','category' ,'tags', 'industry','county' , 'location' ,'job_type' ,'seeker_type','created']
+        fields =['category' ,'tags', 'industry','county' , 'location' ,'job_type' ,'seeker_type','created']
         
 # def job_list(request):
 #     job_filter = JobFilter(request.GET, queryset=Job.objects.all())

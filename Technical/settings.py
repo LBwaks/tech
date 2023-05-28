@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     # installed
     
     "debug_toolbar",
+    'django_social_share',
     "ckeditor",
     "taggit",
   'django_daraja',
@@ -185,6 +186,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR / 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR , 'static')]
+
 # media
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR / "media")
@@ -292,12 +296,12 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'default'
 
 # django setting.
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'my_cache_table',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         'LOCATION': 'my_cache_table',
+#     }
+# }
 # mpesa 
 
 # MPESA_CONFIG = {

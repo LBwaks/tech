@@ -53,11 +53,13 @@ class Job(models.Model):
     # TODO: Define fields here
     user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE,db_index=True)
     reference_id = models.CharField(_("reference_id"), unique=True)
-    title = models.CharField(_("Title"), max_length=50)
+    title = models.CharField(_("Title"), max_length=150)
     slug = AutoSlugField(populate_from="title",db_index=True)
     category = models.ForeignKey(Category,db_index=True, verbose_name=_("Category"), on_delete=models.CASCADE)
     tags = TaggableManager(_("Tags"))
     content = RichTextField(_("Description"))
+    responsibility = RichTextField(_("Responsibility"))
+    qualification = RichTextField(_("Qualification"),null=True,blank=True)
     deadline = models.DateTimeField(
         _("Application Deadline"), auto_now=False, auto_now_add=False,db_index=True
     )
@@ -136,7 +138,7 @@ class JobImage(models.Model):
     """Model definition for JobImage."""
 
     # TODO: Define fields here
-    job = models.ForeignKey(Job, verbose_name=_(""), on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, verbose_name=_(""),related_name='job_images', on_delete=models.CASCADE)
     image = models.ImageField(_("Job Images"), upload_to='job_images/', default='job_images/default_image.jpg', blank=True,null=True, max_length=None)
     created = models.DateTimeField( auto_now_add=True)
 
