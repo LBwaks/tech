@@ -63,9 +63,9 @@
   <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-/>
+/><link rel="stylesheet" href="{% static 'plugins/unicon/icons.css' %}"/>
 <link rel="stylesheet" href="{% static 'css/main.min.css' %}"/>
-@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css')
+{% comment %} @import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css') {% endcomment %}
 {% comment %} /home/bwaks/Desktop/tech/static/css/style.css {% endcomment %}
 {% comment %} <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now "U" %}"/> {% endcomment %}
     <style>
@@ -159,10 +159,12 @@
     {% comment %} <script src="{% static 'js/slider.js' %}"></script> {% endcomment %}
     <script src="{% static 'plugins/gumshoejs/gumshoe.min.js' %}"></script>
     <script src="{% static 'plugins/smooth-scroll/smooth-scroll.polyfills.min.js' %}"></script>
+    <script src="{% static 'plugins/unicon/script/monochrome/bundle.js' %}"></script>
+    
     <script src="{% static 'js/app.js' %}"></script>
 
 
-/home/bwaks/Desktop/tech/static/
+
     
 
     {% comment %} <script src="https://kit.fontawesome.com/63f52e4970.js" crossorigin="anonymous"></script> {% endcomment %}

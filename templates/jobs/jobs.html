@@ -151,13 +151,13 @@
                                                                 <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark">{{job.title}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
                                                                 <ul class="list-inline mb-0">
                                                                     <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><a href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
                                                                     </li>
                                                                     <li class="list-inline-item">
                                                                         <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
                                                                     </li>
                                                                     <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-wallet"></i> {{job.created}}</p>
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-calender"></i> {{job.created}}</p>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="mt-2"> 
@@ -178,7 +178,7 @@
                                                         <div class="col-md-8">
                                                             <div>
                                                                 <ul class="list-inline mb-0">
-                                                                    <li class="list-inline-item"><i class="uil uil-tag"></i> Keywords :</li>{% for tag in job.tags.all %}
+                                                                    <li class="list-inline-item"><i class="uil uil-tag"></i> Tags :</li>{% for tag in job.tags.all %}
                                                                     <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted">{{ tag.name }}</a>,</li>
                                                                    
                                                                     {% endfor %}

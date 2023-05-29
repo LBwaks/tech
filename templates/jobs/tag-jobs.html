@@ -2,34 +2,181 @@
 {% block title %} Job {% endblock title %}
 
 {% block content %}
-    {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    {% comment %} <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> {% endcomment %}
-    <script>
-        var m = "{{message}}"
-        swal("Good job!", m, "success");
-    </script>
-    {% endfor %}
-</ul>
-{% endif %}
+   <div>
+        <div class="main-content">
 
-{% for job in jobs %}
-<p>user:  <a href="{% url 'user-jobs' job.user.username %}">{{job.user}}</a> </p>
-<p>tags:  {% for tag in job.tags.all %}
-            <li><a 
-                href="{% url 'tag-jobs' tag.slug %}">{{ tag.name }}</a></li>
-          {% endfor %}</p>
-<p>{{job.reference_id}}</p>
-<p>title:   <a href="{{job.get_absolute_url}}">{{job.title}}</a> </p>
-<p>category  <a href="{% url 'category-jobs' job.category.slug %}">{{job.category}}</a> </p>
-<p>description:{{job.content}}</p>
-<p>deadline:{{job.deadline}}</p>
+                <div class="page-content">
 
-{% comment %} <p></p> {% endcomment %}
-<hr>
-<br>
-{% endfor %}
+                    {% comment %} <!-- Start home -->
+                    <section class="page-title-box">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="text-center text-white">
+                                        <h3 class="mb-4">Job Grid</h3>
+                                        <div class="page-next">
+                                            <nav class="d-inline-block" aria-label="breadcrumb text-center">
+                                                <ol class="breadcrumb justify-content-center">
+                                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
+                                                    <li class="breadcrumb-item active" aria-current="page"> Job Grid </li>
+                                                </ol>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                        </div>
+                        <!--end container-->
+                    </section>
+                    <!-- end home -->
+
+                    <!-- START SHAPE -->
+                    <div class="position-relative" style="z-index: 1">
+                        <div class="shape">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
+                                <path fill="#FFFFFF" fill-opacity="1"
+                                    d="M0,192L120,202.7C240,213,480,235,720,234.7C960,235,1200,213,1320,202.7L1440,192L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- END SHAPE --> {% endcomment %}
+
+
+                    <!-- START JOB-LIST -->
+                    <section class="section">
+                        <div class="container">
+                            {% include 'includes/search.html' %}
+                            
+                            <div class="row">
+                               {% for job in jobs %}
+                                <div class="col-lg-6">
+                                    
+                                    <div class="job-box bookmark-post card mt-5">
+                                                <div class="p-4">
+                                                    <div class="row">
+                                                        <div class="col-lg-1">
+                                                            <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
+                                                        </div><!--end col-->
+                                                        <div class="col-lg-10">
+                                                            <div class="mt-3 mt-lg-0">
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark">{{job.title}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><a href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-calender"></i> {{job.created}}</p>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="mt-2"> 
+                                                                    
+                                                                    <span class="badge bg-soft-success mt-1">Deadline: {{job.deadline}}</span>
+                                                                    <span class="badge bg-soft-warning mt-1">open to: {{job.seeker_type}}</span>
+                                                                    <span class="badge bg-soft-info mt-1">{{job.job_type}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div><!--end col-->
+                                                    </div><!--end row-->
+                                                    <div class="favorite-icon">
+                                                        <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="p-3 bg-light">
+                                                    <div class="row justify-content-between">
+                                                        <div class="col-md-8">
+                                                            <div>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item"><i class="uil uil-tag"></i> Tags :</li>{% for tag in job.tags.all %}
+                                                                    <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted">{{ tag.name }}</a>,</li>
+                                                                   
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-3">
+                                                            
+                                                            {% if job.user != request.user %}
+                                                                <div class="text-md-end">
+                                                                <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
+                                                            </div>
+                                                            {% endif %}
+                                                                
+                                                            
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                    <!--end row-->
+                                                </div>
+                                            </div>
+                                    
+                                </div><!--end col-->
+                               {% empty %} 
+                                <div class="col-lg-12">
+                                    
+                                    
+                                    <div class="job-box  card mt-5">
+                                                <div class="p-4">
+                                                    <p> No jobs found! </p>
+                                                </div>
+                                                
+                                            </div>
+                                </div><!--end col-->
+                               {% endfor %}
+                                <div class="col-lg-6">
+                                    
+                                    
+                                    
+                                </div><!--end col-->
+
+                            </div><!--end row-->
+
+                            <div class="row">
+                                <div class="col-lg-12 mt-5">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination job-pagination mb-0 justify-content-center">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                                                    <i class="mdi mdi-chevron-double-left fs-15"></i>
+                                                </a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
+                                            <li class="page-item active"><a class="page-link" href="javascript:void(0)">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:void(0)">
+                                                    <i class="mdi mdi-chevron-double-right fs-15"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div><!--end col-->
+                            </div><!-- end row -->
+                    
+                        </div><!--end container-->
+                    </section>
+                    <!-- END JOB-LIST -->
+
+                    
+                </div>
+                <!-- End Page-content -->
+
+                
+
+               
+
+                
+            </div>
+            <!-- end main content-->
+
+    </div>
+
 {% endblock content %}
     
