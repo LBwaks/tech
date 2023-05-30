@@ -57,121 +57,25 @@
                           
                             <div class="candidate-list">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="candidate-grid-box bookmark-post card mt-4">
-                                            <div class="card-body p-4">
-                                                <div class="featured-label">
-                                                    <span class="featured">featured</span>
-                                                </div>
-                                                <div class="d-flex mb-4">
-                                                    <div class="flex-shrink-0 position-relative">
-                                                        <img src="assets/images/user/img-01.jpg" alt="" class="avatar-md rounded">
-                                                        <span class="profile-active position-absolute badge rounded-circle bg-success"><span class="visually-hidden">active</span></span>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                       <a href="candidate-details.html" class="primary-link"><h5 class="fs-17">Charles Dickens</h5></a>
-                                                        <span class="badge bg-soft-info fs-13">$800/month</span>
-                                                    </div>
-                                                </div>
-                                                <ul class="list-inline d-flex justify-content-between align-items-center">
-                                                    <li class="list-inline-item text-warning fs-17">
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>  
-                                                        <i class="mdi mdi-star-half-full"></i>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <div class="favorite-icon">
-                                                            <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <div class="border rounded mb-4">
-                                                    <div class="row g-0">
-                                                        <div class="col-lg-6">
-                                                            <div class="border-end px-3 py-2">
-                                                                <p class="text-muted mb-0">Exp. : 0-3 Years</p>
-                                                            </div>
-                                                        </div><!--end col-->
-                                                        <div class="col-lg-6">
-                                                            <div class="px-3 py-2">
-                                                                <p class="text-muted mb-0">Freelancers</p>
-                                                            </div>
-                                                        </div><!--end col-->
-                                                    </div><!--end row-->
-                                                </div>
-                                                <p class="text-muted">Some quick example text to build on the card title and bulk the card's content Moltin gives you platform.</p>
-                                                <div class="mt-3">
-                                                    <a href="#hireNow" data-bs-toggle="modal" class="btn btn-primary btn-hover w-100 mt-2"><i class="mdi mdi-account-check"></i> Hire Now</a>
-                                                    <a href="candidate-details.html" class="btn btn-soft-primary btn-hover w-100 mt-2"><i class="mdi mdi-eye"></i> View Profile</a>
-                                                </div>
-                                            </div>
-                                        </div> <!--end card-->
-                                    </div><!--end col-->
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="candidate-grid-box bookmark-post card mt-4">
-                                            <div class="card-body p-4">
-                                                <div class="d-flex mb-4">
-                                                    <div class="flex-shrink-0 position-relative">
-                                                        <img src="assets/images/user/img-02.jpg" alt="" class="avatar-md rounded">
-                                                        <span class="profile-active position-absolute badge rounded-circle bg-success"><span class="visually-hidden">active</span></span>
-                                                    </div>
-                                                    <div class="ms-3">
-                                                       <a href="candidate-details.html" class="primary-link"><h5 class="fs-17">Gabriel Palmer</h5></a>
-                                                        <span class="badge bg-soft-info fs-13">$350/hrs</span>
-                                                    </div>
-                                                </div>
-                                                <ul class="list-inline d-flex justify-content-between align-items-center">
-                                                    <li class="list-inline-item text-warning fs-17">
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>  
-                                                        <i class="mdi mdi-star-half-full"></i>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <div class="favorite-icon">
-                                                            <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                                <div class="border rounded mb-4">
-                                                    <div class="row g-0">
-                                                        <div class="col-lg-6">
-                                                            <div class="border-end px-3 py-2">
-                                                                <p class="text-muted mb-0">Exp. : 3.5  Years</p>
-                                                            </div>
-                                                        </div><!--end col-->
-                                                        <div class="col-lg-6">
-                                                            <div class="px-3 py-2">
-                                                                <p class="text-muted mb-0">Freelancers</p>
-                                                            </div>
-                                                        </div><!--end col-->
-                                                    </div><!--end row-->
-                                                </div>
-                                                <p class="text-muted">Some quick example text to build on the card title and bulk the card's content Moltin gives you platform.</p>
-                                                <div class="mt-3">
-                                                    <a href="#hireNow" data-bs-toggle="modal" class="btn btn-primary btn-hover w-100 mt-2"><i class="mdi mdi-account-check"></i> Hire Now</a>
-                                                    <a href="candidate-details.html" class="btn btn-soft-primary btn-hover w-100 mt-2"><i class="mdi mdi-eye"></i> View Profile</a>
-                                                </div>
-                                            </div>
-                                        </div> <!--end card-->
-                                    </div><!--end col-->
+                                   {% for application in applications %}
                                     <div class="col-lg-4 col-md-6">
                                         <div class="candidate-grid-box card mt-4">
-                                            <div class="card-body p-4">
-                                                <div class="featured-label">
+                                            <div class="card-body p-4" 
+                                        {% if application.status == 'AcceptJob' or application.status == 'Accepted'  %}
+                                        style= 'background-color:beige;'
+                                        
+                                    {% endif %}>
+                                                {% comment %} <div class="featured-label">
                                                     <span class="featured">Urgent</span>
-                                                </div>
+                                                </div> {% endcomment %}
                                                 <div class="d-flex mb-4">
                                                     <div class="flex-shrink-0 position-relative">
-                                                        <img src="assets/images/user/img-03.jpg" alt="" class="avatar-md rounded">
+                                                        <img src="{{application.user.user_profile.profile.url}}" alt="" class="avatar-md rounded">
                                                         <span class="profile-active position-absolute badge rounded-circle bg-danger"><span class="visually-hidden">active</span></span>
                                                     </div>
                                                     <div class="ms-3">
-                                                       <a href="candidate-details.html" class="primary-link"><h5 class="fs-17">James Lemire</h5></a>
-                                                        <span class="badge bg-soft-info fs-13">$280/hrs</span>
+                                                       <a href="{% url 'user-profile' application.job.user.user_profile.slug %}" class="primary-link text-decoration-none"><h5 class="fs-17">{{application.user.user_profile.firstname}} {{application.user.user_profile.lastname}}</h5></a>
+                                                        <span class="badge bg-soft-info fs-13"> ksh {{application.charge}}</span>
                                                     </div>
                                                 </div>
                                                 <ul class="list-inline d-flex justify-content-between align-items-center">
@@ -182,34 +86,73 @@
                                                         <i class="mdi mdi-star"></i>  
                                                         <i class="mdi mdi-star-half-full"></i>
                                                     </li>
-                                                    <li class="list-inline-item">
+                                                    {% comment %} <li class="list-inline-item">
                                                         <div class="favorite-icon">
                                                             <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
                                                         </div>
-                                                    </li>
+                                                    </li> {% endcomment %}
                                                 </ul>
+                                                <p>Application Status <span class="badge rounded-pill text-bg-secondary"> 
+                                                {% if application.status == 'AcceptJob' %}
+                                                    Hired
+                                                {% else %}
+                                                     {{application.status}}</span>
+</p>{% endif %}
                                                 <div class="border rounded mb-4">
                                                     <div class="row g-0">
                                                         <div class="col-lg-6">
                                                             <div class="border-end px-3 py-2">
-                                                                <p class="text-muted mb-0">Exp. : 4 Years</p>
+                                                                <p class="text-muted mb-0">Exp. : {{application.user.user_profile.experience}} Years</p>
                                                             </div>
                                                         </div><!--end col-->
                                                         <div class="col-lg-6">
                                                             <div class="px-3 py-2">
-                                                                <p class="text-muted mb-0">Freelancers</p>
+                                                                <p class="text-muted mb-0">{{application.user.user_profile.user_type}}</p>
                                                             </div>
                                                         </div><!--end col-->
                                                     </div><!--end row-->
                                                 </div>
-                                                <p class="text-muted">Some quick example text to build on the card title and bulk the card's content Moltin gives you platform.</p>
+                                                <p class="text-muted">{{application.description}}</p>
                                                 <div class="mt-3">
-                                                    <a href="#hireNow" data-bs-toggle="modal" class="btn btn-primary btn-hover w-100 mt-2"><i class="mdi mdi-account-check"></i> Hire Now</a>
-                                                    <a href="candidate-details.html" class="btn btn-soft-primary btn-hover w-100 mt-2"><i class="mdi mdi-eye"></i> View Profile</a>
+                                                    {% if application.status == 'Pending' %}
+    <form method="POST" action="{% url 'approve-application' application.uuid %}">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="Accepted">
+        <button type="submit" class="btn btn-primary btn-hover w-100 mt-2"><i class="mdi mdi-account-check"></i> Hire Now</button>
+    </form>
+
+{% elif application.status == 'Accepted' %}
+    <form method="POST" action="{% url 'cancel-application' application.uuid %}">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="Pending">
+        <button type="submit" class="btn btn-danger btn-hover w-100 mt-2"><i class="mdi mdi-account-check"></i> Cancel Hiring</button>
+    </form>
+    {% elif application.status == 'AcceptJob' %}
+     <form method="POST" action="">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="Accepted">
+        <button type="submit" class="btn btn-success btn-hover w-100 mt-2"><i class="mdi mdi-dollar"></i>Make Payments</button>
+    </form>
+{% endif %}
+                                                    
+                                                    {% comment %} <a href="candidate-details.html" class="btn btn-info btn-hover w-100 mt-2"><i class="mdi mdi-eye"></i> View Profile</a> {% endcomment %}
                                                 </div>
                                             </div>
                                         </div> <!--end card-->
                                     </div><!--end col-->
+                                    {% empty %}
+<div class="col-12">
+                                        <div class="candidate-grid-box card mt-4">
+                                            <div class="card-body p-4">
+                                               
+                                                
+                                                
+                                                <p class="text-muted">No Applications For This Job! </p>
+                                               
+                                            </div>
+                                        </div> <!--end card-->
+                                    </div><
+                                    {% endfor %}
                                    
                                 </div><!--end row-->
                             </div><!--end candidate-list-->
@@ -241,34 +184,7 @@
                     </section>
                     <!-- END CANDIDATE-GRID -->
 
-                    <!-- START HIRE-NOW MODAL -->
-                    <div class="modal fade" id="hireNow" tabindex="-1" aria-labelledby="hireNow" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-body p-5">
-                                    <div class="text-center mb-4">
-                                        <h5 class="modal-title" id="staticBackdropLabel">Hire Now</h5>
-                                    </div>
-                                    <div class="position-absolute end-0 top-0 p-3">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="namrFormControlInput" class="form-label">Company Name</label>
-                                        <input type="text" class="form-control" id="namrFormControlInput" placeholder="Enter your company name">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="emailFormControlInput" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="emailFormControlInput" placeholder="Enter your email">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="messageFormControlTextarea" class="form-label">Message</label>
-                                        <textarea class="form-control" id="messageFormControlTextarea" rows="4" placeholder="Enter your message"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- END HIRE-NOW MODAL -->
+                   
 
                 </div>
                 <!-- End Page-content -->
@@ -279,17 +195,15 @@
 
         </div>
         <!-- END layout-wrapper -->
-<div class="container">
+{% comment %} <div class="container">
     <div class="row">
         <div class="col-8">
 {% for application in applications %}
+{{application.job.user.user_profile.firstname}}
 <hr>
 <p>job id  : {{application.job.id}} </p>
 <p>job status  : {{application.job.status}} </p>
-<p>uuiid  : {{application.uuid}} </p>
-<p>job :  <a href="{% url 'job-details' application.job.slug %}">{{application.job.title}}</a>  </p>
-<p>charge :{{application.charge}} </p>
-<p>description : {{application.description}}</p>
+
 <p>status : {{application.status}}</p>
 <form action="{% url 'make-payment' %}" method="get">
     <!-- Add any necessary form fields -->
@@ -304,7 +218,7 @@
     </form>
 {% endif %}
     
-cancel-application
+
 {% if application.status == 'Pending' %}
     <form method="POST" action="{% url 'approve-application' application.uuid %}">
         {% csrf_token %}
@@ -319,16 +233,14 @@ cancel-application
         <button type="submit" class="btn btn-success">Cancel ApplicatioNNNNn</button>
     </form>
 {% endif %}
-{% comment %} <a href="{% url 'applications:update-application' application.uuid %}" class="btn btn-primary">Update</a>
-<a href="{% url 'applications:delete-application' application.uuid %}" class="btn btn-danger"> delete</a> {% endcomment %}
-<hr>
+
 {% endfor %}
 <br><br><br><br><br>
         </div>
     </div>
-</div>
+</div> {% endcomment %}
 
 
 
 {% endblock content %}
-    var singleFilter=new Choices("#choices-single-filter-orderby"),singleCandidate=new Choices("#choices-candidate-page");
+    

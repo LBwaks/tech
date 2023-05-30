@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %} Job {% endblock title %}
-
+{% load humanize %}
 {% block content %}
    <div>
         <div class="main-content">
@@ -57,21 +57,21 @@
                                     <div class="job-box bookmark-post card mt-5">
                                                 <div class="p-4">
                                                     <div class="row">
-                                                        <div class="col-lg-1">
+                                                        {% comment %} <div class="col-lg-1">
                                                             <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
-                                                        </div><!--end col-->
+                                                        </div><!--end col--> {% endcomment %}
                                                         <div class="col-lg-10">
                                                             <div class="mt-3 mt-lg-0">
-                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark">{{job.title}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
                                                                 <ul class="list-inline mb-0">
                                                                     <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><a href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a class="text-dark text-decoration-none" href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
                                                                     </li>
                                                                     <li class="list-inline-item">
                                                                         <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
                                                                     </li>
                                                                     <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-calender"></i> {{job.created}}</p>
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-calender"></i> {{job.created |naturaltime}}</p>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="mt-2"> 
@@ -83,9 +83,7 @@
                                                             </div>
                                                         </div><!--end col-->
                                                     </div><!--end row-->
-                                                    <div class="favorite-icon">
-                                                        <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
-                                                    </div>
+                                                   
                                                 </div>
                                                 <div class="p-3 bg-light">
                                                     <div class="row justify-content-between">
@@ -93,7 +91,7 @@
                                                             <div>
                                                                 <ul class="list-inline mb-0">
                                                                     <li class="list-inline-item"><i class="uil uil-tag"></i> Tags :</li>{% for tag in job.tags.all %}
-                                                                    <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted">{{ tag.name }}</a>,</li>
+                                                                    <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted text-decoration-none">{{ tag.name }}</a>,</li>
                                                                    
                                                                     {% endfor %}
                                                                 </ul>
@@ -104,7 +102,7 @@
                                                             
                                                             {% if job.user != request.user %}
                                                                 <div class="text-md-end">
-                                                                <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
+                                                                <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link text-decoration-none">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
                                                             </div>
                                                             {% endif %}
                                                                 

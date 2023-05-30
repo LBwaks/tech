@@ -7,7 +7,7 @@ from .models import Profile,ProfileCV
 class ProfileAdmin(admin.ModelAdmin):
     '''Admin View for Profile'''
 
-    list_display = ('firstname','lastname','id_passport','status','is_suspended','created',)
+    list_display = ('user','firstname','lastname','id_passport','status','is_suspended','created',)
     list_filter = ('skills','county',)
     # inlines = [
     #     Inline,

@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from django.conf import settings
 from dotenv import load_dotenv
-from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,22 +44,19 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    
+    'django.contrib.humanize',
     # created
     "Job",
     "Application",
     "Account",
     "Page",
-    
-    
     # installed
-    
     "debug_toolbar",
-    'django_social_share',
+    "django_social_share",
     "ckeditor",
     "taggit",
-  'django_daraja',
-   'django_celery_results',
+    "django_daraja",
+    "django_celery_results",
     "crispy_forms",
     "crispy_bootstrap5",
     "django_browser_reload",
@@ -149,7 +146,7 @@ RECIPIENT_ADDRESS = os.getenv("RECIPIENT_ADDRESS")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", default="noreply@gmail.com")
 # twilio
 TWILIO_ACCOUNT_SID = os.getenv("account_sid")
-TWILIO_AUTH_TOKEN= os.getenv("auth_token")
+TWILIO_AUTH_TOKEN = os.getenv("auth_token")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -186,13 +183,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR / 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR , 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR / "staticfiles")
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # media
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR / "media")
-CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -272,28 +269,28 @@ ACCOUNT_USERNAME_REQUIRED = True
 
 # phonenumber_field
 PHONENUMBER_DEFAULT_REGION = "KE"
-# celery redis 
+# celery redis
 CELERY_BROKER_URL = "redis://localhost:6379"
 # CELERY_ACCEPT_CONTENT =['json']
 # CELERY_TASK_SERIALIZER = ['json']
 
 # CELERY_RESULT_BACKEND = "redis://localhost:6379"
 # Specify the default queue name for Celery
-CELERY_DEFAULT_QUEUE = 'default'
+CELERY_DEFAULT_QUEUE = "default"
 # Specify additional Celery configuration (optional)
 CELERY_CONFIG = {
-    'worker_prefetch_multiplier': 1,
-    'task_acks_late': True,
+    "worker_prefetch_multiplier": 1,
+    "task_acks_late": True,
 }
-# Set the Celery beat schedule 
+# Set the Celery beat schedule
 CELERY_BEAT_SCHEDULE = {
-    'update_job_status': {
-        'task': 'Job.tasks.update_job_expiry_status',
-        'schedule': timedelta(minutes=15),  # Run every 15 minutes
+    "update_job_status": {
+        "task": "Job.tasks.update_job_expiry_status",
+        "schedule": timedelta(minutes=15),  # Run every 15 minutes
     },
 }
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_CACHE_BACKEND = 'default'
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "default"
 
 # django setting.
 # CACHES = {
@@ -302,54 +299,54 @@ CELERY_CACHE_BACKEND = 'default'
 #         'LOCATION': 'my_cache_table',
 #     }
 # }
-# mpesa 
+# mpesa
 
 # MPESA_CONFIG = {
 # ‘CONSUMER_KEY’: ‘<Your consumer key from daraja>’,
 # ‘CONSUMER_SECRET’: ‘<Your consumer secret from daraja>’,
 # ‘HOST_NAME’: ‘<Your hostname e.g https://myhostname>’,
-# ‘PASS_KEY’: ‘<Your pass key from daraja>’, 
-# ‘SAFARICOM_API’: ‘https://sandbox.safaricom.co.ke’, 
+# ‘PASS_KEY’: ‘<Your pass key from daraja>’,
+# ‘SAFARICOM_API’: ‘https://sandbox.safaricom.co.ke’,
 # ‘SHORT_CODE’: ‘174379’
 
 # }
 # The Mpesa environment to use
 # Possible values: sandbox, production
 
-MPESA_ENVIRONMENT = 'sandbox'
+MPESA_ENVIRONMENT = "sandbox"
 
 # Credentials for the daraja app
 
-MPESA_CONSUMER_KEY = os.getenv('MPESA_CONSUMER_KEY')
-MPESA_CONSUMER_SECRET = os.getenv('MPESA_CONSUMER_SECRET')
+MPESA_CONSUMER_KEY = os.getenv("MPESA_CONSUMER_KEY")
+MPESA_CONSUMER_SECRET = os.getenv("MPESA_CONSUMER_SECRET")
 
-#Shortcode to use for transactions. For sandbox  use the Shortcode 1 provided on test credentials page
+# Shortcode to use for transactions. For sandbox  use the Shortcode 1 provided on test credentials page
 
-MPESA_SHORTCODE = '174379'
+MPESA_SHORTCODE = "174379"
 
 # Shortcode to use for Lipa na MPESA Online (MPESA Express) transactions
 # This is only used on sandbox, do not set this variable in production
 # For sandbox use the Lipa na MPESA Online Shorcode provided on test credentials page
 
-MPESA_EXPRESS_SHORTCODE = '174379'
+MPESA_EXPRESS_SHORTCODE = "174379"
 
 # Type of shortcode
 # Possible values:
 # - paybill (For Paybill)
 # - till_number (For Buy Goods Till Number)
 
-MPESA_SHORTCODE_TYPE = 'paybill'
+MPESA_SHORTCODE_TYPE = "paybill"
 
 # Lipa na MPESA Online passkey
 # Sandbox passkey is available on test credentials page
 # Production passkey is sent via email once you go live
 
-MPESA_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+MPESA_PASSKEY = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
 
 # Username for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
 
-MPESA_INITIATOR_USERNAME = 'testapi'
+MPESA_INITIATOR_USERNAME = "testapi"
 
 # Plaintext password for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
 
-MPESA_INITIATOR_SECURITY_CREDENTIAL = 'Safaricom999!*!'
+MPESA_INITIATOR_SECURITY_CREDENTIAL = "Safaricom999!*!"

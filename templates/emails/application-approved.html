@@ -20,7 +20,7 @@
     <ul>
         
         <li>Application charge 3: {{application.charge}}</li>
-        {% if application.status == 'Accepted' %}
+        {% comment %} {% if application.status == 'Accepted' %}
             <li>
                 <form method="POST" action="{% url 'accept-job' application.uuid %}">
                     {% csrf_token %}
@@ -35,7 +35,7 @@
                     <button type="submit" class="btn btn-warning">Reject Job</button>
                 </form>
             </li>
-        {% endif %}
+        {% endif %} {% endcomment %}
     </ul>
     
     <h2>Contact Information:</h2>

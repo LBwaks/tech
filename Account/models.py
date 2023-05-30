@@ -47,6 +47,7 @@ class Profile(models.Model):
     location = models.CharField(_("Location"), max_length=50)
     address =models.CharField(_("Address"), max_length=50)
     skills =models.CharField(_("Skills"), max_length=50)
+    experience = models.IntegerField(_("Years of Experience"), max_length=50,default=0)
     bio = RichTextField()
     
     profile = models.ImageField(
