@@ -37,6 +37,7 @@ from django.template.loader import render_to_string
 from twilio.rest import Client 
 from Job.tasks import send_email_notification,send_sms_notification
 from django_daraja.mpesa.core import MpesaClient
+from datetime import datetime
 # Create your views here.
 
 
@@ -327,6 +328,7 @@ class ApplicationApprovalView(UpdateView):
             
         else:
             self.object.status = new_status
+            self.object.approved_canceled_time= datetime.now()
         self.object.save()
         job.save()
         return super().form_valid(form)
@@ -372,6 +374,7 @@ class ApplicationCancelView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
             # send_sms_notification.delay(twilio_message,recipient_phone_number)
         else:
             self.object.status = new_status
+            self.object.approved_canceled_time= datetime.now()
         self.object.save()
         job.save()
         return super().form_valid(form)

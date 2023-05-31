@@ -19,7 +19,7 @@ class Application(models.Model):
     charge = models.CharField(_("Fees"), max_length=50)
     description = RichTextField()
     status = models.CharField(default='Pending', max_length=50, db_index=True)
-    
+    approved_canceled_time= models.DateTimeField(_("Approved / Rejected time"), blank=True,null=True,auto_now=False, auto_now_add=False)
     created = models.DateTimeField( auto_now_add=True)
 
     class Meta:
@@ -27,6 +27,7 @@ class Application(models.Model):
 
         verbose_name = 'Application'
         verbose_name_plural = 'Applications'
+        ordering =['-approved_canceled_time']
 
     def __str__(self):
         """Unicode representation of Application."""

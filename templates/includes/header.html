@@ -216,7 +216,7 @@
                         <li class="list-inline-item dropdown">
                             <a href="javascript:void(0)" class="header-item" id="userdropdown" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <img src="{{user.user_profile.profile.url}}" alt="mdo" width="35" height="35" class="rounded-circle me-1"> <span class="d-none d-md-inline-block fw-medium">Hi, {{user.username}}</span>
+                                <img src="{{user.user_profile.profile.url}}" alt="mdo" width="35" height="35" class="rounded-circle me-1"> <span class="d-none d-md-inline-block fw-medium">{{user.username}}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown">
                                 <li><a class="dropdown-item" href="{% url 'my-jobs' %}">My Jobs</a></li>

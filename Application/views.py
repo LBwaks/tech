@@ -25,6 +25,7 @@ from .models import Application
 from django.template.loader import render_to_string
 from twilio.rest import Client 
 from .tasks import send_email_notification,send_sms_notification
+from datetime import datetime
 # Create your views here.
 
 
@@ -154,6 +155,7 @@ class ApplicationRejectView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
             # send_sms_notification.delay(twilio_message,job_owner_phone_number)
         else:
             self.object.status = new_status
+            self.object.approved_canceled_time= datetime.now()
 
         self.object.save()
         job.save()
@@ -203,6 +205,7 @@ class ApplicationApprovalAcceptedView(LoginRequiredMixin, UserPassesTestMixin,Up
             # send_sms_notification.delay(twilio_message,job_owner_phone_number)
         else:
             self.object.status = new_status
+            self.object.approved_canceled_time= datetime.now()
 
         self.object.save()
         job.save()
