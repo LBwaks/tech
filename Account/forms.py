@@ -26,6 +26,7 @@ class  ProfileForm(forms.ModelForm):
         fields = (
             "firstname",
             "lastname",
+            "title",
             "user_type",
             "id_passport",
             "tell",
@@ -45,6 +46,7 @@ class  ProfileForm(forms.ModelForm):
         widgets ={
             "firstname":forms.TextInput(attrs={'class':'form-class firstname','required':True}),
             "lastname":forms.TextInput(attrs={'class':'form-class lastname','required':True}),
+            "title":forms.TextInput(attrs={'class':'form-class lastname','required':True,'placeholder':'eg, Carpenter Plumber'}),
             "user_type":forms.Select(attrs={'class':'form-class user_type','required':True}),
             "id_passport":forms.NumberInput(attrs={'class':'form-class id_passport','required':True}),
            

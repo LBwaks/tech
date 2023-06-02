@@ -34,6 +34,7 @@ class Profile(models.Model):
 
     # TODO: Define fields here
     user = models.OneToOneField(User, related_name="user_profile", on_delete=models.CASCADE)
+    title =models.CharField(_("Job Title"), max_length=50)
     firstname = models.CharField(_("Firstname"), max_length=50)
     lastname = models.CharField(_("Lastname"), max_length=50)
     user_type= models.CharField(_("User Type"), choices=USER_TYPE,max_length=50)

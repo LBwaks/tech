@@ -8,7 +8,7 @@ class ProfileAdmin(admin.ModelAdmin):
     '''Admin View for Profile'''
 
     list_display = ('user','firstname','lastname','id_passport','status','is_suspended','created',)
-    list_filter = ('skills','county',)
+    list_filter = ('title','skills','county',)
     # inlines = [
     #     Inline,
     # ]

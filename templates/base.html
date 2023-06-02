@@ -216,6 +216,46 @@
     </script>
     <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
   {% django_browser_reload_script %}  
+
+  <script>
+    // for categories
+    var singleCategories, singleLocation = new Choices("#choices-single-location"),
+    singleCategorie = document.getElementById("choices-single-categories");
+singleCategorie && (singleCategories = new Choices("#choices-single-categories"));
+
+// for swiper
+var swiper = new Swiper(".testimonialSlider", {
+        loop: !0,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: !0
+        },
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: !1
+        },
+        breakpoints: {
+            200: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            992: {
+                slidesPerView: 1,
+                spaceBetween: 20
+            }
+        }
+    }),
+    swiper = new Swiper(".homeslider", {
+        slidesPerView: "auto",
+        loop: !0,
+        spaceBetween: 20,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: !1
+        }
+    });
+
+  </script>
 </body>
 
 </html>

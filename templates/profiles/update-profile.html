@@ -13,7 +13,205 @@
     <button type="submit" class="btn btn-success">Submit <span class="dir-part"></span></button>
 
 </form>
-<br><br><br><br><br>
+<br><br><br> 
+<form action="#">
+                                                        <div>
+                                                            <h5 class="fs-17 fw-semibold mb-3 mb-0">My Account</h5>
+                                                            <div class="text-center">
+                                                                <div class="mb-4 profile-user">
+                                                                    <img src="assets/images/user/img-02.jpg" class="rounded-circle img-thumbnail profile-img" id="profile-img" alt="">
+                                                                    <div class="p-0 rounded-circle profile-photo-edit">
+                                                                        <input id="profile-img-file-input" type="file" class="profile-img-file-input" onchange="previewImg()" >
+                                                                        <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
+                                                                            <i class="uil uil-edit"></i>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="firstName" class="form-label">First Name</label>
+                                                                        <input type="text" class="form-control" id="firstName"
+                                                                            value="Jennifer" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="lastName" class="form-label">Last Name</label>
+                                                                        <input type="text" class="form-control" id="lastName"
+                                                                            value="Dickens" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="choices-single-categories" class="form-label">Account Type</label>
+                                                                        <select class="form-select" data-trigger
+                                                                            name="choices-single-categories"
+                                                                            id="choices-single-categories"
+                                                                            aria-label="Default select example">
+                                                                            <option value="4">Accounting</option>
+                                                                            <option value="1">IT & Software</option>
+                                                                            <option value="3">Marketing</option>
+                                                                            <option value="5">Banking</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="email" class="form-label">Email</label>
+                                                                        <input type="text" class="form-control" id="email"
+                                                                            value="jennifer@gmail.com" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                            </div>
+                                                            <!--end row-->
+                                                        </div>
+                                                        <!--end account-->
+                                                        <div class="mt-4">
+                                                            <h5 class="fs-17 fw-semibold mb-3">Profile</h5>
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="mb-3">
+                                                                        <label for="exampleFormControlTextarea1"
+                                                                            class="form-label">Introduce Yourself</label>
+                                                                        <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                                            rows="5">Developer with over 5 years' experience working in both the public and private sectors. Diplomatic, personable, and adept at managing sensitive situations. Highly organized, self-motivated, and proficient with computers. Looking to boost students’ satisfactions scores for International University. Bachelor's degree in communications.</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="languages" class="form-label">Languages</label>
+                                                                        <input type="text" class="form-control" id="languages"
+                                                                            value="English, German, French" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="choices-single-location" class="form-label">Location</label>
+                                                                        <select class="form-select" data-trigger
+                                                                            name="choices-single-location" id="choices-single-location"
+                                                                            aria-label="Default select exam
+                                                                            ple">
+                                                                            <option value="ME">Montenegro</option>
+                                                                            <option value="MS">Montserrat</option>
+                                                                            <option value="MA">Morocco</option>
+                                                                            <option value="MZ">Mozambique</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-12">
+                                                                    <div class="mb-3">
+                                                                        <label for="attachmentscv" class="form-label">Attachments
+                                                                            CV</label>
+                                                                        <input class="form-control" type="file" id="attachmentscv" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                            </div>
+                                                            <!--end row-->
+                                                        </div>
+                                                        <!--end profile-->
+                                                        <div class="mt-4">
+                                                            <h5 class="fs-17 fw-semibold mb-3">Social Media</h5>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="facebook" class="form-label">Facebook</label>
+                                                                        <input type="text" class="form-control" id="facebook"
+                                                                            value="https://www.facebook.com/" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="twitter" class="form-label">Twitter</label>
+                                                                        <input type="text" class="form-control" id="twitter"
+                                                                            value="https://www.twitter.com/" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="linkedin" class="form-label">Linkedin</label>
+                                                                        <input type="text" class="form-control" id="linkedin"
+                                                                            value="https://www.linkedin.com/" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="whatsapp" class="form-label">Whatsapp</label>
+                                                                        <input type="text" class="form-control" id="whatsapp"
+                                                                            value="https://www.whatsapp.com/" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                            </div>
+                                                            <!--end row-->
+                                                        </div>
+                                                        <!--end socia-media-->
+                                                        <div class="mt-4">
+                                                            <h5 class="fs-17 fw-semibold mb-3 mb-3">
+                                                                Change Password
+                                                            </h5>
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="mb-3">
+                                                                        <label for="current-password-input" class="form-label">Current
+                                                                            password</label>
+                                                                        <input type="password" class="form-control"
+                                                                            placeholder="Enter Current password"
+                                                                            id="current-password-input" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="new-password-input" class="form-label">New
+                                                                            password</label>
+                                                                        <input type="password" class="form-control"
+                                                                            placeholder="Enter new password"
+                                                                            id="new-password-input" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="confirm-password-input" class="form-label">Confirm Password</label>
+                                                                        <input type="password" class="form-control"
+                                                                            placeholder="Confirm Password"
+                                                                            id="confirm-password-input" />
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox" value=""
+                                                                            id="verification" />
+                                                                        <label class="form-check-label" for="verification">
+                                                                            Enable Two-Step Verification via email
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <!--end col-->
+                                                            </div>
+                                                            <!--end row-->
+                                                        </div>
+                                                        <!--end Change-password-->
+                                                        <div class="mt-4 text-end">
+                                                            <a href="javascript:void(0)" class="btn btn-primary">Update</a>
+                                                        </div>
+                                                    </form>
+                                                    <!--end form-->
+<br><br>
         </div>
     </div>
 </div>

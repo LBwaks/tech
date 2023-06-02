@@ -19,8 +19,9 @@ class UserProfile(TemplateView):
         profile = get_object_or_404(Profile.objects.select_related('user'),slug=slug)
         jobs = profile.user.job_set.count()
         applications = profile.user.user_application.count()
+        successful_applications = profile.user.user_application.filter(status="AcceptJob").count()
         
-        context= {'jobs':jobs,'applications':applications,'profile':profile}
+        context= {'jobs':jobs,'applications':applications,'successful_applications':successful_applications,'profile':profile}
         return context
     
 
