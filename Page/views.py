@@ -14,11 +14,27 @@ from .forms import JobSearchForm
 
 class Home(TemplateView):
     template_name = "pages/home.html"
+    model = Job
+    paginate_by =3
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tags"] = Tag.objects.all()
+        # tags
+        tags = Tag.objects.all()
+         # featured_jobs
+        featured_jobs = Job.objects.select_related('user','category').prefetch_related('tags').filter(is_featured=True)[:6]
+        
+         # recent_jobs 
+        recent_jobs = Job.objects.select_related('user','category').prefetch_related('tags').order_by('-created')[:6]
+        
+        # popular_jobs.
+        popular_jobs = Job.objects.select_related('user','category').prefetch_related('tags').order_by('-hit_count_generic__hits')[:6]
+        
+        
+        context={'tags':tags,'featured_jobs':featured_jobs,'recent_jobs':recent_jobs,'popular_jobs':popular_jobs}
+        
         return context
+    
     
     
 
@@ -80,3 +96,27 @@ class JobSearchView(ListView):
     
 
     
+class HomeView(ListView):
+    template_name = 'home.html'
+    context_object_name = 'jobs'
+    paginate_by = 10
+
+    def get_queryset(self):
+        # Get featured jobs (assuming featured jobs have is_featured=True)
+        featured_jobs = Job.objects.filter(is_featured=True)
+
+        # Get recent jobs (assuming recent jobs are sorted by creation date)
+        recent_jobs = Job.objects.filter(is_published=True).order_by('-created')
+
+        # Get popular jobs (assuming popular jobs are sorted by positions)
+        popular_jobs = Job.objects.filter(is_published=True).order_by('-positions')
+
+        # Get random 5 jobs from each category
+        random_featured_jobs = random.sample(list(featured_jobs), min(5, len(featured_jobs)))
+        random_recent_jobs = random.sample(list(recent_jobs), min(5, len(recent_jobs)))
+        random_popular_jobs = random.sample(list(popular_jobs), min(5, len(popular_jobs)))
+
+        # Combine the job lists
+        job_list = random_featured_jobs + random_recent_jobs + random_popular_jobs
+
+        return job_list

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Home {% endblock title %}
+{% load humanize %}
 {% load i18n %}
 
 {% block content %}
@@ -35,26 +36,26 @@
                                         </div><!--end col-->
                                         <div class="col-lg-3">
                                             <div class="filter-search-form filter-border mt-3 mt-lg-0">
-                                                <i class="uil uil-briefcase-alt"></i>
-                                                <input type="search" id="job-title" class="form-control filter-input-box" name="title" placeholder="Job">
+                                                <i class="mdi mdi-map-marker"></i>
+                                                <input type="search" id="job-title" class="form-control filter-input-box" name="location" placeholder="location" style='border-radius:0px;'>
                                             </div>
                                         </div><!--end col-->
                                         
                                         <div class="col-lg-3">
                                             <div class="filter-search-form filter-border mt-3 mt-lg-0">
-                                                <i class="uil uil-map-marker"></i>
-                                                <select class="form-select" data-trigger name="y" id="choices-single-location" aria-label="Default select example">
-                                                    <option value="AF">Afghanistan</option>
-                                                    <option value="AX">&Aring;land Islands</option>
-                                                   
-                                                    <option value="ZW">Zimbabwe</option>
+                                                <i class="uil uil-clipboard-notes"></i>
+                                                <select class="form-select" data-trigger name="tag" id="choices-single-location" aria-label="Default select example">
+                                                    <option value="0">All Tags</option>
+                                                     {% for tag in tags %}
+        <option value="{{ tag.pk }}">{{ tag.name }}</option>
+      {% endfor %}
                                                 </select>
                                             </div>
                                         </div><!--end col-->
-                                        <div class="col-lg-3">
+                                        {% comment %} <div class="col-lg-3">
                                             <div class="filter-search-form mt-3 mt-lg-0">
                                                 <i class="uil uil-clipboard-notes"></i>
-                                                <select class="form-select " data-trigger name="tag" id="choices-single-categories" name="tag" aria-label="Default select example">
+                                                <select class="form-select " data-trigger name="tag" id="choices-single-categories" aria-label="Default select example">
                                                     <option value="0">All Tags</option>
                                                     {% for tag in tags %}
         <option value="{{ tag.pk }}">{{ tag.name }}</option>
@@ -62,7 +63,7 @@
                                                    
                                                 </select>
                                             </div>
-                                        </div><!--end col-->
+                                        </div><!--end col--> {% endcomment %}
                                         <div class="col-lg-3">
                                             <div class="mt-3 mt-lg-0 h-100">
                                                 <button class="btn btn-primary submit-btn w-100 h-100" type="submit"><i class="uil uil-search me-1"></i> Find Job</button>
@@ -107,147 +108,7 @@
                     </div>
                     <!-- END SHAPE --> {% endcomment %}
                     
-                    <!-- START CATEGORY -->
-                    <section class="section">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-6">
-                                    <div class="section-title text-center">
-                                        <h3 class="title">Browser Jobs Categories </h3>
-                                        <p class="text-muted">Post a job to tell us about your project. We'll quickly match you with the
-                                            right freelancers.</p>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                                    <div class="popu-category-box rounded text-center">
-                                        <div class="popu-category-icon icons-md">
-                                            <i class="uim uim-layers-alt"></i>
-                                        </div>
-                                        <div class="popu-category-content mt-4">
-                                            <a href="javascript:void(0)" class="text-dark stretched-link">
-                                                <h5 class="fs-18">IT & Software</h5>
-                                            </a>
-                                            <p class="text-muted mb-0">2024 Jobs</p>
-                                        </div>
-                                    </div><!--end popu-category-box-->
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                                    <div class="popu-category-box rounded text-center">
-                                        <div class="popu-category-icon icons-md">
-                                            <i class="uim uim-airplay"></i>
-                                        </div>
-                                        <div class="popu-category-content mt-4">
-                                            <a href="javascript:void(0)" class="text-dark stretched-link">
-                                                <h5 class="fs-18">Technology</h5>
-                                            </a>
-                                            <p class="text-muted mb-0">1250 Jobs</p>
-                                        </div>
-                                    </div><!--end popu-category-box-->
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                                    <div class="popu-category-box rounded text-center">
-                                        <div class="popu-category-icon icons-md">
-                                            <i class="uim uim-bag"></i>
-                                        </div>
-                                        <div class="popu-category-content mt-4">
-                                            <a href="javascript:void(0)" class="text-dark stretched-link">
-                                                <h5 class="fs-18">Government</h5>
-                                            </a>
-                                            <p class="text-muted mb-0">802 Jobs</p>
-                                        </div>
-                                    </div><!--end popu-category-box-->
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                                    <div class="popu-category-box rounded text-center">
-                                        <div class="popu-category-icon icons-md">
-                                            <i class="uim uim-user-md"></i>
-                                        </div>
-                                        <div class="popu-category-content mt-4">
-                                            <a href="javascript:void(0)" class="text-dark stretched-link">
-                                                <h5 class="fs-18">Accounting / Finance</h5>
-                                            </a>
-                                            <p class="text-muted mb-0">577 Jobs</p>
-                                        </div>
-                                    </div><!--end popu-category-box-->
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                                    <div class="popu-category-box rounded text-center">
-                                        <div class="popu-category-icon icons-md">
-                                            <i class="uim uim-hospital"></i>
-                                        </div>
-                                        <div class="popu-category-content mt-4">
-                                            <a href="javascript:void(0)" class="text-dark stretched-link">
-                                                <h5 class="fs-18">Construction / Facilities</h5>
-                                            </a>
-                                            <p class="text-muted mb-0">285 Jobs</p>
-                                        </div>
-                                    </div><!--end popu-category-box-->
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                                    <div class="popu-category-box rounded text-center">
-                                        <div class="popu-category-icon icons-md">
-                                            <i class="uim uim-telegram-alt"></i>
-                                        </div>
-                                        <div class="popu-category-content mt-4">
-                                            <a href="javascript:void(0)" class="text-dark stretched-link">
-                                                <h5 class="fs-18">Tele-communications</h5>
-                                            </a>
-                                            <p class="text-muted mb-0">495 Jobs</p>
-                                        </div>
-                                    </div><!--end popu-category-box-->
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                                    <div class="popu-category-box rounded text-center">
-                                        <div class="popu-category-icon icons-md">
-                                            <i class="uim uim-scenery"></i>
-                                        </div>
-                                        <div class="popu-category-content mt-4">
-                                            <a href="javascript:void(0)" class="text-dark stretched-link">
-                                                <h5 class="fs-18">Design & Multimedia</h5>
-                                            </a>
-                                            <p class="text-muted mb-0">1045 Jobs</p>
-                                        </div>
-                                    </div><!--end popu-category-box-->
-                                </div>
-                                <!--end col-->
-                                <div class="col-lg-3 col-md-6 mt-4 pt-2">
-                                    <div class="popu-category-box rounded text-center">
-                                        <div class="popu-category-icon icons-md">
-                                            <i class="uim uim-android-alt"></i>
-                                        </div>
-                                        <div class="popu-category-content mt-4">
-                                            <a href="javascript:void(0)" class="text-dark stretched-link">
-                                                <h5 class="fs-18">Human Resource</h5>
-                                            </a>
-                                            <p class="text-muted mb-0">1516 Jobs</p>
-                                        </div>
-                                    </div><!--end popu-category-box-->
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="mt-5 text-center">
-                                        <a href="job-categories.html" class="btn btn-primary btn-hover">Browse All Categories <i class="uil uil-arrow-right"></i></a>
-                                    </div>
-                                </div><!--end col-->
-                            </div><!--end row-->
-                        </div>
-                        <!--end container-->
-                    </section>
-                    <!-- END CATEGORY -->
-
+                   
                     <!-- START JOB-LIST -->
                     <section class="section bg-light">
                         <div class="container">
@@ -299,1455 +160,257 @@
                                     <div class="tab-content" id="pills-tabContent">
                                         <div class="tab-pane fade show active" id="recent-jobs" role="tabpanel"
                                             aria-labelledby="recent-jobs-tab">
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
+                                            
+                                          <div class="row">
+                                            {% for job in recent_jobs %}
+                                             <div class="col-lg-6">
+                                    
+                                    <div class="job-box bookmark-post card mt-5">
                                                 <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-01.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Web Developer</a>
-                                                                </h5>
-                                                                <p class="text-muted fs-14 mb-0">Web Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Oakridge Lane ssRichardson</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span class="text-primary">$</span>1000-1200/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-success fs-13 mt-1">Full Time</span>
-                                                                <span class="badge bg-soft-info fs-13 mt-1">Private</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 1
-                                                                    - 2 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-02.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Business
-                                                                        Associate</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Pixel Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
+                                                        {% comment %} <div class="col-lg-1">
+                                                            <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
+                                                        </div><!--end col--> {% endcomment %}
+                                                        <div class="col-lg-10">
+                                                            <div class="mt-3 mt-lg-0">
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a class="text-dark text-decoration-none" href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-calender"></i> {{job.created |naturaltime}}</p>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="mt-2"> 
+                                                                    
+                                                                    <span class="badge bg-soft-success mt-1">Deadline: {{job.deadline}}</span>
+                                                                    <span class="badge bg-soft-warning mt-1">open to: {{job.seeker_type}}</span>
+                                                                    <span class="badge bg-soft-info mt-1">{{job.job_type}}</span>
                                                                 </div>
-                                                                <p class="text-muted mb-0">Dodge City, Louisiana</p>
                                                             </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span class="text-primary">$</span>800-1800/m
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-danger fs-13 mt-1">Part Time</span>
-                                                                <span class="badge bg-soft-info fs-13 mt-1">Private</span>
-                                                                <span class="badge bg-soft-warning fs-13 mt-1">Urgent</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 0
-                                                                    - 1 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-03.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Digital Marketing
-                                                                        Manager</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Jobvia Technology Pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Phoenix, Arizona</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-purple fs-13 mt-1">Freelancer</span>
-                                                                <span class="badge bg-soft-info fs-13 mt-1">Private</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
+                                                        </div><!--end col-->
+                                                    </div><!--end row-->
+                                                   
                                                 </div>
                                                 <div class="p-3 bg-light">
                                                     <div class="row justify-content-between">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-8">
                                                             <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span>
-                                                                    4+ years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-lg-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-04.png" alt="" class="img-fluid rounded-3"></a>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item"><i class="uil uil-tag"></i> Tags :</li>{% for tag in job.tags.all %}
+                                                                    <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted text-decoration-none">{{ tag.name }}</a>,</li>
+                                                                   
+                                                                    {% endfor %}
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                         <!--end col-->
                                                         <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Product
-                                                                        Director</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Creative Agency</p>
+                                                            
+                                                            {% if job.user != request.user %}
+                                                                <div class="text-md-end">
+                                                                <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link text-decoration-none">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
                                                             </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Escondido, California</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-success fs-13 mt">Full Time</span>
-                                                                <span class="badge bg-soft-warning fs-13 mt-1">Urgent</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 2
-                                                                    - 3 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
+                                                            {% endif %}
+                                                                
+                                                            
                                                         </div>
                                                         <!--end col-->
                                                     </div>
                                                     <!--end row-->
                                                 </div>
                                             </div>
+                                    
+                                </div><!--end col-->
+                                            {% empty %}
+
+                                            {% endfor %}
                                             <!--end job-box-->
 
-                                            <div class="text-center mt-4 pt-2">
-                                                <a href="job-list.html" class="btn btn-primary">View More <i class="uil uil-arrow-right"></i></a>
-                                            </div>
+                                          </div>
+
+                                           
 
                                         </div>
                                         <!--end recent-jobs-tab-->
 
                                         <div class="tab-pane fade" id="featured-jobs" role="tabpanel"
                                             aria-labelledby="featured-jobs-tab">
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white"><i class="mdi mdi-star"></i></a>
-                                                </div>
+                                          
+                                            <div class="row">
+                                            {% for job in feautured_jobs %}
+                                             <div class="col-lg-6">
+                                    
+                                    <div class="job-box bookmark-post card mt-5">
                                                 <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-01.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Web Developer</a>
-                                                                </h5>
-                                                                <p class="text-muted fs-14 mb-0">Web Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Oakridge Lane Richardson</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1000-1200/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-success fs-13 mt-1">Full Time</span>
-                                                                <span class="badge bg-soft-info fs-13 mt">Private</span>
-                                                                <span class="badge bg-soft-warning fs-13 mt-1">Urgent</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 1
-                                                                    - 2 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-02.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Business
-                                                                        Associate</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Pixel Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
+                                                        {% comment %} <div class="col-lg-1">
+                                                            <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
+                                                        </div><!--end col--> {% endcomment %}
+                                                        <div class="col-lg-10">
+                                                            <div class="mt-3 mt-lg-0">
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a class="text-dark text-decoration-none" href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-calender"></i> {{job.created |naturaltime}}</p>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="mt-2"> 
+                                                                    
+                                                                    <span class="badge bg-soft-success mt-1">Deadline: {{job.deadline}}</span>
+                                                                    <span class="badge bg-soft-warning mt-1">open to: {{job.seeker_type}}</span>
+                                                                    <span class="badge bg-soft-info mt-1">{{job.job_type}}</span>
                                                                 </div>
-                                                                <p class="text-muted mb-0">Dodge City, Louisiana</p>
                                                             </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span class="text-primary">$</span>800-1800/m </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-danger fs-13 mt-1">Part Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 0
-                                                                    - 1 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-03.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Digital Marketing
-                                                                        Manager</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Jobvia Technology Pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Phoenix, Arizona</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-purple fs-13 mt-1">Freelancer</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
+                                                        </div><!--end col-->
+                                                    </div><!--end row-->
+                                                   
                                                 </div>
                                                 <div class="p-3 bg-light">
                                                     <div class="row justify-content-between">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-8">
                                                             <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span>
-                                                                    4+ years</p>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item"><i class="uil uil-tag"></i> Tags :</li>{% for tag in job.tags.all %}
+                                                                    <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted text-decoration-none">{{ tag.name }}</a>,</li>
+                                                                   
+                                                                    {% endfor %}
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                         <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
+                                                        <div class="col-md-3">
+                                                            
+                                                            {% if job.user != request.user %}
+                                                                <div class="text-md-end">
+                                                                <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link text-decoration-none">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
                                                             </div>
+                                                            {% endif %}
+                                                                
+                                                            
                                                         </div>
                                                         <!--end col-->
                                                     </div>
                                                     <!--end row-->
                                                 </div>
                                             </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
+                                    
+                                </div><!--end col-->
+                                            {% empty %}
+                                  <div class="col-lg-12 text-center">
+                                    
+                                    <div class="job-box bookmark-post card mt-5">
                                                 <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-lg-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-04.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Product
-                                                                        Director</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Creative Agency</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Escondido, California</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-success fs-13 mt-1">Full Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
+                                                   
+                                                   <p> No Featured Jobs !</p>
                                                 </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 2
-                                                                    - 3 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
+                                                
                                             </div>
+                                    
+                                </div><!--end col-->
+                                            {% endfor %}
                                             <!--end job-box-->
 
-                                            <div class="text-center mt-4 pt-2">
-                                                <a href="job-list.html" class="btn btn-primary">View More <i class="uil uil-arrow-right"></i></a>
-                                            </div>
+                                          </div>
                                         </div>
                                         <!--end featured-jobs-tab-->
 
                                         <div class="tab-pane fade" id="freelancer" role="tabpanel" aria-labelledby="freelancer-tab">
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
+                                             <div class="row">
+                                            {% for job in popular_jobs %}
+                                             <div class="col-lg-6">
+                                    
+                                    <div class="job-box bookmark-post card mt-5">
                                                 <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-01.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Web Developer</a>
-                                                                </h5>
-                                                                <p class="text-muted fs-14 mb-0">Web Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Oakridge Lane Richardson</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1000-1200/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-purple fs-13 mt-1">Freelancer</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 1
-                                                                    - 2 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-02.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Business
-                                                                        Associate</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Pixel Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
+                                                        {% comment %} <div class="col-lg-1">
+                                                            <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
+                                                        </div><!--end col--> {% endcomment %}
+                                                        <div class="col-lg-10">
+                                                            <div class="mt-3 mt-lg-0">
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a class="text-dark text-decoration-none" href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-calender"></i> {{job.created |naturaltime}}</p>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="mt-2"> 
+                                                                    
+                                                                    <span class="badge bg-soft-success mt-1">Deadline: {{job.deadline}}</span>
+                                                                    <span class="badge bg-soft-warning mt-1">open to: {{job.seeker_type}}</span>
+                                                                    <span class="badge bg-soft-info mt-1">{{job.job_type}}</span>
                                                                 </div>
-                                                                <p class="text-muted mb-0">Dodge City, Louisiana</p>
                                                             </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span class="text-primary">$</span>800-1800/m
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-purple fs-13 mt-1">Freelancer</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 0
-                                                                    - 1 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-03.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Digital Marketing
-                                                                        Manager</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Jobvia Technology Pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Phoenix, Arizona</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-purple fs-13 mt-1">Freelancer</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
+                                                        </div><!--end col-->
+                                                    </div><!--end row-->
+                                                   
                                                 </div>
                                                 <div class="p-3 bg-light">
                                                     <div class="row justify-content-between">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-8">
                                                             <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span>
-                                                                    4+ years</p>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item"><i class="uil uil-tag"></i> Tags :</li>{% for tag in job.tags.all %}
+                                                                    <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted text-decoration-none">{{ tag.name }}</a>,</li>
+                                                                   
+                                                                    {% endfor %}
+                                                                </ul>
                                                             </div>
                                                         </div>
                                                         <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
+                                                        <div class="col-md-3">
+                                                            
+                                                            {% if job.user != request.user %}
+                                                                <div class="text-md-end">
+                                                                <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link text-decoration-none">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
                                                             </div>
+                                                            {% endif %}
+                                                                
+                                                            
                                                         </div>
                                                         <!--end col-->
                                                     </div>
                                                     <!--end row-->
                                                 </div>
                                             </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
+                                    
+                                </div><!--end col-->
+                                            {% empty %}
+                                  <div class="col-lg-12 text-center">
+                                    
+                                    <div class="job-box bookmark-post card mt-5">
                                                 <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-lg-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-04.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Product
-                                                                        Director</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Creative Agency</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Escondido, California</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-purple fs-13 mt-1">Freelancer</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
+                                                   
+                                                   <p> No Featured Jobs !</p>
                                                 </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 2
-                                                                    - 3 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
+                                                
                                             </div>
+                                    
+                                </div><!--end col-->
+                                            {% endfor %}
                                             <!--end job-box-->
 
-                                            <div class="text-center mt-4 pt-2">
-                                                <a href="job-list.html" class="btn btn-primary">View More <i class="uil uil-arrow-right"></i></a>
-                                            </div>
+                                          </div>
                                         </div>
                                         <!--end freelancer-tab-->
 
-                                        <div class="tab-pane fade" id="part-time" role="tabpanel" aria-labelledby="part-time-tab">
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-01.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Web Developer</a>
-                                                                </h5>
-                                                                <p class="text-muted fs-14 mb-0">Web Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Oakridge Lane Richardson</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1000-1200/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-danger fs-13 mt-1">Part Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 1
-                                                                    - 2 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-02.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Business
-                                                                        Associate</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Pixel Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Dodge City, Louisiana</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span class="text-primary">$</span>800-1800/m
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-danger fs-13 mt-1">Part Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 0
-                                                                    - 1 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-03.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Digital Marketing
-                                                                        Manager</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Jobvia Technology Pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0"> Phoenix, Arizona</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-danger fs-13 mt-1">Part Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span>
-                                                                    4+ years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-lg-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-04.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Product
-                                                                        Director</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Creative Agency</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Escondido, California</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-danger fs-13 mt-1">Part Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 2
-                                                                    - 3 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-                                            
-                                            <div class="text-center mt-4 pt-2">
-                                                <a href="job-list.html" class="btn btn-primary">View More <i class="uil uil-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end part-time-tab-->
-
-                                        <div class="tab-pane fade" id="full-time" role="tabpanel" aria-labelledby="full-time-tab">
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-01.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Web Developer</a>
-                                                                </h5>
-                                                                <p class="text-muted fs-14 mb-0">Web Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Oakridge Lane Richardson</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1000-1200/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-success fs-13 mt-1">Full Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 1
-                                                                    - 2 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box bookmark-post card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-02.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Business
-                                                                        Associate</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Pixel Technology pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Dodge City, Louisiana</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span class="text-primary">$</span>800-1800/m
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-success fs-13 mt-1">Full Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 0
-                                                                    - 1 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-6 col-md-5">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Notes :</span>
-                                                                    languages only differ in their grammar. </p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-md-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-03.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Digital Marketing
-                                                                        Manager</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Jobvia Technology Pvt.Ltd</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Phoenix,  Arizona</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-success fs-13 mt-1">Full Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span>
-                                                                    4+ years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="job-box card mt-4">
-                                                <div class="bookmark-label text-center">
-                                                    <a href="javascript:void(0)" class="text-white align-middle"><i class="mdi mdi-star"></i></a>
-                                                </div>
-                                                <div class="p-4">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-md-2">
-                                                            <div class="text-center mb-4 mb-lg-0">
-                                                                <a href="company-details.html"><img src="assets/images/featured-job/img-04.png" alt="" class="img-fluid rounded-3"></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="mb-2 mb-md-0">
-                                                                <h5 class="fs-18 mb-1"><a href="job-details.html" class="text-dark">Product
-                                                                        Director</a></h5>
-                                                                <p class="text-muted fs-14 mb-0">Creative Agency</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="d-flex mb-2">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="mdi mdi-map-marker text-primary me-1"></i>
-                                                                </div>
-                                                                <p class="text-muted mb-0">Escondido, California</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <p class="text-muted mb-2"><span
-                                                                        class="text-primary">$</span>1500-2400/m</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-2">
-                                                            <div>
-                                                                <span class="badge bg-soft-success fs-13 mt-1">Full Time</span>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <p class="text-muted mb-0"><span class="text-dark">Experience :</span> 2
-                                                                    - 3 years</p>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-lg-2 col-md-3">
-                                                            <div class="text-start text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i
-                                                                        class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div>
-                                            <!--end job-box-->
-
-                                            <div class="text-center mt-4 pt-2">
-                                                <a href="job-list.html" class="btn btn-primary">View More <i class="uil uil-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <!--end full-time-tab-->
+                                        
                                     </div>
                                 </div>
                                 <!--end col-->
@@ -1845,78 +508,7 @@
                     </section>
                     <!--END CTA-->
 
-                    <!-- START TESTIMONIAL -->
-                    <section class="section">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-6">
-                                    <div class="section-title text-center mb-4 pb-2">
-                                        <h3 class="title mb-3">Happy Candidates</h3>
-                                        <p class="text-muted">Post a job to tell us about your project. We'll quickly match you with the
-                                            right freelancers.</p>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                            <div class="row justify-content-center">
-                                <div class="col-lg-10">
-                                    <div class="swiper testimonialSlider pb-5">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <div class="card testi-box">
-                                                    <div class="card-body">
-                                                        <div class="mb-4">
-                                                            <img src="assets/images/logo/mailchimp.svg" height="50" alt="">
-                                                        </div>
-                                                        <p class="testi-content lead text-muted mb-4">" Very well thought out and articulate communication.
-                                                            Clear milestones, deadlines and fast work. Patience. Infinite patience. No
-                                                            shortcuts. Even if the client is being careless. "</p>
-                                                        <h5 class="mb-0">Jeffrey Montgomery</h5>
-                                                        <p class="text-muted mb-0">Product Manager</p>
-                                                    </div>
-                                                </div>
-                                            </div><!--end swiper-slide-->
-                                            <div class="swiper-slide">
-                                                <div class="card testi-box">
-                                                    <div class="card-body">
-                                                        <div class="mb-4">
-                                                            <img src="assets/images/logo/wordpress.svg" height="50" alt="">
-                                                        </div>
-                                                        <p class="testi-content lead text-muted mb-4">" Very well thought out and articulate communication.
-                                                            Clear milestones, deadlines and fast work. Patience. Infinite patience. No
-                                                            shortcuts. Even if the client is being careless. "</p>
-                                                        <h5 class="mb-0">Rebecca Swartz</h5>
-                                                        <p class="text-muted mb-0">Creative Designer</p>
-                                                    </div>
-                                                </div>
-                                            </div><!--end swiper-slide-->
-                                            <div class="swiper-slide">
-                                                <div class="card testi-box">
-                                                    <div class="card-body">
-                                                        <div class="mb-4">
-                                                            <img src="assets/images/logo/Instagram.svg" height="50" alt="">
-                                                        </div>
-                                                        <p class="testi-content lead text-muted mb-4">" Very well thought out and articulate communication.
-                                                            Clear milestones, deadlines and fast work. Patience. Infinite patience. No
-                                                            shortcuts. Even if the client is being careless. "</p>
-                                                        <h5 class="mb-0">Charles Dickens</h5>
-                                                        <p class="text-muted mb-0">Store Assistant</p>
-                                                    </div>
-                                                </div>
-                                            </div><!--end swiper-slide-->
-                                        </div>
-                                        <!--end swiper-wrapper-->
-                                        <div class="swiper-pagination"></div>
-                                    </div>
-                                    <!--end swiper-container  -->
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                        </div>
-                    </section>
-                    <!-- END TESTIMONIAL -->
+                    
 
                     <!-- START BLOG -->
                     <section class="section bg-light">

@@ -13,6 +13,8 @@ from django.utils import timezone
 import time
 from django.urls import reverse
 from django.contrib.postgres.indexes import GinIndex
+from hitcount.models import HitCountMixin,HitCount
+from django.contrib.contenttypes.fields import GenericRelation
 # Create your models here.
 
 
@@ -47,7 +49,7 @@ class Category(models.Model):
         return self.name
 
 
-class Job(models.Model):
+class Job(models.Model, HitCountMixin):
     """Model definition for Job."""
 
     # TODO: Define fields here
@@ -72,6 +74,10 @@ class Job(models.Model):
     industry = models.CharField(_("Industry"), choices=INDUSTRY, max_length=50)
     positions = models.IntegerField(_("Available position"))
 
+    hit_count_generic = GenericRelation(
+    HitCount, object_id_field='object_pk',
+    related_query_name='hit_count_generic_relation')
+    
     county = models.CharField(_("County"), choices=COUNTY, max_length=50,db_index=True)
     location = models.CharField(_("Location/Town/City"), max_length=50,db_index=True)
     address = models.CharField(_("Address"), max_length=50)

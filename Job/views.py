@@ -38,6 +38,7 @@ from twilio.rest import Client
 from Job.tasks import send_email_notification,send_sms_notification
 from django_daraja.mpesa.core import MpesaClient
 from datetime import datetime
+from hitcount.views import HitCountDetailView
 # Create your views here.
 
 
@@ -59,7 +60,7 @@ class JobListView(ListView):
         return context
     
 
-class JobDetailView(DetailView):
+class JobDetailView(HitCountDetailView):
     model = Job
     template_name = "jobs/job-details.html"
     
