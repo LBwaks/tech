@@ -138,18 +138,9 @@
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="freelancer-tab" data-bs-toggle="pill"
                                                 data-bs-target="#freelancer" type="button" role="tab" aria-controls="freelancer"
-                                                aria-selected="false">Freelancer</button>
+                                                aria-selected="false">Popular Jobs</button>
                                         </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="part-time-tab" data-bs-toggle="pill"
-                                                data-bs-target="#part-time" type="button" role="tab" aria-controls="part-time"
-                                                aria-selected="false">Part Time</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="full-time-tab" data-bs-toggle="pill"
-                                                data-bs-target="#full-time" type="button" role="tab" aria-controls="full-time"
-                                                aria-selected="false">Full Time</button>
-                                        </li>
+                                       
                                     </ul>
                                 </div>
                                 <!--end col-->
@@ -171,13 +162,11 @@
                                                         {% comment %} <div class="col-lg-1">
                                                             <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
                                                         </div><!--end col--> {% endcomment %}
-                                                        <div class="col-lg-10">
+                                                        <div class="col-lg-12">
                                                             <div class="mt-3 mt-lg-0">
-                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> </h5>
                                                                 <ul class="list-inline mb-0">
-                                                                    <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a class="text-dark text-decoration-none" href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
-                                                                    </li>
+                                                                    
                                                                     <li class="list-inline-item">
                                                                         <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
                                                                     </li>
@@ -227,7 +216,17 @@
                                     
                                 </div><!--end col-->
                                             {% empty %}
-
+<div class="col-lg-12 text-center">
+                                    
+                                    <div class="job-box bookmark-post card mt-5">
+                                                <div class="p-4">
+                                                   
+                                                   <p> No Jobs Posted!</p>
+                                                </div>
+                                                
+                                            </div>
+                                    
+                                </div><!--end col-->
                                             {% endfor %}
                                             <!--end job-box-->
 
@@ -242,7 +241,7 @@
                                             aria-labelledby="featured-jobs-tab">
                                           
                                             <div class="row">
-                                            {% for job in feautured_jobs %}
+                                            {% for job in featured_jobs %}
                                              <div class="col-lg-6">
                                     
                                     <div class="job-box bookmark-post card mt-5">
@@ -251,13 +250,11 @@
                                                         {% comment %} <div class="col-lg-1">
                                                             <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
                                                         </div><!--end col--> {% endcomment %}
-                                                        <div class="col-lg-10">
+                                                        <div class="col-lg-12">
                                                             <div class="mt-3 mt-lg-0">
-                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> </h5>
                                                                 <ul class="list-inline mb-0">
-                                                                    <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a class="text-dark text-decoration-none" href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
-                                                                    </li>
+                                                                    
                                                                     <li class="list-inline-item">
                                                                         <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
                                                                     </li>
@@ -336,13 +333,11 @@
                                                         {% comment %} <div class="col-lg-1">
                                                             <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
                                                         </div><!--end col--> {% endcomment %}
-                                                        <div class="col-lg-10">
+                                                        <div class="col-lg-12">
                                                             <div class="mt-3 mt-lg-0">
-                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark text-decoration-none">{{job.title | truncatewords:10}}</a> </h5>
                                                                 <ul class="list-inline mb-0">
-                                                                    <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a class="text-dark text-decoration-none" href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
-                                                                    </li>
+                                                                    
                                                                     <li class="list-inline-item">
                                                                         <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
                                                                     </li>
@@ -397,7 +392,7 @@
                                     <div class="job-box bookmark-post card mt-5">
                                                 <div class="p-4">
                                                    
-                                                   <p> No Featured Jobs !</p>
+                                                   <p> No Popular Jobs Found!</p>
                                                 </div>
                                                 
                                             </div>
@@ -628,16 +623,8 @@
                 
             </div>
             <!-- end main content-->
-<div class="container"><div class="row">
-    <div class="col-6">
-        
-        <br><br><br>
-        <h2>Welcome home </h2>
-        {% comment %} {% for tag in tags %}
-        {{tag.name}} <br>
-        {% endfor %}
-        <hr> {% endcomment %}
-<form method="GET" action="{% url 'search' %}">
+
+{% comment %} <form method="GET" action="{% url 'search' %}">
   <div class="form-group">
     <label for="id_tag">{% trans 'Tag' %}</label>
     <select id="id_tag" name="tag" class="form-control">
@@ -656,7 +643,7 @@
     <input type="text" id="id_location" name="location" class="form-control" maxlength="50">
   </div>
   <button type="submit" class="btn btn-primary">{% trans 'Search' %}</button>
-</form>
+</form> {% endcomment %}
 
 {% endblock content %}
     

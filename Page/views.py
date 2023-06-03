@@ -15,7 +15,7 @@ from .forms import JobSearchForm
 class Home(TemplateView):
     template_name = "pages/home.html"
     model = Job
-    paginate_by =3
+    
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -82,9 +82,18 @@ class JobSearchView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # context["form"] = JobSearchForm()
-        context['tag'] = self.request.GET.get('tag',None)
+        tag_id =self.request.GET.get('tag',None)
+        if tag_id == '0':
+            context['tag'] = 'All Tags'
+        elif tag_id is not None:
+            tag = get_object_or_404(Tag, pk=tag_id)
+            context['tag'] = tag.name  # Assuming the tag has a 'name' field
+        else:
+            context['tag'] = 'All'  # Default value if no tag is selected
+
         context['title']= self.request.GET.get('title',None)
         context['location'] =self.request.GET.get('location',None)
+        context['total_results']= context['paginator'].count
         
         paginator = Paginator(context['results'], self.paginate_by)
         page_number = self.request.GET.get('page')

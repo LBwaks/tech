@@ -51,40 +51,36 @@
                                 <div class="col-lg-9">
                                     <div class="me-lg-5">
                                         <div class="job-list-header">
-                                            <form action="#">
+                                            <form method="GET" action="{% url 'search' %}">
                                                 <div class="row g-2">
                                                     <div class="col-lg-3 col-md-6">
                                                         <div class="filler-job-form">
                                                             <i class="uil uil-briefcase-alt"></i>
-                                                            <input type="search" class="form-control filter-job-input-box" id="exampleFormControlInput1" placeholder="Job, company... ">
+                                                            <input type="search" name ="title" class="form-control filter-job-input-box" id="exampleFormControlInput1" placeholder="Job, ... ">
                                                         </div>
                                                     </div><!--end col-->
-                                                    <div class="col-lg-3 col-md-6">
+                                                     <div class="col-lg-3 col-md-6">
                                                         <div class="filler-job-form">
                                                             <i class="uil uil-location-point"></i>
-                                                            <select class="form-select" data-trigger name="choices-single-location" id="choices-single-location" aria-label="Default select example">
-                                                                <option value="AF">Afghanistan</option>
-                                                                <option value="AX">&Aring;land Islands</option>
-                                                                <option value="AL">Albania</option>
-                                                               
-                                                                <option value="ZM">Zambia</option>
-                                                                <option value="ZW">Zimbabwe</option>
-                                                            </select>
+                                                            <input type="search" name="location" class="form-control filter-job-input-box" id="exampleFormControlInput1" placeholder="Mandera, pangani ">
                                                         </div>
                                                     </div><!--end col-->
                                                     <div class="col-lg-3 col-md-6">
                                                         <div class="filler-job-form">
                                                             <i class="uil uil-clipboard-notes"></i>
-                                                            <select class="form-select " data-trigger name="choices-single-categories" id="choices-single-categories" aria-label="Default select example">
-                                                                <option value="4">Accounting</option>
-                                                                <option value="1">IT & Software</option>
-                                                                <option value="3">Marketing</option>
-                                                                <option value="5">Banking</option>
+                                                            <select class="form-select" data-trigger name="tag" id="choices-single-location" aria-label="Default select example">
+                                                                <option value="0">All Tags</option>
+                                                                {% for tag in tags %}
+                                                                 <option value="{{tag.pk}}">{{tag.name}}</option>
+                                                                {% endfor %}
+                                                               
+                                                                
                                                             </select>
                                                         </div>
                                                     </div><!--end col-->
+                                                     {% comment %} class="btn btn-primary w-100"><i class="uil uil-search"></i> Find Jobs {% endcomment %}
                                                     <div class="col-lg-3 col-md-6">
-                                                        <a href="javascript:void(0)" class="btn btn-primary w-100"><i class="uil uil-filter"></i> Fliter</a>
+                                                        <button class="btn btn-primary w-100 h-100 " type="submit"><i class="uil uil-search me-1"></i> Find Job</button>
                                                     </div><!--end col-->
                                                 </div><!--end row-->
                                             </form>
@@ -203,61 +199,7 @@
                                             </div>
                                             <!--end job-box-->
                     {% endfor %}
-                                            {% comment %} <div class="job-box card mt-4">
-                                                <div class="p-4">
-                                                    <div class="row">
-                                                        <div class="col-lg-1">
-                                                            <a href="company-details.html"><img src="assets/images/featured-job/img-02.png" alt="" class="img-fluid rounded-3"></a>
-                                                        </div><!--end col-->
-                                                        <div class="col-lg-10">
-                                                            <div class="mt-3 mt-lg-0">
-                                                                <h5 class="fs-17 mb-1"><a href="job-details.html" class="text-dark">Marketing Director</a> <small class="text-muted fw-normal">(2-4 Yrs Exp.)</small></h5>
-                                                                <ul class="list-inline mb-0">
-                                                                    <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0">Creative Agency</p>
-                                                                    </li>
-                                                                    <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> New York</p>
-                                                                    </li>
-                                                                    <li class="list-inline-item">
-                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-wallet"></i> $250 - $800 / month</p>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="mt-2">
-                                                                    <span class="badge bg-soft-danger mt-1">Part Time</span>
-                                                                    <span class="badge bg-soft-info mt-1">Private</span>
-                                                                </div>
-                                                            </div>
-                                                        </div><!--end col-->
-                                                    </div><!--end row-->
-                                                    <div class="favorite-icon">
-                                                        <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="p-3 bg-light">
-                                                    <div class="row justify-content-between">
-                                                        <div class="col-md-8">
-                                                            <div>
-                                                                <ul class="list-inline mb-0">
-                                                                    <li class="list-inline-item"><i class="uil uil-tag"></i> Keywords :</li>
-                                                                    <li class="list-inline-item"><a href="javascript:void(0)" class="primary-link text-muted">Marketing</a>,</li>
-                                                                    <li class="list-inline-item"><a href="javascript:void(0)" class="primary-link text-muted">business</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                        <div class="col-md-3">
-                                                            <div class="text-md-end">
-                                                                <a href="#applyNow" data-bs-toggle="modal" class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <!--end col-->
-                                                    </div>
-                                                    <!--end row-->
-                                                </div>
-                                            </div> {% endcomment %}
-                                            <!--end job-box-->
-                    
+                                         
                                            
                     
                                         </div>
@@ -461,14 +403,7 @@
     <label class="form-check-label" for="latest">Show Latest Jobs</label>
      
   </div>
-  {% comment %} <label for="id_date_published">Date Published:</label>
-  <select name="created" id="id_date_published">
-    <option value="">Any</option>
-    <option value="hour">Last hour</option>
-    <option value="day">Last 24 hours</option>
-    <option value="week">Last Week</option>
-    <option value="month">Last month</option>
-  </select> {% endcomment %}
+ 
   <div class="form-group">
     <label for="id_date_published">Date Published:</label>
     <div class="checkbox-list">

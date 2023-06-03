@@ -2,6 +2,412 @@
 {% block title %} Job {% endblock title %}
 
 {% block content %}
+<div class="main-content">
+
+                <div class="page-content">
+
+                    {% comment %} <!-- Start home -->
+                    <section class="page-title-box">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="text-center text-white">
+                                        <h3 class="mb-4">Job List</h3>
+                                        <div class="page-next">
+                                            <nav class="d-inline-block" aria-label="breadcrumb text-center">
+                                                <ol class="breadcrumb justify-content-center">
+                                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
+                                                    <li class="breadcrumb-item active" aria-current="page"> Job List </li>
+                                                </ol>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                        </div>
+                        <!--end container-->
+                    </section>
+                    <!-- end home -->
+
+                    <!-- START SHAPE -->
+                    <div class="position-relative" style="z-index: 1">
+                        <div class="shape">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
+                                <path fill="#FFFFFF" fill-opacity="1"
+                                    d="M0,192L120,202.7C240,213,480,235,720,234.7C960,235,1200,213,1320,202.7L1440,192L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- END SHAPE --> {% endcomment %}
+
+
+                    <!-- START JOB-LIST -->
+                    <section class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="me-lg-5">
+                                        <div class="job-list-header">
+                                              <div class="results h5 pb-2 mb-4 text-text-muted border-bottom border-info">
+                                <p>  <span class="badge bg-secondary">{{total_results}}</span>  Search results for 
+                                     {% if title %}
+                                     <span class="fw-semibold text-success">
+                                    {{title}} ;
+                                </span>
+                                {% endif %} 
+
+                                 {% if tag  %}
+                                 <span class="fw-semibold text-primary">
+                                    {{tag}} ; 
+                                    </span>
+                                {% endif %}
+                                {% if location %}
+                                <span class="fw-semibold text-danger">
+                                    {{location}}
+                                {% endif %}
+                                 </span>  </p>
+                                
+                                
+                                    
+                                    
+                                    
+                            </div>
+                                        </div><!--end job-list-header-->
+
+                                     
+
+                                        <!-- Job-list -->
+                                        <div>
+                                            {% for job in jobs %}
+                                            <div class="job-box bookmark-post card mt-5">
+                                                <div class="p-4">
+                                                    <div class="row">
+                                                       
+                                                        <div class="col-lg-12">
+                                                            <div class="mt-3 mt-lg-0">
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark">{{job.title}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a class="text-decoration-none" href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i> {{job.county}} ,{{job.location}},{{job.address}}</p>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <p class="text-muted fs-14 mb-0"><i class="uil uil-calender"></i> {{job.created}}</p>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="mt-2"> 
+                                                                    
+                                                                    <span class="badge bg-soft-success mt-1">Deadline: {{job.deadline}}</span>
+                                                                    <span class="badge bg-soft-warning mt-1">open to: {{job.seeker_type}}</span>
+                                                                    <span class="badge bg-soft-info mt-1">{{job.job_type}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div><!--end col-->
+                                                    </div><!--end row-->
+                                                    
+                                                </div>
+                                                <div class="p-3 bg-light">
+                                                    <div class="row justify-content-between">
+                                                        <div class="col-md-8">
+                                                            <div>
+                                                                <ul class="list-inline mb-0">
+                                                                    <li class="list-inline-item"><i class="uil uil-tag"></i> Tags :</li>{% for tag in job.tags.all %}
+                                                                    <li class="list-inline-item"><a href="{% url 'tag-jobs' tag.slug %}" class="primary-link text-muted">{{ tag.name }}</a>,</li>
+                                                                   
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <!--end col-->
+                                                        <div class="col-md-3">
+                                                            
+                                                            {% if job.user != request.user %}
+                                                                <div class="text-md-end">
+                                                                <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
+                                                            </div>
+                                                            {% endif %}
+                                                                
+                                                            
+                                                        </div>
+                                                        <!--end col-->
+                                                    </div>
+                                                    <!--end row-->
+                                                </div>
+                                            </div>
+                                            <!--end job-box-->
+                    {% endfor %}
+                                           
+                                        </div>
+                                        <!-- End Job-list -->
+                                        <div class="row">
+                                            <div class="col-lg-12 mt-4 pt-2">
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination job-pagination mb-0 justify-content-center">
+                                                        <li class="page-item disabled">
+                                                            <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                                                                <i class="mdi mdi-chevron-double-left fs-15"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item active"><a class="page-link" href="javascript:void(0)">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
+                                                        <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
+                                                        <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="javascript:void(0)">
+                                                                <i class="mdi mdi-chevron-double-right fs-15"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div><!--end col-->
+                                        </div><!-- end row -->
+                                    </div>
+                                </div><!--end col-->
+                                
+                                <!-- START SIDE-BAR -->
+                                <div class="col-lg-3">
+                                    <div class="side-bar mt-5 mt-lg-0">
+                                        <div class="accordion" id="accordionExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="locationOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#location" aria-expanded="true" aria-controls="location">
+                                                    Location
+                                                </button>
+                                                </h2>
+                                                <div id="location" class="accordion-collapse collapse show" aria-labelledby="locationOne">
+                                                    <div class="accordion-body">
+                                                        <div class="side-title">
+                                                            <div class="mb-3">
+                                                                <form class="position-relative">
+                                                                    <input class="form-control" type="search" placeholder="Search...">
+                                                                    <button class="bg-transparent border-0 position-absolute top-50 end-0 translate-middle-y me-2" type="submit"><span class="mdi mdi-magnify text-muted"></span></button>
+                                                                </form>
+                                                            </div>
+                                                            <div class="area-range">
+                                                                <div class="form-label mb-3">Area Range: <span class="example-val mt-2" id="slider1-span">0</span> miles</div>
+                                                                <div id="slider1"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end accordion-item -->
+                                    
+                                            <div class="accordion-item mt-4">   
+                                            <h2 class="accordion-header" id="experienceOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#experience" aria-expanded="true" aria-controls="experience">
+                                                    Work experience
+                                                </button>
+                                            </h2>
+                                            <div id="experience" class="accordion-collapse collapse show" aria-labelledby="experienceOne">
+                                                <div class="accordion-body">
+                                                    <div class="side-title">
+                                                        <div class="form-check mt-2">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" />
+                                                            <label class="form-check-label ms-2 text-muted" for="flexCheckChecked1">No experience</label>
+                                                        </div>
+                                                        <div class="form-check mt-2">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked />
+                                                            <label class="form-check-label ms-2 text-muted" for="flexCheckChecked2">0-3 years</label>
+                                                        </div>
+                                                        <div class="form-check mt-2">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" />
+                                                            <label class="form-check-label ms-2 text-muted" for="flexCheckChecked3">3-6 years</label>
+                                                        </div>
+                                                        <div class="form-check mt-2">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked4" />
+                                                            <label class="form-check-label ms-2 text-muted" for="flexCheckChecked4">More than 6 years</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div><!-- end accordion-item -->
+                                    
+                                            <div class="accordion-item mt-3">
+                                                <h2 class="accordion-header" id="jobType">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#jobtype" aria-expanded="false" aria-controls="jobtype">
+                                                        Type of employment
+                                                    </button>
+                                                </h2>
+                                                <div id="jobtype" class="accordion-collapse collapse show" aria-labelledby="jobType">
+                                                    <div class="accordion-body">
+                                                        <div class="side-title">
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault6" checked>
+                                                                <label class="form-check-label ms-2 text-muted" for="flexRadioDefault6">
+                                                                    Freelance
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                                <label class="form-check-label ms-2 text-muted" for="flexRadioDefault2">
+                                                                    Full Time
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                                                <label class="form-check-label ms-2 text-muted" for="flexRadioDefault3">
+                                                                    Internship
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                                                                <label class="form-check-label ms-2 text-muted" for="flexRadioDefault4">
+                                                                    Part Time
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end accordion-item -->
+                                    
+                                            <div class="accordion-item mt-3">
+                                                <h2 class="accordion-header" id="datePosted">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dateposted" aria-expanded="false" aria-controls="dateposted">
+                                                        Date Posted
+                                                    </button>
+                                                </h2>
+                                                <div id="dateposted" class="accordion-collapse collapse show" aria-labelledby="datePosted">
+                                                    <div class="accordion-body">
+                                                        <div class="side-title form-check-all">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox" id="checkAll" value="" />
+                                                                <label class="form-check-label ms-2 text-muted" for="checkAll">
+                                                                    All
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="checkbox"  name="datePosted"  value="last" id="flexCheckChecked5" checked />
+                                                                <label class="form-check-label ms-2 text-muted" for="flexCheckChecked5">
+                                                                    Last Hour
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="checkbox" name="datePosted" value="last" id="flexCheckChecked6" />
+                                                                <label class="form-check-label ms-2 text-muted" for="flexCheckChecked6">
+                                                                    Last 24 hours
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="checkbox" name="datePosted" value="last" id="flexCheckChecked7" />
+                                                                <label class="form-check-label ms-2 text-muted" for="flexCheckChecked7">
+                                                                    Last 7 days
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="checkbox" name="datePosted" value="last" id="flexCheckChecked8" />
+                                                                <label class="form-check-label ms-2 text-muted" for="flexCheckChecked8">
+                                                                    Last 14 days
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mt-2">
+                                                                <input class="form-check-input" type="checkbox" name="datePosted" value="last" id="flexCheckChecked9" />
+                                                                <label class="form-check-label ms-2 text-muted" for="flexCheckChecked9">
+                                                                    Last 30 days
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end accordion-item -->
+                                    
+                                            <div class="accordion-item mt-3">
+                                                <h2 class="accordion-header" id="tagCloud">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tagcloud" aria-expanded="false" aria-controls="tagcloud">
+                                                        Tags Cloud
+                                                    </button>
+                                                </h2>
+                                                <div id="tagcloud" class="accordion-collapse collapse show" aria-labelledby="tagCloud">
+                                                    <div class="accordion-body">
+                                                        <div class="side-title">
+                                                            <a href="javascript:void(0)" class="badge tag-cloud fs-13 mt-2">design</a>
+                                                            <a href="javascript:void(0)" class="badge tag-cloud fs-13 mt-2">marketing</a>
+                                                            <a href="javascript:void(0)" class="badge tag-cloud fs-13 mt-2">business</a>
+                                                            <a href="javascript:void(0)" class="badge tag-cloud fs-13 mt-2">developer</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end accordion-item -->
+                                    
+                                        </div><!--end accordion-->
+                                      
+  <hr>
+  <br>
+                                         <form method="GET" action="{% url 'jobs-filter' %}">
+
+                                            
+    {{job_filter.form.as_p|safe }}
+    <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="latest" name="latest">
+    <label class="form-check-label" for="latest">Show Latest Jobs</label>
+     
+  </div>
+  
+  <div class="form-group">
+    <label for="id_date_published">Date Published:</label>
+    <div class="checkbox-list">
+        <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="hour" name="created" value="hour">
+        <label class="form-check-label" for="hour">Last hour</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="hour" name="created" value="hour">
+        <label class="form-check-label" for="hour">Last hour</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="day" name="created" value="day">
+        <label class="form-check-label" for="day">Last 24 hours</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="week" name="created" value="week">
+        <label class="form-check-label" for="week">Last week</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="month" name="created" value="month">
+        <label class="form-check-label" for="month">Last month</label>
+      </div>
+    </div>
+  </div>
+  
+    <button type="submit">Filter</button>
+  </form>
+                                        
+                                    </div><!--end side-bar-->
+                                </div><!--end col-->
+                                <!-- END SIDE-BAR -->
+                            </div><!--end row-->
+                        </div><!--end container-->
+                    </section>
+                    <!-- END JOB-LIST -->
+
+                   
+                </div>
+                <!-- End Page-content -->
+
+               
+
+                <!--start back-to-top-->
+                <button onclick="topFunction()" id="back-to-top">
+                    <i class="mdi mdi-arrow-up"></i>
+                </button>
+                <!--end back-to-top-->
+            </div>
+
+       
+<script>
+    var checkAll = document.getElementById("checkAll");
+checkAll && (checkAll.onclick = function() {
+    for (var c = document.querySelectorAll('.form-check-all input[type="checkbox"]'), e = 0; e < c.length; e++) c[e].checked = this.checked
+});
+
+var singleCategories, singleLocation = new Choices("#choices-single-location"),
+    singleCategorie = document.getElementById("choices-single-categories");
+singleCategorie && (singleCategories = new Choices("#choices-single-categories"));
+</script>
 <div class="container"><div class="row">
     <h2>filtereed jobs </h2>
         <form method="GET" action="{% url 'jobs-filter' %}">

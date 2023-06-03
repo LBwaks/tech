@@ -55,6 +55,7 @@ class JobListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
         context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
         update_job_expiry_status.delay()
         return context
