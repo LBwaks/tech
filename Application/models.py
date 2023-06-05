@@ -16,7 +16,7 @@ class Application(models.Model):
          editable = False)
     user = models.ForeignKey(User,related_name='user_application', on_delete=models.CASCADE,db_index=True)
     job = models.ForeignKey(Job, related_name='job_application', on_delete=models.CASCADE,db_index=True)
-    charge = models.CharField(_("Fees"), max_length=50)
+    charge = models.IntegerField(_("Fees"))    
     description = RichTextField()
     status = models.CharField(default='Pending', max_length=50, db_index=True)
     approved_canceled_time= models.DateTimeField(_("Approved / Rejected time"), blank=True,null=True,auto_now=False, auto_now_add=False)

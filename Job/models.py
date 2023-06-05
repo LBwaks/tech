@@ -60,7 +60,7 @@ class Job(models.Model, HitCountMixin):
     category = models.ForeignKey(Category,db_index=True, verbose_name=_("Category"), on_delete=models.CASCADE)
     tags = TaggableManager(_("Tags"))
     content = RichTextField(_("Description"))
-    responsibility = RichTextField(_("Responsibility"))
+    responsibility =  RichTextField(_("Responsibility"), config_name='non_main')
     qualification = RichTextField(_("Qualification"),null=True,blank=True)
     deadline = models.DateTimeField(
         _("Application Deadline"), auto_now=False, auto_now_add=False,db_index=True

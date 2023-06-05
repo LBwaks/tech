@@ -196,7 +196,7 @@ class MyJobListView(LoginRequiredMixin,ListView):
                     query &= Q(title__icontains=search_term) | Q(content__icontains=search_term) | Q(tags__name__icontains=search_term)
                 jobs = Job.objects.filter(query).select_related('category').prefetch_related('tags').order_by('-created')
                 cache.set(cache_key, jobs)
-            return jobs.values('id', 'title', 'slug', 'category__name', 'created')
+            return jobs
         return []
 
     def get_context_data(self, **kwargs):

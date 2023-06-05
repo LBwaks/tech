@@ -354,3 +354,100 @@ MPESA_INITIATOR_SECURITY_CREDENTIAL = "Safaricom999!*!"
 
 # hitcount
 HITCOUNT_KEEP_HIT_ACTIVE = { 'days': 7 }
+
+# ckeditor
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        'skin': 'moono',
+        # 'skin': 'office2013',
+        "toolbar_Basic": [["Source", "-", "Bold", "Italic"]],
+         # 'filebrowserUploadUrl': '/your-file-upload-url/',
+        # 'filebrowserUploadMethod': 'form',
+        'filebrowserImageUploadAllowed': True,
+        'filebrowserImageMaxSize': 5242880,  # 5MB in bytes
+        "toolbar_YourCustomToolbarConfig": [
+            {
+                "name": "clipboard",
+                "items": ["Cut", "Copy", "Paste", "-", "Undo", "Redo"],
+            },
+            {
+                "name": "basicstyles",
+                "items": [
+                    "Bold",
+                    "Italic",
+                    "Underline",
+                    "Subscript",
+                    "Superscript",
+                    "-",
+                ],
+            },
+            {
+                "name": "paragraph",
+                "items": [
+                    "NumberedList",
+                    "BulletedList",
+                    "-",
+                    "Outdent",
+                    "Indent",
+                    "-",
+                    "Blockquote",
+                    "JustifyLeft",
+                    "JustifyCenter",
+                    "JustifyRight",
+                    "JustifyBlock",
+                    "-",
+                ],
+            },
+            {
+                "name": "insert",
+                "items": ["Image", "Flash", "Table", "HorizontalRule", "SpecialChar"],
+            },
+           
+            "/",
+            {"name": "styles", "items": ["Styles", "Format", "Font", "FontSize"]},
+            {"name": "colors", "items": ["TextColor", "BGColor"]},
+            {"name": "tools", "items": ["Maximize"]},
+        ],
+        "toolbar": "YourCustomToolbarConfig",  # put selected toolbar config here
+        # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        "height": 291,
+        "width": "auto",
+        # 'filebrowserWindowHeight': 725,
+        # 'filebrowserWindowWidth': 940,
+        # 'toolbarCanCollapse': True,
+        # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        "tabSpaces": 4,
+        "removeDialogTabs": "link:advanced;link:upload;link:target;image:advanced;image:Link",
+        "extraPlugins": ",".join(
+            [
+                "uploadimage",  # the upload image feature
+                # your extra plugins here
+                "div",
+                "autolink",
+                "autoembed",
+                "embedsemantic",
+                "autogrow",
+                # 'devtools',
+                "widget",
+                "lineutils",
+                "clipboard",
+                "dialog",
+                "dialogui",
+                "elementspath",
+            ]
+        ),
+    },
+    'non_main':{
+        'toolbar': 'Custom',
+        'skin': 'moono',
+        #  "height": 291,
+        # "width": "auto",
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+           
+           
+        ]
+    },
+}

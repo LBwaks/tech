@@ -1,34 +1,13 @@
 @import url(https://fonts.googleapis.com/css2?family=Dancing+Script&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap);
-.top-bar{
-    background-color:#f8f9fc;
-    position:absolute;
-    left:0;
-    right:0;
-    top:0;
-    z-index:1040
-}
-.topbar-social-menu .social-link{
-    display:inline-block;
-    width:20px;
-    height:20px;
-    line-height:20px;
-    text-align:center;
-    color:#314047;
-    -webkit-transition:all .5s ease;
-    transition:all .5s ease
-}
-.topbar-social-menu .social-link:hover{
-    color:#048565
-}
-.language-switch .btn:focus{
-    -webkit-box-shadow:none;
-    box-shadow:none
+
+body a {
+    text-decoration: none;
 }
 .navbar{
     -webkit-transition:all .5s ease;
     transition:all .5s ease;
     padding:0;
-    margin-top:44px;
+    margin-top:0px;
     background-color:#fff;
     -webkit-box-shadow:0 3px 10px 0 rgba(49,64,71,.08);
     box-shadow:0 3px 10px 0 rgba(49,64,71,.08)
@@ -220,13 +199,13 @@ body[data-layout-mode=dark] .top-bar .topbar-social-menu .social-link:hover{
     }
 }
 .page-title-box{
-    background-image:url(../images/home/page-title.png);
-    background-size:cover;
+    /* background-image:url(../images/home/page-title.png); */
+    /* background-size:cover; */
     background-color:#029663;
     position:relative;
-    padding-top:225px;
-    padding-bottom:110px;
-    background-position:center
+    padding-top:92px;
+    padding-bottom:10px;
+    /* background-position:center */
 }
 .shape{
     position:absolute;
@@ -239,6 +218,7 @@ body[data-layout-mode=dark] .top-bar .topbar-social-menu .social-link:hover{
     width:100%;
     height:auto
 }
+/* 
 .breadcrumb{
     letter-spacing:.5px;
     text-align:center
@@ -265,6 +245,114 @@ body[data-layout-mode=dark] .top-bar .topbar-social-menu .social-link:hover{
 }
 .breadcrumb .breadcrumb-item a:hover{
     color:#e2e5e8
+} */
+/* Bread Crumbs */
+.breadcrumbs {
+  /* background-image: url("../images/breadcrumb/breadcrumb-bg.jpg"); */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+   background-color:#0aa770;
+  position: relative;
+  padding: 10px 0;
+  padding-top: 90px;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.breadcrumbs.overlay::before {
+  background-color: #081828;
+  opacity: 0.9;
+  z-index: -1;
+}
+
+.breadcrumbs .breadcrumbs-content {
+  position: relative;
+  float: left;
+}
+
+.breadcrumbs .breadcrumbs-content p {
+  color: #fff;
+  font-size: 14px;
+  margin-top: 25px;
+}
+
+.breadcrumbs .breadcrumbs-content .page-title {
+  font-size: 30px;
+  color: #fff;
+  font-weight: 650;
+  position: relative;
+  line-height: 50px;
+  padding-bottom: 15px;
+}
+
+.breadcrumbs .breadcrumbs-content .page-title:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 80px;
+  background: #473BF0;
+  border-radius: 5px;
+}
+
+.breadcrumbs .breadcrumbs-content .page-title:after {
+  position: absolute;
+  content: "";
+  left: 90px;
+  bottom: 0;
+  height: 4px;
+  width: 10px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.breadcrumbs .breadcrumbs-content .breadcrumb-nav {
+  background: transparent;
+  border-radius: 0;
+  margin-bottom: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.breadcrumbs .breadcrumb-nav {
+  /* float: right; */
+  background: #fff3;
+  padding: 20px 25px;
+  border-radius: 5px;
+  margin: 0;
+}
+
+.breadcrumbs .breadcrumb-nav li {
+  display: inline-block;
+}
+
+.breadcrumbs .breadcrumb-nav li,
+.breadcrumbs .breadcrumb-nav li a {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.breadcrumbs .breadcrumb-nav li a {
+  padding-right: 15px;
+  margin-right: 15px;
+  position: relative;
+}
+
+.breadcrumbs .breadcrumb-nav li a:hover {
+  color: #473BF0;
+}
+
+.breadcrumbs .breadcrumb-nav li a:after {
+  content: '';
+  height: 80%;
+  width: 2px;
+  background-color: #fff;
+  position: absolute;
+  top: 2px;
+  right: 0;
 }
 body[data-layout-mode=dark] .page-title-box{
     background-color:#242c34
@@ -2359,6 +2447,47 @@ body[data-layout-mode=dark] .mode-light{
 body[data-layout-mode=dark] .card{
     background-color:#283039;
     border-color:#3d454e
+}
+
+
+
+/*======================================
+	Start add-blog CSS
+========================================*/
+.add-blog {
+  position: relative;
+  background-color: #F4F7FA;
+}
+
+.add-blog .inner-title {
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1px dashed #473BF0;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.add-blog .inner-content {
+  padding: 50px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.add-blog .blog_form .button {
+  margin: 0;
+}
+
+.add-blog .blog_form .button .btn {
+  height: 50px;
+  border: none;
+}
+
+/* astrick */
+
+.asteriskField {
+  color:red;
+  margin:5px;
 }
 /*# sourceMappingURL=app.min.css.map */
  
