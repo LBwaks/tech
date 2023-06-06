@@ -2,13 +2,16 @@ from django.contrib.postgres.search import (SearchHeadline, SearchQuery,
                                             SearchRank, SearchVector)
 from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import FormView, ListView, TemplateView
+from django.views.generic import FormView, ListView, TemplateView,FormView
 from taggit.models import Tag
 from django.core.paginator import Paginator
 from Job.models import Job
-
-from .forms import JobSearchForm
-
+from.models import Contact
+from django.urls import reverse
+from .forms import JobSearchForm,ContactForm
+from django.template.loader import render_to_string
+from django.core.mail import BadHeaderError,EmailMultiAlternatives
+from Page.tasks import send_contact_email
 # Create your views here.
 
 
@@ -129,3 +132,51 @@ class HomeView(ListView):
         job_list = random_featured_jobs + random_recent_jobs + random_popular_jobs
 
         return job_list
+
+
+class ContactView(FormView):
+    template_name = "pages/contact.html"
+    form_class = ContactForm
+    model= Contact
+    # success_url = "contact"
+    def get_success_url(self):
+        return reverse('contact')
+    
+    def form_valid(self,form):
+        name = form.cleaned_data.get("name")
+        from_email = form.cleaned_data.get('email')
+        subject = form.cleaned_data.get('subject')
+        # message = f'{name} with email {from_email} said :\n'
+        # message += f'Subject :"{subject}" \n\n'
+        message = form.cleaned_data.get('message')
+        
+        # context = {
+        #     'name':name,
+        #     'email':from_email,
+        #     'subject':subject,
+        #     'message':message
+        # } 
+        # print(context)
+        # text_content = render_to_string('emails/contact-email.html',context)
+        # html_content= render_to_string('emails/contact-email.html',context)
+        # try : 
+        #     mail= EmailMultiAlternatives(
+        #         subject=subject,
+        #         body=message,
+        #         from_email=from_email,
+        #         to=['victorobwaku@gmail.com']
+        #     ) 
+        #     mail.attach_alternative(html_content,'text/html')
+        #     mail.send(fail_silently=False)
+        #     print('sent')
+        # except BadHeaderError:
+        #     return self.form_invalid(form)
+        send_contact_email.delay(name,from_email,subject,message)
+        return super().form_valid(form)
+
+
+def error_404(request,exception):
+    return render (request, 'errors/404.html',status=404)
+
+def error_500(request):
+    return render (request, 'errors/500.html')

@@ -17,9 +17,10 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.conf.urls import handler404
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
-
+from django.views.defaults import page_not_found
 # from Blog.sitemaps import BlogSitemap
 
 urlpatterns = [
@@ -33,6 +34,10 @@ urlpatterns = [
     path("profile/", include("Account.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("accounts/", include("allauth.urls")),
+    
     # path("hitcount/", include(("hitcount.urls", "hitcount"), namespace="hitcount")),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 ='Page.views.error_404'
+handler500 ='Page.views.error_500'
