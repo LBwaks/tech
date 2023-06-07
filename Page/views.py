@@ -6,12 +6,13 @@ from django.views.generic import FormView, ListView, TemplateView,FormView
 from taggit.models import Tag
 from django.core.paginator import Paginator
 from Job.models import Job
-from.models import Contact
+from.models import Contact,Faq,Service
 from django.urls import reverse
 from .forms import JobSearchForm,ContactForm
 from django.template.loader import render_to_string
 from django.core.mail import BadHeaderError,EmailMultiAlternatives
 from Page.tasks import send_contact_email
+
 # Create your views here.
 
 
@@ -180,3 +181,35 @@ def error_404(request,exception):
 
 def error_500(request):
     return render (request, 'errors/500.html')
+
+
+class FaqListView(ListView):
+    model = Faq
+    template_name = "pages/faqs.html"
+    context_object_name = 'faqs'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.select_related('user')
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["faqs"] = self.get_queryset
+        return context
+
+class About(ListView):
+    model = Service
+    template_name = "pages/about.html"
+    context_object_name='services'
+    
+    def get_queryset(self):
+        queryset=super().get_queryset()
+        queryset = queryset.select_related('user')
+        return super().get_queryset()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["services"] = self.get_queryset()
+        return context
+    
+    

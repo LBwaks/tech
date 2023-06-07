@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+
+{% block title %} Faqs{% endblock title %}
+{% load static %}
+
+{% block content %}
+    <!-- Begin page -->
+        <div>
+             <div class="main-content">
+
+                <div class="page-content">
+
+                                       
+ <div class="breadcrumbs overlay  mt-1" >
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-6 col-md-6 col-12">
+<div class="breadcrumbs-content">
+<h1 class="page-title">Faqs</h1>
+
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-12">
+<ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
+<li><a href="{% url 'home' %}">Home</a></li>
+<li>Faqs</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+                    <!-- START FAQ-PAGE -->
+                    <section class="section">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <ul class="faq-menu nav nav-fill nav-pills justify-content-center" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="general-tab" data-bs-toggle="pill"
+                                                data-bs-target="#generalTab" type="button" role="tab" aria-controls="generalTab"
+                                                aria-selected="true">General</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="buying-tab" data-bs-toggle="pill"
+                                                data-bs-target="#buyingTab" type="button" role="tab" aria-controls="buying"
+                                                aria-selected="false">Job Application</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="payment-tab" data-bs-toggle="pill"
+                                                data-bs-target="#paymentTab" type="button" role="tab" aria-controls="payment"
+                                                aria-selected="false">Payment</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="support-tab" data-bs-toggle="pill"
+                                                data-bs-target="#supportTab" type="button" role="tab" aria-controls="support"
+                                                aria-selected="false">Support</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--end col-->
+                            </div>
+                            <!--end row-->
+                            <div class="row align-items-center mt-5">
+                                <div class="col-lg-12">
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="generalTab" role="tabpanel" aria-labelledby="general-tab">
+                                            <div class="row">
+                                                {% for faq in faqs %} 
+                                                
+                                                {% if faq.category == 'General' %}
+                                                    
+                                               
+                                                    
+                                                <div class="col-lg-6">
+                                                    <div class="accordion accordion-flush faq-box" id="general">
+                                                        
+                                                        
+                                                         <div class="accordion-item mt-4 border-0">
+                                                            <h2 class="accordion-header" id="generalOne">
+                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                                    data-bs-target="#general-one" aria-expanded="true"
+                                                                    aria-controls="general-one">
+                                                                   {{faq.title}}
+                                                                </button>
+                                                            </h2>
+                                                            <div id="general-one" class="accordion-collapse collapse show"
+                                                                aria-labelledby="generalOne" data-bs-parent="#general">
+                                                                <div class="accordion-body">
+                                                                   {{faq.content}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                       
+                                                    </div><!--end accordion-->
+                                                </div><!--end col-->
+                                                 {% endif %}
+                                                {% empty %} 
+<p class="text-center"> No related Faqs !</p>
+                                                        {% endfor %}
+                                                
+                                            </div><!--end row-->
+                                        </div><!--end general-tab-->
+                                        <div class="tab-pane fade" id="buyingTab" role="tabpanel" aria-labelledby="buying-tab">
+                                            <div class="row">
+                                                {% for faq in faqs %} 
+                                                {% if faq.category == 'Job Application' %}
+<div class="col-lg-6">
+                                                    <div class="accordion accordion-flush faq-box" id="buying">
+                                                        <div class="accordion-item mt-4 border-0">
+                                                            <h2 class="accordion-header" id="buyingone">
+                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                                    data-bs-target="#buying-one" aria-expanded="true"
+                                                                    aria-controls="buying-one">
+                                                                   {{faq.title}}
+                                                                </button>
+                                                            </h2>
+                                                            <div id="buying-one" class="accordion-collapse collapse show"
+                                                                aria-labelledby="buyingone" data-bs-parent="#buying">
+                                                                <div class="accordion-body">
+                                                                    If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages.
+                                                                </div>
+                                                            </div>
+                                                        </div><!--end accordion-item-->
+
+                                                       
+                                                    </div><!--end accordion-->
+                                                </div><!--end col-->
+                                                 {% endif %}
+                                                {% empty %}
+<p classs="text-center">No related Faqs! </p>
+                                                {% endfor %}
+                                                
+                                            </div><!--end row-->
+                                        </div><!--end buying-tab-->
+                                        <div class="tab-pane fade" id="paymentTab" role="tabpanel" aria-labelledby="payment-tab">
+                                            <div class="row">
+                                               
+                                                {% for faq in faqs %} 
+                                                {% if faq.category == 'Payments' %}
+                                                 <div class="col-lg-6">
+                                                    <div class="accordion accordion-flush faq-box" id="payment">
+                                                        <div class="accordion-item mt-4 border-0">
+                                                            <h2 class="accordion-header" id="paymentone">
+                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                                    data-bs-target="#payment-one" aria-expanded="true"
+                                                                    aria-controls="payment-one">
+                                                                   {{faq.title}}
+                                                                </button>
+                                                            </h2>
+                                                            <div id="payment-one" class="accordion-collapse collapse show"
+                                                                aria-labelledby="paymentone" data-bs-parent="#payment">
+                                                                <div class="accordion-body">
+                                                                    If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages.
+                                                                </div>
+                                                            </div>
+                                                        </div><!--end accordion-item-->
+
+                                                        
+                                                    </div><!--end accordion-->
+                                                </div><!--end col-->
+                                                 {% endif %}
+                                                {% empty %} 
+
+                                                <p class="text-center"> No related Faqs! </p>
+                                                {% endfor %}
+
+                                            </div><!--end row-->
+                                        </div><!--end payment-tab-->
+                                        <div class="tab-pane fade" id="supportTab" role="tabpanel" aria-labelledby="support-tab">
+                                            <div class="row">
+                                                
+                                                 {% for faq in faqs %} 
+                                                 {% if faq.category == 'Support' %}
+                                                <div class="col-lg-6">
+                                                    <div class="accordion accordion-flush faq-box" id="support">
+                                                        <div class="accordion-item mt-4 border-0">
+                                                            <h2 class="accordion-header" id="supportone">
+                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                                    data-bs-target="#support-one" aria-expanded="true"
+                                                                    aria-controls="support-one">
+                                                                   {{faq.title}}
+                                                                </button>
+                                                            </h2>
+                                                            <div id="support-one" class="accordion-collapse collapse show"
+                                                                aria-labelledby="supportone" data-bs-parent="#support">
+                                                                <div class="accordion-body">
+                                                                    If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages.
+                                                                </div>
+                                                            </div>
+                                                        </div><!--end accordion-item-->
+
+                                                        
+                                                    </div><!--end accordion-->
+                                                </div><!--end col-->
+                                                 {% endif %}
+                                                {% empty %} 
+                                                <p class="text-center"> No related Faqs! </p>
+                                                {% endfor %}
+                                            </div><!--end row-->
+                                        </div><!--end support-tab-->
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-12">
+                                    <div class="text-center mt-5">
+                                        <a href="contact.html" class="btn btn-primary btn-hover mt-2"><i class="uil uil-phone"></i> Contact Us</a>
+                                        <a href="javascript:void(0)" class="btn btn-warning btn-hover mt-2 ms-md-2"><i class="uil uil-envelope"></i> Email Now</a>
+                                    </div>
+                                </div>
+                            </div><!--end row-->
+                        </div><!--end container-->
+                    </section>
+                    <!-- END FAQ-PAGE -->
+
+                </div>
+                <!-- End Page-content -->
+
+               
+
+               
+
+                
+
+
+              
+            </div>
+            <!-- end main content-->
+        </div>
+{% endblock content %}
+    
+    
