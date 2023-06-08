@@ -38,6 +38,7 @@ from twilio.rest import Client
 from Job.tasks import send_email_notification,send_sms_notification
 from django_daraja.mpesa.core import MpesaClient
 from datetime import datetime
+from django.db.models import Count
 from hitcount.views import HitCountDetailView
 # Create your views here.
 
@@ -55,10 +56,18 @@ class JobListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
+        tags = Tag.objects.all()
+        context['tags']=tags
+        context['categories']=Category.objects.select_related('user')
+        context['popular_tags'] =Tag.objects.annotate(num_jobs=Count('job')).order_by('-num_jobs')[:5]
         context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
-        update_job_expiry_status.delay()
+        # update_job_expiry_status.delay()
         return context
+    
+    def dispatch(self, request, *args, **kwargs):
+        update_job_expiry_status.delay()
+        return super().dispatch(request, *args, **kwargs)
+    
     
 
 class JobDetailView(HitCountDetailView):
@@ -71,7 +80,7 @@ class JobDetailView(HitCountDetailView):
     
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
-       job = self.object()
+       job = self.object
        
         # Get IDs of the tags associated with the current job
     #    tag_ids = job.tags.values_list('id', flat=True)
@@ -234,6 +243,7 @@ class JobsByCategoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = self.category
+        context['caterory_name'] = self.category.name
         return context
     
 class JobsByTagView(ListView):
@@ -249,7 +259,9 @@ class JobsByTagView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tag'] = get_object_or_404(Tag, slug=self.kwargs.get('slug'))
+        tag=get_object_or_404(Tag, slug=self.kwargs.get('slug'))
+        context['tag'] = tag
+        context['tag_name'] =tag.name
         return context
 
 class JobFilterView(FilterView):

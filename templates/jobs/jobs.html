@@ -6,44 +6,24 @@
 
                 <div class="page-content">
 
-                    {% comment %} <!-- Start home -->
-                    <section class="page-title-box">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6">
-                                    <div class="text-center text-white">
-                                        <h3 class="mb-4">Job List</h3>
-                                        <div class="page-next">
-                                            <nav class="d-inline-block" aria-label="breadcrumb text-center">
-                                                <ol class="breadcrumb justify-content-center">
-                                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
-                                                    <li class="breadcrumb-item active" aria-current="page"> Job List </li>
-                                                </ol>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                        </div>
-                        <!--end container-->
-                    </section>
-                    <!-- end home -->
+                   <div class="breadcrumbs overlay  mt-1" >
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-6 col-md-6 col-12">
+<div class="breadcrumbs-content">
+<h1 class="page-title">Jobs</h1>
 
-                    <!-- START SHAPE -->
-                    <div class="position-relative" style="z-index: 1">
-                        <div class="shape">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
-                                <path fill="#FFFFFF" fill-opacity="1"
-                                    d="M0,192L120,202.7C240,213,480,235,720,234.7C960,235,1200,213,1320,202.7L1440,192L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- END SHAPE --> {% endcomment %}
-
-
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-12">
+<ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
+<li><a href="{% url 'home' %}">Home</a></li>
+<li>Jobs</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
                     <!-- START JOB-LIST -->
                     <section class="section">
                         <div class="container">
@@ -89,46 +69,19 @@
                                         <div class="wedget-popular-title mt-4">
                                             <h6>Popular</h6>
                                             <ul class="list-inline">
-                                                <li class="list-inline-item">
+                                                {% for popular_tag in popular_tags %} 
+                                                 <li class="list-inline-item">
                                                     <div class="popular-box d-flex align-items-center">
                                                         <div class="number flex-shrink-0 me-2">
-                                                            20  
+                                                          {{popular_tag.num_jobs}}  
                                                         </div>
-                                                        <a href="javascript:void(0)" class="primary-link stretched-link"><h6 class="fs-14 mb-0">UI/UX designer</h6></a>
+                                                        <a href="{% url 'tag-jobs' popular_tag.slug %}" class="primary-link stretched-link"><h6 class="fs-14 mb-0">{{popular_tag.name}}</h6></a>
                                                     </div>
                                                 </li>
-                                                <li class="list-inline-item">
-                                                    <div class="popular-box d-flex align-items-center">
-                                                        <div class="number flex-shrink-0 me-2">
-                                                            18  
-                                                        </div>
-                                                        <a href="javascript:void(0)" class="primary-link stretched-link"><h6 class="fs-14 mb-0">HR manager</h6></a>
-                                                    </div>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <div class="popular-box d-flex align-items-center">
-                                                        <div class="number flex-shrink-0 me-2">
-                                                            10  
-                                                        </div>
-                                                        <a href="javascript:void(0)" class="primary-link stretched-link"><h6 class="fs-14 mb-0">Product manager</h6></a>
-                                                    </div>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <div class="popular-box d-flex align-items-center">
-                                                        <div class="number flex-shrink-0 me-2">
-                                                            15  
-                                                        </div>
-                                                        <a href="javascript:void(0)" class="primary-link stretched-link"><h6 class="fs-14 mb-0">Sales manager</h6></a>
-                                                    </div>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <div class="popular-box d-flex align-items-center">
-                                                        <div class="number flex-shrink-0 me-2">
-                                                            28  
-                                                        </div>
-                                                        <a href="javascript:void(0)" class="primary-link stretched-link"><h6 class="fs-14 mb-0">Developer</h6></a>
-                                                    </div>
-                                                </li>
+                                                {% endfor %}
+                                               
+                                                
+                                               
                                             </ul>
                                         </div><!--end wedget-popular-title-->
 
@@ -136,15 +89,15 @@
                                         <!-- Job-list -->
                                         <div>
                                             {% for job in object_list %}
-                                            <div class="job-box bookmark-post card mt-5">
+                                            <div class="job-box  card mt-5">
                                                 <div class="p-4">
                                                     <div class="row">
-                                                        <div class="col-lg-1">
+                                                        {% comment %} <div class="col-lg-1">
                                                             <a href="company-details.html"><img src="{{job.user.user_profile.profile.url}}" alt="..." class="img-fluid rounded-3"></a>
-                                                        </div><!--end col-->
-                                                        <div class="col-lg-10">
+                                                        </div><!--end col--> {% endcomment %}
+                                                        <div class="col-lg-12">
                                                             <div class="mt-3 mt-lg-0">
-                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark">{{job.title}}</a> <small class="text-muted fw-normal">({{job.positions}} slot{{job.positions|pluralize }})</small></h5>
+                                                                <h5 class="fs-17 mb-1"><a href="{{job.get_absolute_url}}" class="text-dark">{{job.title}}</a> <small class=" fw-normal badge rounded-pill text-bg-success">({{job.positions}})</small></h5>
                                                                 <ul class="list-inline mb-0">
                                                                     <li class="list-inline-item">
                                                                         <p class="text-muted fs-14 mb-0"><i class="uil uil-user"></i> <a href="{% url 'user-jobs' job.user.username %}">{{job.user.user_profile.firstname}} {{job.user.user_profile.lastname}}</a> </p>
@@ -165,9 +118,7 @@
                                                             </div>
                                                         </div><!--end col-->
                                                     </div><!--end row-->
-                                                    <div class="favorite-icon">
-                                                        <a href="javascript:void(0)"><i class="uil uil-heart-alt fs-18"></i></a>
-                                                    </div>
+                                                    
                                                 </div>
                                                 <div class="p-3 bg-light">
                                                     <div class="row justify-content-between">
@@ -203,25 +154,102 @@
                                            
                     
                                         </div>
+
+
+
+
+
+
+
+<!-- =======================
+pagination start-->
+{% comment %} <div class="pagination center">
+<ul class="pagination-list">
+     {% if page_obj.has_previous %}
+
+<li><a href="?page={{ page_obj.previous_page_number }}"><i class="lni lni-chevron-left"></i></a></li>
+
+ {% if page_obj.number > 3 %}
+    <a href="?page=1">1</a>
+    {% if page_obj.number > 4 %}
+      <span>...</span>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% for num in page_obj.paginator.page_range %}
+  {% if page_obj.number == num %}
+
+<li class="active"><a href="?page={{ num }}">{{ num }}</a></li>
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+
+<li><a href="?page={{ num }}">{{ num }}</a></li>
+{% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+  {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+    <span>...</span>
+    <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+  {% elif page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+    <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+  {% endif %}
+
+<li><a href="?page={{ page_obj.next_page_number }}"><i class="lni lni-chevron-right"></i></a></li>
+{% endif %}
+</ul>
+</div> {% endcomment %}
+<!-- =======================
+pagination end -->
+
+
+
+
+
+
                                         <!-- End Job-list -->
                                         <div class="row">
                                             <div class="col-lg-12 mt-4 pt-2">
                                                 <nav aria-label="Page navigation example">
                                                     <ul class="pagination job-pagination mb-0 justify-content-center">
-                                                        <li class="page-item disabled">
-                                                            <a class="page-link" href="javascript:void(0)" tabindex="-1">
+                                                         {% if page_obj.has_previous %}
+                                                        <li class="page-item ">
+                                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">
                                                                 <i class="mdi mdi-chevron-double-left fs-15"></i>
                                                             </a>
                                                         </li>
-                                                        <li class="page-item active"><a class="page-link" href="javascript:void(0)">1</a></li>
-                                                        <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
-                                                        <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-                                                        <li class="page-item"><a class="page-link" href="javascript:void(0)">4</a></li>
+                                                         {% if page_obj.number > 3 %}
+    <a class="page-link" href="?page=1">1</a>
+    {% if page_obj.number > 4 %}
+      <span>.....</span>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% for num in page_obj.paginator.page_range %}
+  {% if page_obj.number == num %}
+
+                                                        <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+
+                                                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                                        {% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+  {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+    <span>...</span> 
+
+                                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+                                                       {% elif page_obj.number < page_obj.paginator.num_pages|add:'-2' %}
+                                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+                                                         {% endif %}
                                                         <li class="page-item">
-                                                            <a class="page-link" href="javascript:void(0)">
+                                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
                                                                 <i class="mdi mdi-chevron-double-right fs-15"></i>
                                                             </a>
                                                         </li>
+                                                        {% endif %}
                                                     </ul>
                                                 </nav>
                                             </div><!--end col-->
@@ -384,10 +412,31 @@
                                                 <div id="tagcloud" class="accordion-collapse collapse show" aria-labelledby="tagCloud">
                                                     <div class="accordion-body">
                                                         <div class="side-title">
-                                                            <a href="javascript:void(0)" class="badge tag-cloud fs-13 mt-2">design</a>
-                                                            <a href="javascript:void(0)" class="badge tag-cloud fs-13 mt-2">marketing</a>
-                                                            <a href="javascript:void(0)" class="badge tag-cloud fs-13 mt-2">business</a>
-                                                            <a href="javascript:void(0)" class="badge tag-cloud fs-13 mt-2">developer</a>
+                                                            {% for tag in tags %}
+                                                            
+                                                            <a href="{% url 'tag-jobs' tag.slug %}" class="badge tag-cloud fs-13 mt-2">{{tag.name}}</a>
+                                                            {% endfor %}
+                                                            
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end accordion-item -->
+                                            <div class="accordion-item mt-3">
+                                                <h2 class="accordion-header" id="tagCloud">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#tagcloud" aria-expanded="false" aria-controls="tagcloud">
+                                                        Categories Cloud
+                                                    </button>
+                                                </h2>
+                                                <div id="tagcloud" class="accordion-collapse collapse show" aria-labelledby="tagCloud">
+                                                    <div class="accordion-body">
+                                                        <div class="side-title">
+                                                            {% for category in categories %}
+                                                            
+                                                            <a href="{% url 'category-jobs' category.slug %}" class="badge tag-cloud fs-13 mt-2">{{category.name}}</a>
+                                                            {% endfor %}
+                                                            
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
