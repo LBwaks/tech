@@ -1,5 +1,5 @@
 from django import forms 
-from .models import Application
+from .models import Application,Rating
 from Job.models import Job
 from ckeditor.widgets import CKEditorWidget
 class ApplicationForm(forms.ModelForm):

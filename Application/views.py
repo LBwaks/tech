@@ -21,7 +21,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Job.models import Job
 from  django.core.mail import EmailMessage
 from .forms import ApplicationEditForm, ApplicationForm
-from .models import Application
+from .models import Application,Rating
 from django.template.loader import render_to_string
 from twilio.rest import Client 
 from .tasks import send_email_notification,send_sms_notification
@@ -216,4 +216,5 @@ class ApplicationApprovalAcceptedView(LoginRequiredMixin, UserPassesTestMixin,Up
             "applications:my-applications"
         )
 
-   
+# def Ratings(request):
+#      return (render,'ratings/ratings.html')

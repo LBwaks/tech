@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 from django import http
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
@@ -9,7 +9,7 @@ from django.views import View
 from .models import Category,Job,JobImage,SavedJob
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.shortcuts import get_object_or_404
-from .forms import JobForm,JobEditForm
+from .forms import JobForm,JobEditForm,RatingForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.urls import reverse_lazy,reverse
@@ -28,7 +28,7 @@ from taggit.models import Tag
 from django.db.models import Prefetch
 from django_filters.views import FilterView
 from .filters import JobFilter
-from Application.models import Application
+from Application.models import Application,Rating
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
@@ -409,3 +409,25 @@ class MakePaymentView(View):
         callback_url = 'https://api.darajambili.com/express-payment'
         response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
         return HttpResponse(response)
+
+
+class ApplicantRatingsViews(LoginRequiredMixin,CreateView):
+    model = Rating 
+    form_class = RatingForm
+    template_name ='ratings/ratings.html'
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        uuid = self.kwargs['uuid']
+        context["application"] = get_object_or_404(Application,uuid=self.kwargs['uuid'])
+        return context
+    
+    def form_valid(self, form):
+        application = get_object_or_404(Application, uuid=self.kwargs['uuid'])
+        r = form.save(commit=False)        
+        r.user = self.request.user
+        r.application = application
+        r.save()
+        return super().form_valid(form)
+    
+# def ApplicantRatings(request):
+#      return  render(request,'ratings/ratings.html')

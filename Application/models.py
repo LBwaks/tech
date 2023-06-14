@@ -39,6 +39,36 @@ class Application(models.Model):
 
     def get_absolute_url(self):
         """Return absolute url for Application."""
-        return reverse ('application-details', kwargs={'slug': self.object.uuid})
+        return reverse ('application-details', kwargs={'slug': self.uuid})
+
+    # TODO: Define custom methods here
+
+class Rating(models.Model):
+    """Model definition for Rating."""
+
+    # TODO: Define fields here
+    user = models.ForeignKey(User, related_name="user_rating", on_delete=models.CASCADE)
+    application = models.ForeignKey(Application, related_name="application_rating", on_delete=models.CASCADE)
+    ratings = models.PositiveSmallIntegerField(_("Rating"))
+    reviews = models.TextField(_("Review"))
+    created = models.DateTimeField( auto_now=False, auto_now_add=True)
+
+    class Meta:
+        """Meta definition for Rating."""
+
+        verbose_name = 'Rating'
+        verbose_name_plural = 'Ratings'
+
+    def __str__(self):
+        """Unicode representation of Rating."""
+        return f"{self.application.user.username}: {self.ratings}"
+
+    # def save(self):
+    #     """Save method for Rating."""
+    #     pass
+
+    def get_absolute_url(self):
+        """Return absolute url for Rating."""
+        return ('')
 
     # TODO: Define custom methods here

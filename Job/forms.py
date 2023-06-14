@@ -3,7 +3,7 @@ from .models import Job,JobImage
 from taggit.forms import *
 from taggit.models import Tag
 from ckeditor.widgets import CKEditorWidget
-
+from Application.models import Rating
 
 class JobForm(forms.ModelForm):
     """Form definition for Job."""
@@ -109,3 +109,9 @@ class JobEditForm(forms.ModelForm):
             "location": forms.TextInput(attrs={'class': 'control-form location', 'required': True}),
             "address": forms.TextInput(attrs={'class': 'control-form address', 'required': True}),
         }        
+        
+class RatingForm(forms.ModelForm):
+    
+    class Meta:
+        model = Rating
+        fields = ("ratings","reviews")

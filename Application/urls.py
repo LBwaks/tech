@@ -8,6 +8,7 @@ from .views import (
     MyApplicationsView,
     ApplicationApprovalAcceptedView,
     ApplicationRejectView,
+    # Ratings,
   
 )
 app_name = 'applications'
@@ -28,6 +29,7 @@ urlpatterns = [
     path("my-applications/", MyApplicationsView.as_view(), name="my-applications"),
    path('accept-job/<uuid:pk>/', ApplicationApprovalAcceptedView.as_view(), name='accept-job'),
     path('reject-application/<uuid:pk>/', ApplicationRejectView.as_view(), name='reject-application'),
+    # path("ratings/<uuid:slug>/",Ratings,name="ratings")
    
     
 ]

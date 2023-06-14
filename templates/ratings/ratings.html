@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Ratings {% endblock title %}
+{% block content %}
+<br><br><br><br><br><br>
+ratings
+{{application.uuid}}
+<br>
+{{application.charge}}
+<div class="review-feedback">
+                <span class="uil uil-star checked"></span>
+                <span class="uil uil-star checked"></span>
+                <span class="uil uil-star checked"></span>
+                <span class="uil uil-star checked"></span>
+                <span class="uil uil-star checked"></span>
+            </div>
+           
+            {% comment %} <i class="mdi mdi-star-outline"></i> {% endcomment %}
+            {% comment %} <i class="uil uil-star"></i> {% endcomment %}
+            <form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <div class="star-rating">
+    <input id="star5" type="radio" name="rating" value="5" />
+    <label for="star5" title="5 stars"><i class="uil uil-star"></i></label>
+    <input id="star4" type="radio" name="rating" value="4" />
+    <label for="star4" title="4 stars"><i class="uil uil-star"></i></label>
+    <input id="star3" type="radio" name="rating" value="3" />
+    <label for="star3" title="3 stars"><i class="uil uil-star"></i></label>
+    <input id="star2" type="radio" name="rating" value="2" />
+    <label for="star2" title="2 stars"><i class="uil uil-star"></i></label>
+    <input id="star1" type="radio" name="rating" value="1" />
+    <label for="star1" title="1 star"><i class="uil uil-star"></i></label>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
+
+{% endblock content %}
+    
