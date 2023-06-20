@@ -286,7 +286,9 @@ class JobFilterView(FilterView):
         return job_filter.qs
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["job_filter"] = JobFilter(self.request.GET,queryset=self.get_queryset())
+        context["job_filter"] = JobFilter(self.request.GET,queryset=self.get_queryset())        
+        context['tags']=Tag.objects.all()
+        context['categories']=Category.objects.select_related('user')
         return context
     
 class JobApplicationsListView(LoginRequiredMixin,ListView):
