@@ -162,12 +162,14 @@ class JobDeleteView(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
 # @require_POST
 def savedJob(request,slug):
     job= get_object_or_404(Job,slug=slug)
-    saved_job ,created= SavedJob.objects.get_or_create(user=request.user,job=job)
-    if not created:
-        saved_job.delete()
-        message ='Unsaved ' 
+    saved_job= SavedJob.objects.filter(job=job, user=request.user).exists()
+    # saved_job,created= SavedJob.objects.get_or_create(user=request.user,job=job)
+    if saved_job:
+        SavedJob.objects.filter(job=job,user=request.user).delete()        
+        message ='Job UnBookmarked ' 
     else:
-        message ='saved'
+        message ='Bookmarked'
+        SavedJob.objects.create(job=job,user=request.user)
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
     
 
@@ -178,15 +180,15 @@ class SavedJobListView(LoginRequiredMixin,ListView):
     paginate_by = 10 
     
     def get_queryset(self):
-        user = self.request.user
-        if user.is_authenticated:
-            cache_key = f'saved_jobs_{user.id}'
-            saved_jobs = cache.get(cache_key)
-            if not saved_jobs:
+                user = self.request.user
+        # if user.is_authenticated:
+        #     cache_key = f'saved_jobs_{user.id}'
+        #     saved_jobs = cache.get(cache_key)
+        #     if not saved_jobs:
                 saved_jobs = SavedJob.objects.select_related('job', 'job__category').prefetch_related('job__tags').filter(user=user).order_by('-saved_date')
-                cache.set(cache_key, saved_jobs)
-            return saved_jobs
-        return []
+                # cache.set(cache_key, saved_jobs)
+                return saved_jobs
+        # return []
         
 class MyJobListView(LoginRequiredMixin,ListView):
     template_name = 'jobs/my-jobs.html'
