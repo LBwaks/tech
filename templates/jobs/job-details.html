@@ -37,10 +37,21 @@
                                 <div class="col-lg-8">
                                     <div class="card job-detail overflow-hidden">
                                         <div>
+                                            <ul id="lightSlider">
                                           {% for image in job.job_images.all %}
+                                          <li data-thumb="{{image.image.url}}">
+                                            <a href="{{image.image.url}}" data-fancybox="gallery">
                                           <img src="{{image.image.url}}" alt="..." class="img-fluid">
+                                          </a>
+		        </li>
                                           {% endfor %}
-                                           
+
+   {% comment %} <li data-thumb="https://webdevtrick.com/wp-content/uploads/programming.jpg">
+		        	<a href="https://webdevtrick.com/wp-content/uploads/programming.jpg" data-fancybox="gallery">
+		            	<img src="https://webdevtrick.com/wp-content/uploads/programming.jpg" />
+		        	</a>
+		        </li> {% endcomment %}
+                                            </ul>
                                             
                                         </div>
                                         <div class="card-body p-4">
@@ -138,11 +149,15 @@
                                                         <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
                                                     </li>
                                                      <li class="list-inline-item mt-1"> 
-                                                        {{job.id}}
-                                                       {% if job.saved_job %}
-  <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-warning" >Bookmarked <i class="lni lni-bookmark"></i></a>
+                                                        
+                                                                                                                
+                                                       {% if job.savedJobs.exists %}
+                                                       
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-secondary" ><i class="uil uil-bookmark"></i> Bookmarked </a>
+  
   {% else %}
-  <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-outline-secondary" >Bookmark <i class="lni lni-bookmark"></i></a>
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-outline-secondary" ><i class="uil uil-bookmark"></i> Bookmark </a>
+  
   {% endif %}
                                                     </li>
                                                      
@@ -248,11 +263,11 @@
                                                 </ul>
                                                 <div class="mt-3">
                                                     <a href="{% url 'applications:apply-job' job.slug %}"  class="btn btn-primary btn-hover w-100 mt-2">Apply Now <i class="uil uil-arrow-right"></i></a>
-                                                    {% if job.savedJob %}
+                                                    {% if job.savedJobs.exists %}
                                                     <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-warning  w-100 mt-2"><i class="uil uil-bookmark"></i> Add Bookmark</a>
                                                
   {% else %}
-  <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-warning  w-100 mt-2"><i class="uil uil-bookmark"></i> Add Bookmark</a>
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-secondary  w-100 mt-2"><i class="uil uil-bookmark"></i> Remove Bookmark</a>
   {% endif %}
                                                   </div>
                                             </div><!--end card-body-->

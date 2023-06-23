@@ -164,7 +164,7 @@ class SavedJob(models.Model):
 
     # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, related_name="savedJobs" ,on_delete=models.CASCADE)
     saved_date = models.DateTimeField(auto_now_add=True)
     
 

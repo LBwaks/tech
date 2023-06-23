@@ -297,7 +297,7 @@ class JobApplicationsListView(LoginRequiredMixin,ListView):
     model = Application
     context_object_name = 'applications'
     template_name = 'applications/job-applications.html'
-    paginate_by = 10
+    # paginate_by = 10
     
     def get_queryset(self):
         slug = self.kwargs['slug']
