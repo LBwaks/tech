@@ -1,45 +1,98 @@
 {% extends 'base.html' %}
 
 {% block title %} Ratings {% endblock title %}
+{% load crispy_forms_tags %}
 {% block content %}
-<br><br><br><br><br><br>
-ratings
-   <li class="list-inline-item text-warning review-rating">
-                                                                <span class="badge bg-warning">4.8</span> <i class="mdi mdi-star align-middle"></i><i class="mdi mdi-star align-middle"></i><i class="mdi mdi-star align-middle"></i><i class="mdi mdi-star align-middle"></i><i class="mdi mdi-star-half-full align-middle"></i>
-                                                            </li>
-{{application.uuid}}
-<br>
-{{application.charge}}
-<div class="review-feedback">
+<div class="breadcrumbs overlay  mt-1" >
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-6 col-md-6 col-12">
+<div class="breadcrumbs-content">
+<h1 class="page-title">Rate Applicant </h1>
+
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-12">
+<ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
+<li><a href="{% url 'home' %}">Home</a></li>
+<li><a href="{% url 'jobs' %}">Jobs</a></li>
+<li>Rate Applicant </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+ <section class="section">
+                        <div class="container">
+                          <div class="row justify-content-center">
+                                <div class="col-lg-6">
+                                    <div class="section-title text-center mb-4 pb-2">
+                                        <h4 class="title">Rate and Review Applicant </h4>
+                                        <p class="text-muted mb-1">Post a job to tell us about your project. We'll quickly match you
+                                            with the right freelancers.</p>
+                                    </div>
+                                </div><!--end col-->
+                            </div><!--end row-->
+                            <div class="row align-items-center">
+                                <div class="col-lg-6">
+                                    <div class="section-title me-5">
+                                        <h4 class="title">Ratings For </h4>
+ 
+                                        <div class="process-menu nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                            <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                                <div class="d-flex">
+                                                    <div class="number flex-shrink-0">
+                                                        1
+                                                    </div>
+                                                    <div class="flex-grow-1 text-start ms-3">
+                                                        <h5 class="fs-18">Job Title</h5>
+                                                        <p class="text-muted mb-0"> {{application.job.title}}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                                <div class="d-flex">
+                                                    <div class="number flex-shrink-0">
+                                                        2
+                                                    </div>
+                                                    <div class="flex-grow-1 text-start ms-3">
+                                                        <h5 class="fs-18">Application Details</h5>
+                                                        <p class="text-muted mb-0">ksh {{application.charge}}</p>
+                                                        <p class="text-muted mb-0">{{application.description}}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                           
+                                        </div>
+                                    </div>
+                                </div><!--end col-->
+                                <div class="col-lg-6">
+                                   
+{% comment %} <div class="review-feedback">
                 <span class="uil uil-star checked"></span>
                 <span class="uil uil-star checked"></span>
                 <span class="uil uil-star checked"></span>
                 <span class="uil uil-star checked"></span>
                 <span class="uil uil-star checked"></span>
             </div>
-           
+            {% endcomment %}
             {% comment %} <i class="mdi mdi-star-outline"></i> {% endcomment %}
             {% comment %} <i class="uil uil-star"></i> {% endcomment %}
             <form method="POST">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form|crispy}}
 
-  <div class="star-rating">
-    <input id="star5" type="radio" name="rating" value="5" />
-    <label for="star5" title="5 stars"><i class="uil uil-star"></i></label>
-    <input id="star4" type="radio" name="rating" value="4" />
-    <label for="star4" title="4 stars"><i class="uil uil-star"></i></label>
-    <input id="star3" type="radio" name="rating" value="3" />
-    <label for="star3" title="3 stars"><i class="uil uil-star"></i></label>
-    <input id="star2" type="radio" name="rating" value="2" />
-    <label for="star2" title="2 stars"><i class="uil uil-star"></i></label>
-    <input id="star1" type="radio" name="rating" value="1" />
-    <label for="star1" title="1 star"><i class="uil uil-star"></i></label>
+  <div class="mx-auto">
+<button class="btn btn-outline-warning   mt-2"type="submit">Rate Applicant</button>
   </div>
-
-  <button type="submit">Submit</button>
+  
 </form>
 
 
+                                </div>
+                            </div> <!--end row-->
+                        </div><!--end container-->
+                    </section>
+   
 {% endblock content %}
     

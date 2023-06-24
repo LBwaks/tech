@@ -76,12 +76,15 @@
                                                             </div>
                                                         </div>
                                                         <!--end col-->
-                                                        <div class="col-md-3">
+                                                        <div class="col-md-4">
                                                             
                                                             {% if job.user != request.user %}
                                                                 <div class="text-md-end">
                                                                 <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link text-decoration-none">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
                                                             </div>
+                                                            {% elif job.user == request.user %}
+                                                            <a class="text-decoration-none text-dark" href="{% url 'job-applications' job.slug %}"><span> <span  class="badge text-bg-info">{{job.job_application.count}}</span> Applications </span> </a>
+                                                             
                                                             {% endif %}
                                                                 
                                                             

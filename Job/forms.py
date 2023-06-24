@@ -115,3 +115,11 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
         fields = ("ratings","reviews")
+        labels ={
+            'ratings':'Rate Applicant',
+            'reviews':'Review Applicant'
+        }
+        widget={
+            'ratings': forms.Select(attrs={'class': 'form-control ratings', 'required': True}),
+            'reviews': forms.Textarea(attrs={'class': 'form-control reviews', 'required': True})
+        }

@@ -26,5 +26,5 @@ class ApplicationAdmin(admin.ModelAdmin):
 class RatingAdmin(admin.ModelAdmin):
     '''Admin View for Rating'''
 
-    list_display = ('application','ratings','reviews')
+    list_display = ('ratings','application_id','reviews')
    

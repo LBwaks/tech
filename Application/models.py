@@ -5,6 +5,7 @@ from Job.models import Job
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from .choices import RATINGS
 # Create your models here.
 class Application(models.Model):
     """Model definition for Application."""
@@ -49,7 +50,7 @@ class Rating(models.Model):
     # TODO: Define fields here
     user = models.ForeignKey(User, related_name="user_rating", on_delete=models.CASCADE)
     application = models.ForeignKey(Application, related_name="application_rating", on_delete=models.CASCADE)
-    ratings = models.PositiveSmallIntegerField(_("Rating"))
+    ratings = models.IntegerField(_("Ratings"),choices=RATINGS)
     reviews = models.TextField(_("Review"))
     created = models.DateTimeField( auto_now=False, auto_now_add=True)
 
@@ -61,7 +62,8 @@ class Rating(models.Model):
 
     def __str__(self):
         """Unicode representation of Rating."""
-        return f"{self.application.user.username}: {self.ratings}"
+        return self.ratings
+        # return f"Ratbrangs: {self.get_ratings_display()}"
 
     # def save(self):
     #     """Save method for Rating."""
