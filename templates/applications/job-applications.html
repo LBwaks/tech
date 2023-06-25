@@ -66,11 +66,16 @@
                                                 </div>
                                                 <ul class="list-inline d-flex justify-content-between align-items-center">
                                                     <li class="list-inline-item text-warning fs-17">
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>  
-                                                        <i class="mdi mdi-star-half-full"></i>
+                                                        
+                                            {% if  application.job.user.user_profile.averageview > 1 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                            {% if  application.job.user.user_profile.averageview > 2 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                            {% if  application.job.user.user_profile.averageview > 3 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                            {% if  application.job.user.user_profile.averageview > 4 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                            {% if  application.job.user.user_profile.averageview > 5 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                                 <span  class="text-dark">( {{application.job.user.user_profile.averageview | stringformat:".2f"}})</span>       
+                                                            
+                                                       
+                                                        
                                                     </li>
                                                     
                                                 </ul>
@@ -110,8 +115,11 @@
         <button type="submit" class="btn btn-danger btn-hover w-100 mt-2"><i class="mdi mdi-account-check"></i> Cancel Hiring</button>
     </form>
     {% elif application.status == 'AcceptJob' %}
-
-    <a href="{% url 'ratings' application.uuid %}" class="btn btn-warning">Rate user</a>
+{% for rating in application.user.profile.user_rating %}
+{{rating.id}}
+{% endfor %}
+{{application.job.user.user_profile.averageview}}
+    <a href="{% url 'ratings' application.user.user_profile.slug %}" class="btn btn-warning">Rate user</a>
      <form method="POST" action="">
         {% csrf_token %}
         <input type="hidden" name="status" value="Accepted">

@@ -15,6 +15,7 @@ from django.urls import reverse
 from django.contrib.postgres.indexes import GinIndex
 from hitcount.models import HitCountMixin,HitCount
 from django.contrib.contenttypes.fields import GenericRelation
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 
@@ -145,7 +146,8 @@ class JobImage(models.Model):
 
     # TODO: Define fields here
     job = models.ForeignKey(Job, verbose_name=_(""),related_name='job_images', on_delete=models.CASCADE)
-    image = models.ImageField(_("Job Images"), upload_to='job_images/', default='job_images/default_image.jpg', blank=True,null=True, max_length=None)
+    # image = models.ImageField(_("Job Images"), upload_to='job_images/', default='job_images/default_image.jpg', blank=True,null=True, max_length=None)
+    image =CloudinaryField('image')
     created = models.DateTimeField( auto_now_add=True)
 
     class Meta:

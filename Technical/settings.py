@@ -17,6 +17,10 @@ from pathlib import Path
 from django.conf import settings
 from dotenv import load_dotenv
 
+# cloudnary
+import cloudinary
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -51,6 +55,7 @@ INSTALLED_APPS = [
     "Account",
     "Page",
     # installed
+    'cloudinary',
     "debug_toolbar",
     "django_social_share",
     "ckeditor",
@@ -451,3 +456,14 @@ CKEDITOR_CONFIGS = {
         ]
     },
 }
+
+# cloudinary
+
+cloudinary.config( 
+  cloud_name = os.getenv("cloud_name"), 
+  api_key = os.getenv("api_key"), 
+  api_secret = os.getenv("api_secret"),
+  secure = True
+)
+import cloudinary.uploader
+import cloudinary.api

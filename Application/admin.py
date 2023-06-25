@@ -1,6 +1,6 @@
 from typing import Any
 from django.contrib import admin
-from .models import Application,Rating
+from .models import Application
 # Register your models here.
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
@@ -22,9 +22,3 @@ class ApplicationAdmin(admin.ModelAdmin):
             obj.save()
             
         return super().save_model(request,obj, form, change)
-@admin.register(Rating)
-class RatingAdmin(admin.ModelAdmin):
-    '''Admin View for Rating'''
-
-    list_display = ('ratings','application_id','reviews')
-   

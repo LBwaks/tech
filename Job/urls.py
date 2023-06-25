@@ -39,6 +39,6 @@ urlpatterns = [
     path('approve-application/<uuid:pk>',ApplicationApprovalView.as_view(),name='approve-application'),     
     path('application/<uuid:pk>/cancel/', ApplicationCancelView.as_view(), name='cancel-application'),
     path('make-payment/', MakePaymentView.as_view(), name='make-payment'),
-    path('ratings/<uuid>/ratings',ApplicantRatingsViews.as_view(),name="ratings")
+    path('ratings/<slug>/ratings',ApplicantRatingsViews.as_view(),name="ratings")
      
 ]

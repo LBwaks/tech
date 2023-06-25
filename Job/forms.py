@@ -3,7 +3,7 @@ from .models import Job,JobImage
 from taggit.forms import *
 from taggit.models import Tag
 from ckeditor.widgets import CKEditorWidget
-from Application.models import Rating
+from Account.models import Rating
 
 class JobForm(forms.ModelForm):
     """Form definition for Job."""

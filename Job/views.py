@@ -9,7 +9,7 @@ from django.views import View
 from .models import Category,Job,JobImage,SavedJob
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.shortcuts import get_object_or_404
-from .forms import JobForm,JobEditForm,RatingForm
+from .forms import JobForm,JobEditForm ,RatingForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.urls import reverse_lazy,reverse
@@ -28,7 +28,7 @@ from taggit.models import Tag
 from django.db.models import Prefetch
 from django_filters.views import FilterView
 from .filters import JobFilter
-from Application.models import Application,Rating
+from Application.models import Application
 from django.core.paginator import Paginator
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
@@ -40,6 +40,7 @@ from django_daraja.mpesa.core import MpesaClient
 from datetime import datetime
 from django.db.models import Count
 from hitcount.views import HitCountDetailView
+from Account.models import Rating,Profile
 # Create your views here.
 
 
@@ -308,6 +309,7 @@ class JobApplicationsListView(LoginRequiredMixin,ListView):
         context = super().get_context_data(**kwargs)
         slug = self.kwargs['slug']
         context['job'] = get_object_or_404(Job, slug=slug)
+        # context['ratings']=
         return context
     
 class ApplicationApprovalView(UpdateView):
@@ -421,15 +423,15 @@ class ApplicantRatingsViews(LoginRequiredMixin,CreateView):
     template_name ='ratings/ratings.html'
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
-        uuid = self.kwargs['uuid']
-        context["application"] = get_object_or_404(Application,uuid=self.kwargs['uuid'])
+        slug = self.kwargs['slug']
+        context["user_profile"] = get_object_or_404(Profile,slug=self.kwargs['slug'])
         return context
     
     def form_valid(self, form):
-        application = get_object_or_404(Application, uuid=self.kwargs['uuid'])
+        profile = get_object_or_404(Profile, slug=self.kwargs['slug'])
         r = form.save(commit=False)        
         r.user = self.request.user
-        r.application = application
+        r.profile = profile
         r.save()
         return super().form_valid(form)
     

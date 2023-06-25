@@ -5,7 +5,7 @@ from Job.models import Job
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from .choices import RATINGS
+
 # Create your models here.
 class Application(models.Model):
     """Model definition for Application."""
@@ -44,33 +44,3 @@ class Application(models.Model):
 
     # TODO: Define custom methods here
 
-class Rating(models.Model):
-    """Model definition for Rating."""
-
-    # TODO: Define fields here
-    user = models.ForeignKey(User, related_name="user_rating", on_delete=models.CASCADE)
-    application = models.ForeignKey(Application, related_name="application_rating", on_delete=models.CASCADE)
-    ratings = models.IntegerField(_("Ratings"),choices=RATINGS)
-    reviews = models.TextField(_("Review"))
-    created = models.DateTimeField( auto_now=False, auto_now_add=True)
-
-    class Meta:
-        """Meta definition for Rating."""
-
-        verbose_name = 'Rating'
-        verbose_name_plural = 'Ratings'
-
-    def __str__(self):
-        """Unicode representation of Rating."""
-        return self.ratings
-        # return f"Ratbrangs: {self.get_ratings_display()}"
-
-    # def save(self):
-    #     """Save method for Rating."""
-    #     pass
-
-    def get_absolute_url(self):
-        """Return absolute url for Rating."""
-        return ('')
-
-    # TODO: Define custom methods here

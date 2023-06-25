@@ -1,6 +1,6 @@
 from typing import Any
 from django.contrib import admin
-from .models import Profile,ProfileCV
+from .models import Profile,ProfileCV,Rating
 # Register your models here.
 
 @admin.register(Profile)
@@ -38,3 +38,9 @@ class ProfileCVAdmin(admin.ModelAdmin):
     # search_fields = ('',)
     # date_hierarchy = ''
     # ordering = ('',)
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    '''Admin View for Rating'''
+
+    list_display = ('ratings','profile_id','reviews')
+   

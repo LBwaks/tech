@@ -27,7 +27,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class JobAdmin(admin.ModelAdmin):
     '''Admin View for Job'''
 
-    list_display = ('reference_id','title','deadline','created')
+    list_display = ('reference_id','id','title','deadline','created')
     list_filter = ('tags','skills')
     # inlines = [
     #     Inline,
@@ -47,7 +47,7 @@ class JobAdmin(admin.ModelAdmin):
 class JobImageAdmin(admin.ModelAdmin):
     '''Admin View for JobImage'''
 
-    list_display = ('job','image','created')
+    list_display = ('job','created')
     # list_filter = ('',)
     # inlines = [
     #     Inline,
