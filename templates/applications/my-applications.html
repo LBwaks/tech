@@ -15,51 +15,33 @@
 
                 <div class="page-content">
 
-                    {% comment %} <!-- Start home -->
-                    <section class="page-title-box">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6">
-                                    <div class="text-center text-white">
-                                        <h3 class="mb-4">Candidate Grid</h3>
-                                        <div class="page-next">
-                                            <nav class="d-inline-block" aria-label="breadcrumb text-center">
-                                                <ol class="breadcrumb justify-content-center">
-                                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
-                                                    <li class="breadcrumb-item active" aria-current="page"> Candidate Grid </li>
-                                                </ol>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                        </div>
-                        <!--end container-->
-                    </section>
-                    <!-- end home -->
+                        <div class="breadcrumbs overlay  mt-1" >
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-6 col-md-6 col-12">
+<div class="breadcrumbs-content">
+<h1 class="page-title">My Applications</h1>
 
-                    <!-- START SHAPE -->
-                    <div class="position-relative" style="z-index: 1">
-                        <div class="shape">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
-                                <path fill="#FFFFFF" fill-opacity="1"
-                                    d="M0,192L120,202.7C240,213,480,235,720,234.7C960,235,1200,213,1320,202.7L1440,192L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- END SHAPE -->
- {% endcomment %}
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-12">
+<ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
+<li><a href="{% url 'home' %}">Home</a></li>
+<li> <a href="{% url 'my-jobs' %}">My Jobs</a> </li>
+<li>My Applications</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 
                     <!-- START CANDIDATE-GRID -->
                     <section class="section">
                         <div class="container-fluid mx-2">
-                          
+                          <div class="row"> <div class="col-md-11 mx-auto">
                             <table id="my-applications" class="table  table-sm table-striped  dt-responsive nowrap" style="width:100%">
         <caption>My Applications</caption>
-                                <thead class="table-dark">
+                                <thead >
             <tr>
                 <th>Reference ID</th>               
                 {% comment %} <th>Job Status</th> {% endcomment %}
@@ -68,10 +50,10 @@
                 <th>Application Date</th>
                 <th>Salary</th>
                 <th>Extn.</th>
-                <th>E-mail</th>
+                <th> </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider  text-muted">
             {% for application in applications %}
             <tr>
                 <td> <a href="{{application.job.get_absolute_url}}" class="text-decoration-none">{{application.job.reference_id}}</a> </td>
@@ -91,9 +73,9 @@
  {{application.status}}
                 {% endif %}
                     
-                    {% comment %} {{application.status}}</td> {% endcomment %}
-                <td>{{application.created}}</td>
-                <td>
+                
+                <td class="bg-warning">{{application.created}}</td>
+                <td class="bg-danger">
                 <div class="d-flex flex-row justify-content-around ">
 {% if application.status == 'AcceptJob' %}
     <form method="POST" action="">
@@ -124,7 +106,7 @@
                     <div class="d-flex justify-content-around align-items-center">
                     <a href="{% url 'applications:update-application' application.uuid %}" class="link-primary"><i class="mdi mdi-pencil"></i></a>
 <a href="{% url 'applications:delete-application' application.uuid %}" class="link-danger"> <i class="uil uil-trash-alt"></i></a>
-<a href="{% url 'applications:delete-application' application.uuid %}" class="link-info"> <i class="mdi mdi-eye"></i></a>
+<a href="{% url 'applications:application-details' application.uuid %}" class="link-info"> <i class="mdi mdi-eye"></i></a>
     
                     </div>
 </td>
@@ -137,7 +119,7 @@
         </tbody>
     </table>
 
-                           
+             </div> </div>              
 
                         </div><!--end container-->
                     </section>

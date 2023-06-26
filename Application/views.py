@@ -55,7 +55,7 @@ class ApplicationCreateView(LoginRequiredMixin,SuccessMessageMixin, CreateView):
 
 class ApplicationDetailView(LoginRequiredMixin,DetailView):
     model = Application
-    template_name = "applications/application-details.html"
+    template_name = "applications/application-detail.html"
     context_object_name = "application"
     slug_field = "uuid"
     slug_url_kwarg = "slug"
