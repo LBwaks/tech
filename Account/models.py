@@ -169,3 +169,34 @@ class Rating(models.Model):
         return ('')
 
     # TODO: Define custom methods here
+
+class Education(models.Model):
+    """Model definition for Education."""
+
+    # TODO: Define fields here
+    user_profile = models.ForeignKey(Profile,related_name='user_education', verbose_name=_(""), on_delete=models.CASCADE)
+    slug=models.UUIDField(default=uuid.uuid4, editable=False)
+    course = models.TextField(_("Course"))
+    description = models.CharField(_("Description"), null=True, blank=True, max_length=250)
+    start_date = models.DateField(_("Start Date"), auto_now=False, auto_now_add=False)
+    end_date = models.DateField(_("End Date"), auto_now=False, auto_now_add=False)
+    created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
+    class Meta:
+        """Meta definition for Education."""
+
+        verbose_name = 'Education'
+        verbose_name_plural = 'Educations'
+
+    def __str__(self):
+        """Unicode representation of Education."""
+        return self.course
+
+    # def save(self):
+    #     """Save method for Education."""
+    #     pass
+
+    def get_absolute_url(self):
+        """Return absolute url for Education."""
+        return ('')
+
+    # TODO: Define custom methods here

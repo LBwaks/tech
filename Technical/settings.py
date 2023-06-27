@@ -406,7 +406,7 @@ CKEDITOR_CONFIGS = {
             },
             {
                 "name": "insert",
-                "items": ["Image", "Flash", "Table", "HorizontalRule", "SpecialChar"],
+                "items": ["Table", "HorizontalRule", "SpecialChar"],
             },
            
             "/",
@@ -446,8 +446,8 @@ CKEDITOR_CONFIGS = {
     'non_main':{
         'toolbar': 'Custom',
         'skin': 'moono',
-        #  "height": 291,
-        # "width": "auto",
+         "height": 291,
+        "width": "auto",
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],

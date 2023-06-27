@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Job Details {% endblock title %}
-
+{% load humanize %}
+{% load custom_filters %}
 {% block content %}
     <!-- Begin page -->
         <div>
@@ -11,44 +12,25 @@
 
                 <div class="page-content">
 
-                    <!-- Start home -->
-                    {% comment %} <section class="page-title-box">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6">
-                                    <div class="text-center text-white">
-                                        <h3 class="mb-4">My Profile</h3>
-                                        <div class="page-next">
-                                            <nav class="d-inline-block" aria-label="breadcrumb text-center">
-                                                <ol class="breadcrumb justify-content-center">
-                                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                                    <li class="breadcrumb-item"><a href="javascript:void(0)">My Profile</a></li>
-                                                    <li class="breadcrumb-item active" aria-current="page"> My Profile </li>
-                                                </ol>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end col-->
-                            </div>
-                            <!--end row-->
-                        </div>
-                        <!--end container-->
-                    </section>
-                    <!-- end home -->
+                                          <div class="breadcrumbs overlay  mt-1" >
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-6 col-md-6 col-12">
+<div class="breadcrumbs-content">
+<h1 class="page-title">{{profile.user.username}}'s Profile</h1>
 
-                    <!-- START SHAPE -->
-                    <div class="position-relative" style="z-index: 1">
-                        <div class="shape">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
-                                <path fill="#FFFFFF" fill-opacity="1"
-                                    d="M0,192L120,202.7C240,213,480,235,720,234.7C960,235,1200,213,1320,202.7L1440,192L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- END SHAPE --> {% endcomment %}
-
-
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-12">
+<ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
+<li><a href="{% url 'home' %}">Home</a></li>
+<li> <a href="{% url 'jobs' %}">Jobs</a> </li>
+<li>{{profile.user.username}}'s Profile</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
                     <!-- START PROFILE -->
                     <section class="section">
                         <div class="container">
@@ -63,12 +45,15 @@
                                                 <p class="text-muted">{{profile.title}}</p>
                                                 <ul class="list-inline d-flex justify-content-center align-items-center ">
                                                     <li class="list-inline-item text-warning fs-19">
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star"></i>
-                                                        <i class="mdi mdi-star-half-full"></i>
+                                            {% if  profile.averageview > 1 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                            {% if  profile.averageview > 2 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                            {% if  profile.averageview > 3 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                            {% if  profile.averageview > 4 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                            {% if  profile.averageview > 5 %} <i  class="mdi mdi-star"></i> {% else %} <i class="mdi mdi-star-outline text-dark"></i>   {% endif %}
+                                                 <span  class="text-dark">( {{profile.averageview | stringformat:".2f"}})</span>       
+                                                 
                                                     </li>
+                                                    
                                                 </ul>
                                                 <ul class="candidate-detail-social-menu list-inline mb-0">
                                                   
@@ -111,37 +96,30 @@
                                             <div class="mt-4 border-bottom pb-4">
                                                 <h5 class="fs-17 fw-bold mb-3">Documents</h5>
                                                 <ul class="profile-document list-unstyled mb-0">
+                                                  {% for document in profile.profile_cv.all %}  
                                                     <li>
                                                         <div class="profile-document-list d-flex align-items-center mt-4 ">
-                                                            <div class="icon flex-shrink-0">
+                                                           
+                                                                  
+                                                           <div class="icon flex-shrink-0">
                                                                 <i class="uil uil-file"></i>
                                                             </div>
-                                                            <div class="ms-3">
-                                                                {% for document in profile.profile_cv.all %}
-    <h6 class="fs-16 mb-0"> <a class="text-decoration-none text-muted" target="_blank" href="{{document.cv.url}}">{{document.cv.name}}</a></h6>
+                                                                 <div class="ms-3">
+                                                                                                                   
+    <h6 class="fs-16 mb-0">  <a class="text-decoration-none text-dark" target="_blank" href="{{document.cv.url}}">{{document.cv.name|basename}}</a></h6>
 
-    {% endfor %}
+
                                                                 
                                                             </div>
-                                                            {% comment %} <div class="ms-auto">
-                                                                <a href="assets/images/dark-logo.html" download class="fs-20 text-muted"><i class="uil uil-import"></i></a>
-                                                            </div> {% endcomment %}
+                                                            <div class="ms-auto">
+                                                                <a arget="_blank" href="{{document.cv.url}}" download="dark-logo" class="fs-20 text-muted"><i class="uil uil-import"></i></a>
+                                                            </div>
+                                                               
                                                         </div>
                                                     </li>
-                                                    {% comment %} <li>
-                                                        <div class="profile-document-list d-flex align-items-center mt-4 ">
-                                                            <div class="icon flex-shrink-0">
-                                                                <i class="uil uil-file"></i>
-                                                            </div>
-                                                            <div class="ms-3">
-                                                                <h6 class="fs-16 mb-0">Cover-letter.pdf</h6>
-                                                                <p class="text-muted mb-0">1.25 MB</p>
-                                                            </div>
-                                                            <div class="ms-auto">
-                                                                <a href="assets/images/dark-logo.html" download="dark-logo" class="fs-20 text-muted"><i class="uil uil-import"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </li> {% endcomment %}
+                                                   
+                                                         {% endfor %}
+                                                       
                                                 </ul>
                                             </div>
                                             <!--end document-->
@@ -228,11 +206,11 @@
                                                             </div>
                                                         </li>
                                                         <li>
-                                                            <div class="d-flex">
+                                                            <div class="d-flex bg-danger">
                                                                 <label>All Applications</label>
                                                                 <div>
-                                                                    <p class="text-muted text-break mb-0 mr-3 "> 
-                                                                         <span class="badge rounded-pill text-bg-info "> {{applications}}</span>
+                                                                    <p class="text-muted text-break mb-0 "> 
+                                                                         <span class="badge rounded-pill text-bg-info"> <span class="pl-2">  {{applications}}</span></span>
                                                                        </p>
                                                                 </div>
                                                             </div>
@@ -375,6 +353,139 @@
                                                         
                                                         <span class="badge fs-13 bg-soft-blue mt-2">{{profile.skills}}</span>
                                                     </div>
+                                                    <!-- Template file -->
+<form id="education-form" method="post">
+  {% csrf_token %}
+  {{ formset.management_form }}
+
+  <div id="education-fields">
+    <!-- Existing education fields (if any) -->
+    {% for form in formset %}
+    <div class="education-field">
+      <!-- Education input fields -->
+      {{ form.degree }}
+      {{ form.institution }}
+      {{ form.start_year }}
+      {{ form.end_year }}
+      <!-- Remove button -->
+      <button type="button" class="remove-education">Remove</button>
+    </div>
+    {% endfor %}
+  </div>
+  
+  <!-- Add education button -->
+  <button type="button" id="add-education">Add Education</button>
+  
+  <!-- Submit button -->
+  <button type="submit">Save</button>
+</form>
+
+<!-- Form template for a single education field -->
+<div id="form-template" style="display: none;">
+  <div class="education-field">
+    <input type="text" name="form-__prefix__-degree" value="">
+    <input type="text" name="form-__prefix__-institution" value="">
+    <input type="number" name="form-__prefix__-start_year" value="">
+    <input type="number" name="form-__prefix__-end_year" value="">
+    <button type="button" class="remove-education">Remove</button>
+  </div>
+</div>
+
+<script>
+  // Add click event listener to the "Add Education" button
+  document.getElementById('add-education').addEventListener('click', function() {
+    addEducationField();
+  });
+
+  // Add click event listener to the "Remove" buttons
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove-education')) {
+      removeEducationField(event.target.parentNode);
+    }
+  });
+
+  // Function to add a new education field
+  function addEducationField() {
+    var educationFields = document.getElementById('education-fields');
+    var formCount = educationFields.childElementCount;
+
+    // Retrieve the HTML template for a new form
+    var formTemplate = document.getElementById('form-template').innerHTML;
+
+    // Replace the form prefixes in the template with the updated count
+    var newFormHtml = formTemplate.replace(/__prefix__/g, formCount);
+
+    // Create a new form element from the HTML template
+    var newForm = document.createElement('div');
+    newForm.classList.add('education-field');
+    newForm.innerHTML = newFormHtml;
+
+    // Append the new form to the education fields
+    educationFields.appendChild(newForm);
+  }
+
+  // Function to remove an education field
+  function removeEducationField(field) {
+    field.parentNode.removeChild(field);
+  }
+</script>
+
+                                                    <!-- Template file -->
+<form id="education-form">
+  <div id="education-fields">
+    <!-- Existing education fields (if any) -->
+    {% for education in profile.education.all %}
+    <div class="education-field">
+      <!-- Education input fields -->
+      <input type="text" name="degree" value="{{ education.degree }}">
+      <input type="text" name="institution" value="{{ education.institution }}">
+      <input type="number" name="start_year" value="{{ education.start_year }}">
+      <input type="number" name="end_year" value="{{ education.end_year }}">
+      <!-- Remove button -->
+      <button type="button" class="remove-education">Remove</button>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- Add education button -->
+  <button type="button" id="add-education">Add Education</button>
+  <!-- Submit button -->
+  <button type="submit">Save</button>
+</form>
+
+<script>
+  // Add click event listener to the "Add Education" button
+  document.getElementById('add-education').addEventListener('click', function() {
+    addEducationField();
+  });
+
+  // Add click event listener to the "Remove" buttons
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove-education')) {
+      removeEducationField(event.target.parentNode);
+    }
+  });
+
+  // Function to add a new education field
+  function addEducationField() {
+    var educationFields = document.getElementById('education-fields');
+    var newField = document.createElement('div');
+    newField.classList.add('education-field');
+    newField.innerHTML = `
+      <input type="text" name="degree" value="">
+      <input type="text" name="institution" value="">
+      <input type="number" name="start_year" value="">
+      <input type="number" name="end_year" value="">
+      <button type="button" class="remove-education">Remove</button>
+    `;
+    educationFields.appendChild(newField);
+  }
+
+  // Function to remove an education field
+  function removeEducationField(field) {
+    field.parentNode.removeChild(field);
+  }
+</script>
+
                                                    
                                                 </div>
                                                

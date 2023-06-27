@@ -1,10 +1,11 @@
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import ProfileForm
-from django.views.generic import UpdateView,TemplateView
+from .forms import ProfileForm,EducationForm
+from django.views.generic import UpdateView,TemplateView,View
 from .models import Profile,ProfileCV
 from django.shortcuts import get_object_or_404
+from django.forms import formset_factory
 
 # from 
 
@@ -39,3 +40,11 @@ class ProfileUpdateView(UpdateView):
             ProfileCV.objects.create(profile=profile, user= self.request.user,cv=document)
         
         return super(ProfileUpdateView,self).form_valid(form)
+class EditEducationView(View):
+    
+    EducationFormSet = formset_factory(EducationForm,extra=1)
+    template_name = "profiles/user-profile.html"
+    
+    
+    
+    

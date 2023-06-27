@@ -1,10 +1,9 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
-
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
-from .models import Profile, ProfileCV
+from .models import Education, Profile, ProfileCV
 
 
 class  ProfileForm(forms.ModelForm):
@@ -64,33 +63,14 @@ class  ProfileForm(forms.ModelForm):
             
         }
 
-
-# class PhoneForm(forms.Form):
-#     number = PhoneNumberField(region="CA")
-
-
-# class CanadianPhoneForm(forms.Form):
-#     # RegionalPhoneNumberWidget is the default widget.
-
-#     number = PhoneNumberField(region="CA")
-
-
-# from django import forms
-# from phonenumber_field.formfields import PhoneNumberField
-# from phonenumber_field.widgets import PhoneNumberPrefixWidget
-
-# # Limiting country choices.
-
-
-# class CanadianPhoneForm(forms.Form):
-#     # RegionalPhoneNumberWidget is the default widget.
-
-#     number = PhoneNumberField(
-#         region="CA",
-#         widget=PhoneNumberPrefixWidget(
-#             country_choices=[
-#                 ("CA", "Canada"),
-#                 ("FR", "France"),
-#             ],
-#         ),
-#     )
+class EducationForm(forms.ModelForm):
+    
+    class Meta:
+        model = Education
+        fields = ("course","description","start_date","end_date")
+        widgets ={
+            "course":forms.TextInput(attrs={'class':'form-class course','required':True}),
+            "description":forms.TextInput(attrs={'class':'form-class description',}),
+            "start_date":forms.DateInput(attrs={'class': 'control-select start_date', 'required': True, 'type': 'date'}),
+            "end_date":forms.DateInput(attrs={'class': 'control-select end_date', 'required': True, 'type':"date"}),
+        }

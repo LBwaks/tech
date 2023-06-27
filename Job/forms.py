@@ -15,7 +15,7 @@ class JobForm(forms.ModelForm):
     }))
     tags = forms.ModelMultipleChoiceField(label="Tags", widget=forms.SelectMultiple(attrs={"class": "form-select form-control tag-multiple", "style": "width:100%", "multiple": "multiple", "required": True}), queryset=Tag.objects.all())
    
-    content = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
+    content = forms.CharField(label="Job Descripion",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     responsibility = forms.CharField(widget=CKEditorWidget( config_name='non_main', attrs={'class': 'form-control', 'required': True}))
     qualification = forms.CharField(widget=CKEditorWidget(config_name='non_main',attrs={'class': 'form-control', 'required': True}))
     
@@ -66,7 +66,7 @@ class JobEditForm(forms.ModelForm):
     }))
     tags = forms.ModelMultipleChoiceField(label="Tags", widget=forms.SelectMultiple(attrs={"class": "form-select form-control tag-multiple", "style": "width:100%", "multiple": "multiple", "required": True}), queryset=Tag.objects.all())
    
-    content = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
+    content = forms.CharField(label="Job Description",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     responsibility = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     qualification = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     skills = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
@@ -93,6 +93,9 @@ class JobEditForm(forms.ModelForm):
             "location",
             "address",
         )
+        label ={
+            "positions":"Available slots",
+        }
         # def __init__(self,*args, **kwargs):
         #     super().__init__(*args, **kwargs)
         #     self.fields['title',].widget.attrs.update({'class':'form-label'})

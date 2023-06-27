@@ -60,7 +60,7 @@ class Job(models.Model, HitCountMixin):
     slug = AutoSlugField(populate_from="title",db_index=True)
     category = models.ForeignKey(Category,db_index=True, verbose_name=_("Category"), on_delete=models.CASCADE)
     tags = TaggableManager(_("Tags"))
-    content = RichTextField(_("Description"))
+    content = RichTextField(_("Job Description"))
     responsibility =  RichTextField(_("Responsibility"), config_name='non_main')
     qualification = RichTextField(_("Qualification"),null=True,blank=True)
     deadline = models.DateTimeField(
@@ -73,7 +73,7 @@ class Job(models.Model, HitCountMixin):
     job_type = models.CharField(_("Job type"), choices=JOB_TYPE, max_length=50)
     seeker_type = models.CharField(_("Seeker Type"), choices=SEEKER_TYPE, max_length=50)
     industry = models.CharField(_("Industry"), choices=INDUSTRY, max_length=50)
-    positions = models.IntegerField(_("Available position"))
+    positions = models.IntegerField(_("Available Slots"))
 
     hit_count_generic = GenericRelation(
     HitCount, object_id_field='object_pk',

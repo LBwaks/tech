@@ -2489,7 +2489,9 @@ body[data-layout-mode=dark] .card{
   color:red;
   margin:5px;
 }
-
+.ckeditorwidget{
+    width: auto  !important;
+}
 
 /* fancybox */
 #lightSlider {
