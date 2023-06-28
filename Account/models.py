@@ -1,7 +1,7 @@
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 from django.urls import reverse
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -176,8 +176,9 @@ class Education(models.Model):
     # TODO: Define fields here
     user_profile = models.ForeignKey(Profile,related_name='user_education', verbose_name=_(""), on_delete=models.CASCADE)
     slug=models.UUIDField(default=uuid.uuid4, editable=False)
-    course = models.TextField(_("Course"))
-    description = models.CharField(_("Description"), null=True, blank=True, max_length=250)
+    course = models.CharField(_("Course"))
+    institution = models.CharField(_("Institution"))
+    description = models.TextField(_("Description"), null=True, blank=True, max_length=250)
     start_date = models.DateField(_("Start Date"), auto_now=False, auto_now_add=False)
     end_date = models.DateField(_("End Date"), auto_now=False, auto_now_add=False)
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)

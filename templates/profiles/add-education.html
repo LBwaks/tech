@@ -45,28 +45,14 @@
                             </div><!--end row-->
                                 <div class="col-lg-10 mx-auto">
                                      
-                                   <form action="" method ="POST">
-    {{formset.as_p}}
-    {% comment %} <table>
-        gggggggg
-        {% for form in formset %} 
-        hhhhhhhhh
-        {{form.as_p}}
-        {% endfor %} 
-    </table> {% endcomment %}
-</form>
-<hr>
-<hr>
-<hr>
-<form method="post">
-    {{ formset.management_form }}
-    <table>
-        {% for form in formset %}
-        {{ form.as_p }}
-        {% endfor %}
-    </table>
-</form>
-*************
+                                   <form action="" method="post" enctype="multipart/form-data" class="p-5 mb-3 mt-4 border rounded-3 bg-white">
+    {% csrf_token %}
+    {{form | crispy }}
+    
+    <div class="d-grid gap-2 col-6 mx-auto pt-2">
+    <button type="submit" class="btn btn-success">Update Profile </button>
+    </div>
+</form> 
                                     
                                 </div><!--end col-->
 

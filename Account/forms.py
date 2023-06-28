@@ -67,10 +67,11 @@ class EducationForm(forms.ModelForm):
     
     class Meta:
         model = Education
-        fields = ("course","description","start_date","end_date")
+        fields = ("course","institution","description","start_date","end_date")
         widgets ={
             "course":forms.TextInput(attrs={'class':'form-class course','required':True}),
-            "description":forms.TextInput(attrs={'class':'form-class description',}),
+            "institution":forms.TextInput(attrs={'class':'form-class institution','required':True}),
+            "description":forms.Textarea(attrs={'class':'form-class description',}),
             "start_date":forms.DateInput(attrs={'class': 'control-select start_date', 'required': True, 'type': 'date'}),
             "end_date":forms.DateInput(attrs={'class': 'control-select end_date', 'required': True, 'type':"date"}),
         }

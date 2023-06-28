@@ -2,6 +2,7 @@
 {% block title %} Job Details {% endblock title %}
 {% load humanize %}
 {% load custom_filters %}
+{% load crispy_forms_tags %}
 {% block content %}
     <!-- Begin page -->
         <div>
@@ -254,10 +255,26 @@
                                                         Overview
                                                     </button>
                                                 </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link " id="education-tab" data-bs-toggle="pill"
+                                                        data-bs-target="#education type="button" role="tab" aria-controls="education"
+                                                        aria-selected="true">
+                                                        Add Education
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link " id="experience-tab" data-bs-toggle="pill"
+                                                        data-bs-target="#experience" type="button" role="tab" aria-controls="experience"
+                                                        aria-selected="true">
+                                                        Add Experience.
+                                                    </button>
+                                                </li>
                                                
                                             </ul>
+                                            
                                             <!--end profile-content-nav-->
                                         <div class="card-body p-4">
+
                                             <div class="tab-content" id="pills-tabContent">
                                                 <div class="tab-pane fade show active" id="overview" role="tabpanel"
                                                     aria-labelledby="overview-tab">
@@ -268,12 +285,41 @@
                                                         </p>
                                                         
                                                     </div>
-                                                    <div class="candidate-education-details mt-4">
+                                                    <div class="candidate-education-details mt-4 ">
                                                         <h6 class="fs-18 fw-bold mb-0">Education</h6>
+                                                        {% for education  in educations %}
+                                                           <div class="candidate-education-content mt-4 d-flex">
+                                                            <div class="circle flex-shrink-0 bg-soft-primary">
+                                                                {{education.course|slice:":2"}}
+                                                            </div>
+                                                            
+                                                            <div class="ms-4">
+                                                                <div class=" d-flex flex-row justify-content-between">
+ <h6 class="fs-16 mb-1">
+                                                                   {{education.course}}
+                                                                </h6>
+                                                                <h6> <a href="{% url 'remove-education' education.slug %}" class="link-danger fw-light"><u>Remove</u></a></h6>
+                                                                </div>
+
+                                                               
+                                                                <p class="mb-2 text-muted">
+                                                                    {{education.institution}} - <span class="fw-light"> ({{education.start_date}} - {{education.end_date}}) </span>
+                                                                </p>
+                                                                
+                                                                {% if education.description %}
+                                                                    <p class="text-muted">
+                                                                   {{education.description}}
+                                                                </p>
+                                                                {% endif %}
+                                                                   
+                                                            </div>
+                                                        </div>
+                                                            {% endfor %}
                                                         <div class="candidate-education-content mt-4 d-flex">
                                                             <div class="circle flex-shrink-0 bg-soft-primary">
                                                                 B
                                                             </div>
+                                                            
                                                             <div class="ms-4">
                                                                 <h6 class="fs-16 mb-1">
                                                                     BCA - Bachelor of Computer Applications
@@ -354,7 +400,8 @@
                                                         <span class="badge fs-13 bg-soft-blue mt-2">{{profile.skills}}</span>
                                                     </div>
                                                     <!-- Template file -->
-<form id="education-form" method="post">
+<form id="education-form" action="" class="contact-form mt-4" method="post">
+
   {% csrf_token %}
   {{ formset.management_form }}
 
@@ -363,134 +410,54 @@
     {% for form in formset %}
     <div class="education-field">
       <!-- Education input fields -->
-      {{ form.degree }}
-      {{ form.institution }}
-      {{ form.start_year }}
-      {{ form.end_year }}
-      <!-- Remove button -->
-      <button type="button" class="remove-education">Remove</button>
+      {{ form | crispy }}
+     
     </div>
     {% endfor %}
   </div>
   
-  <!-- Add education button -->
-  <button type="button" id="add-education">Add Education</button>
-  
-  <!-- Submit button -->
-  <button type="submit">Save</button>
+
+   <div class="d-grid gap-2 d-md-flex justify-content-md-around">
+                                                <button type="button" id="add-education" class="btn btn-secondary"> Add Education</button>
+                                                <button type="submit" id="submit" name="submit" class="btn btn-info"> Save</button>
+                                            </div>
+ 
 </form>
 
-<!-- Form template for a single education field -->
-<div id="form-template" style="display: none;">
-  <div class="education-field">
-    <input type="text" name="form-__prefix__-degree" value="">
-    <input type="text" name="form-__prefix__-institution" value="">
-    <input type="number" name="form-__prefix__-start_year" value="">
-    <input type="number" name="form-__prefix__-end_year" value="">
-    <button type="button" class="remove-education">Remove</button>
-  </div>
-</div>
-
-<script>
-  // Add click event listener to the "Add Education" button
-  document.getElementById('add-education').addEventListener('click', function() {
-    addEducationField();
-  });
-
-  // Add click event listener to the "Remove" buttons
-  document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('remove-education')) {
-      removeEducationField(event.target.parentNode);
-    }
-  });
-
-  // Function to add a new education field
-  function addEducationField() {
-    var educationFields = document.getElementById('education-fields');
-    var formCount = educationFields.childElementCount;
-
-    // Retrieve the HTML template for a new form
-    var formTemplate = document.getElementById('form-template').innerHTML;
-
-    // Replace the form prefixes in the template with the updated count
-    var newFormHtml = formTemplate.replace(/__prefix__/g, formCount);
-
-    // Create a new form element from the HTML template
-    var newForm = document.createElement('div');
-    newForm.classList.add('education-field');
-    newForm.innerHTML = newFormHtml;
-
-    // Append the new form to the education fields
-    educationFields.appendChild(newForm);
-  }
-
-  // Function to remove an education field
-  function removeEducationField(field) {
-    field.parentNode.removeChild(field);
-  }
-</script>
-
-                                                    <!-- Template file -->
-<form id="education-form">
-  <div id="education-fields">
-    <!-- Existing education fields (if any) -->
-    {% for education in profile.education.all %}
-    <div class="education-field">
-      <!-- Education input fields -->
-      <input type="text" name="degree" value="{{ education.degree }}">
-      <input type="text" name="institution" value="{{ education.institution }}">
-      <input type="number" name="start_year" value="{{ education.start_year }}">
-      <input type="number" name="end_year" value="{{ education.end_year }}">
-      <!-- Remove button -->
-      <button type="button" class="remove-education">Remove</button>
-    </div>
-    {% endfor %}
-  </div>
-  <!-- Add education button -->
-  <button type="button" id="add-education">Add Education</button>
-  <!-- Submit button -->
-  <button type="submit">Save</button>
-</form>
-
-<script>
-  // Add click event listener to the "Add Education" button
-  document.getElementById('add-education').addEventListener('click', function() {
-    addEducationField();
-  });
-
-  // Add click event listener to the "Remove" buttons
-  document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('remove-education')) {
-      removeEducationField(event.target.parentNode);
-    }
-  });
-
-  // Function to add a new education field
-  function addEducationField() {
-    var educationFields = document.getElementById('education-fields');
-    var newField = document.createElement('div');
-    newField.classList.add('education-field');
-    newField.innerHTML = `
-      <input type="text" name="degree" value="">
-      <input type="text" name="institution" value="">
-      <input type="number" name="start_year" value="">
-      <input type="number" name="end_year" value="">
-      <button type="button" class="remove-education">Remove</button>
-    `;
-    educationFields.appendChild(newField);
-  }
-
-  // Function to remove an education field
-  function removeEducationField(field) {
-    field.parentNode.removeChild(field);
-  }
-</script>
-
+                                                   
                                                    
                                                 </div>
                                                
                                             </div>
                                             <!--end tab-content-->
+                                             
+                                              <div class="tab-content" id="pills-tabContent">
+                                                <div class="tab-pane fade show active" id="experience" role="tabpanel"
+                                                    aria-labelledby="overview-tab">
+                                                   
+                                                    
+                                        <div class="text-center"> <u>Add Education</u></div>           
+                                                   
+<form action="" class="contact-form mt-4" method="post">
+
+  {% csrf_token %}
+  
+      {{ form | crispy }}
+    
+   <div class="d-grid gap-2 d-md-flex justify-content-md-around">
+                                                
+<button type="submit" id="submit" name="submit" class="btn btn-info"> Save</button>
+   </div>
+ 
+</form>
+
+                                                   
+                                                   
+                                                </div>
+                                               
+                                            </div>
+                                            <!--end tab-content-->
+                                                                                      
                                         </div>
                                         <!--end card-body-->
                                     </div>
