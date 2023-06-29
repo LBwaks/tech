@@ -46,27 +46,14 @@
                                 <div class="col-lg-10 mx-auto">
                                      
                                    <form action="" method ="POST">
-    {{formset.as_p}}
-    {% comment %} <table>
-        gggggggg
-        {% for form in formset %} 
-        hhhhhhhhh
-        {{form.as_p}}
-        {% endfor %} 
-    </table> {% endcomment %}
-</form>
-<hr>
-<hr>
-<hr>
-<form method="post">
-    {{ formset.management_form }}
-    <table>
-        {% for form in formset %}
-        {{ form.as_p }}
-        {% endfor %}
-    </table>
-</form>
-*************
+                                    {% csrf_token %}
+                                    {{ form | crispy }}
+<div class="d-grid gap-2 col-6 mx-auto mb-2">
+
+                                    <button type="submit" id="submit" name="submit" class="btn btn-info"> Update Profile </button>
+</div>
+                                </form>
+
                                     
                                 </div><!--end col-->
 

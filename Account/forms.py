@@ -3,7 +3,7 @@ from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
-from .models import Education, Profile, ProfileCV
+from .models import Education, Profile, ProfileCV,Experience
 
 
 class  ProfileForm(forms.ModelForm):
@@ -71,6 +71,19 @@ class EducationForm(forms.ModelForm):
         widgets ={
             "course":forms.TextInput(attrs={'class':'form-class course','required':True}),
             "institution":forms.TextInput(attrs={'class':'form-class institution','required':True}),
+            "description":forms.Textarea(attrs={'class':'form-class description',}),
+            "start_date":forms.DateInput(attrs={'class': 'control-select start_date', 'required': True, 'type': 'date'}),
+            "end_date":forms.DateInput(attrs={'class': 'control-select end_date', 'required': True, 'type':"date"}),
+        }
+        
+class ExperienceForm(forms.ModelForm):
+    
+    class Meta:
+        model = Experience
+        fields = ("title","employer","description","start_date","end_date")
+        widgets ={
+            "title":forms.TextInput(attrs={'class':'form-class title','required':True}),
+            "employer":forms.TextInput(attrs={'class':'form-class employer','required':True}),
             "description":forms.Textarea(attrs={'class':'form-class description',}),
             "start_date":forms.DateInput(attrs={'class': 'control-select start_date', 'required': True, 'type': 'date'}),
             "end_date":forms.DateInput(attrs={'class': 'control-select end_date', 'required': True, 'type':"date"}),

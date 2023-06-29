@@ -246,39 +246,45 @@
                                 <!--end col-->
                                 <div class="col-lg-8">
                                     <div class="card profile-content-page mt-4 mt-lg-0">
+
+
+
+
+
+
+
+                                    	<ul class=" nav nav-tabs border-bottom mb-4" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview-tab-pane" type="button" role="tab" aria-controls="overview-tab-pane" aria-selected="true"> Overview</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">Add Education</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="experience-tab" data-bs-toggle="tab" data-bs-target="#experience-tab-pane" type="button" role="tab" aria-controls="experience-tab-pane" aria-selected="false">Add Experience</button>
+  </li>
+ 
+</ul>
+
+
+
                                         <ul class="profile-content-nav nav nav-pills border-bottom mb-4" id="pills-tab"
                                                 role="tablist">
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link active" id="overview-tab" data-bs-toggle="pill"
-                                                        data-bs-target="#overview" type="button" role="tab" aria-controls="overview"
-                                                        aria-selected="true">
-                                                        Overview
-                                                    </button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link " id="education-tab" data-bs-toggle="pill"
-                                                        data-bs-target="#education type="button" role="tab" aria-controls="education"
-                                                        aria-selected="true">
-                                                        Add Education
-                                                    </button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link " id="experience-tab" data-bs-toggle="pill"
-                                                        data-bs-target="#experience" type="button" role="tab" aria-controls="experience"
-                                                        aria-selected="true">
-                                                        Add Experience.
-                                                    </button>
-                                                </li>
+                                               
+                                               
+                                               
                                                
                                             </ul>
                                             
                                             <!--end profile-content-nav-->
                                         <div class="card-body p-4">
 
-                                            <div class="tab-content" id="pills-tabContent">
-                                                <div class="tab-pane fade show active" id="overview" role="tabpanel"
-                                                    aria-labelledby="overview-tab">
-                                                    <div>
+
+
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="overview-tab-pane" role="tabpanel" aria-labelledby="overview-tab" tabindex="0">
+  	 <div>
                                                         <h5 class="fs-18 fw-bold">About</h5>
                                                         <p class="text-muted mt-4">
                                                             {{profile.bio}}
@@ -314,129 +320,48 @@
                                                                    
                                                             </div>
                                                         </div>
+                                                        {% empty %}
+
+                                                         <div class="candidate-education-content mt-4 d-flex">
+                                                            <p>No education listed !</p>
+                                                         </div>
                                                             {% endfor %}
-                                                        <div class="candidate-education-content mt-4 d-flex">
-                                                            <div class="circle flex-shrink-0 bg-soft-primary">
-                                                                B
-                                                            </div>
-                                                            
-                                                            <div class="ms-4">
-                                                                <h6 class="fs-16 mb-1">
-                                                                    BCA - Bachelor of Computer Applications
-                                                                </h6>
-                                                                <p class="mb-2 text-muted">
-                                                                    International University - (2004 - 2010)
-                                                                </p>
-                                                                <p class="text-muted">
-                                                                    There are many variations of passages of available,
-                                                                    but the majority alteration in some form. As a
-                                                                    highly skilled and successfull product development
-                                                                    and design specialist with more than 4 Years of My
-                                                                    experience.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="candidate-education-content mt-3 d-flex">
-                                                            <div class="circle flex-shrink-0 bg-soft-primary">
-                                                                M
-                                                            </div>
-                                                            <div class="ms-4">
-                                                                <h6 class="fs-16 mb-1">
-                                                                    MCA - Master of Computer Application
-                                                                </h6>
-                                                                <p class="mb-2 text-muted">
-                                                                    International University - (2010 - 2012)
-                                                                </p>
-                                                                <p class="text-muted">
-                                                                    There are many variations of passages of available,
-                                                                    but the majority alteration in some form. As a
-                                                                    highly skilled and successfull product development
-                                                                    and design specialist with more than 4 Years of My
-                                                                    experience.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="candidate-education-content mt-3 d-flex">
-                                                            <div class="circle flex-shrink-0 bg-soft-primary">
-                                                                D
-                                                            </div>
-                                                            <div class="ms-4">
-                                                                <h6 class="fs-16 mb-1">Design Communication Visual</h6>
-                                                                <p class="text-muted mb-2">
-                                                                    International University - (2012-2015)
-                                                                </p>
-                                                                <p class="text-muted">
-                                                                    There are many variations of passages of available,
-                                                                    but the majority alteration in some form. As a
-                                                                    highly skilled and successfull product development
-                                                                    and design specialist with more than 4 Years of My
-                                                                    experience.
-                                                                </p>
-                                                            </div>
-                                                        </div>
+                                                        
+                                                     
                                                     </div>
                                                     <div class="candidate-education-details mt-4">
                                                         <h6 class="fs-18 fw-bold mb-0">Experiences</h6>
-                                                        <div class="candidate-education-content mt-4 d-flex">
-                                                            <div class="circle flex-shrink-0 bg-soft-primary"> W </div>
+                                                        {% for experience in experiences %}
+                                                         <div class="candidate-education-content mt-4 d-flex">
+                                                            <div class="circle flex-shrink-0 bg-soft-primary">{{experience.title|slice:":2"}}</div>
                                                             <div class="ms-4">
-                                                                <h6 class="fs-16 mb-1">Web Design & Development Team Leader</h6>
-                                                                <p class="mb-2 text-muted">Creative Agency - (2013 - 2016)</p>
-                                                                <p class="text-muted">There are many variations of passages of available, but the majority alteration in some form. As a highly skilled and successfull product development and design specialist with more than 4 Years of My experience.</p>
+                                                                <div class=" d-flex flex-row justify-content-between">
+<h6 class="fs-10 mb-1">{{experience.title}}</h6>
+<h6> <a href="{% url 'remove-experience' experience.slug %}" class="link-danger fw-light"><u>Remove</u></a></h6>
+                                                                </div>
+                                                                
+                                                                <p class="mb-2 text-muted">{{experience.employer}} - <span class="fw-light"> ({{experience.start_date}} - {{experience.end_date}}) </span></p>
+                                                                <p class="text-muted">{{experience.description}}</p>
                                                             </div>
                                                         </div>
+                                                        {% empty %}
                                                         <div class="candidate-education-content mt-4 d-flex">
-                                                            <div class="circle flex-shrink-0 bg-soft-primary"> P </div>
-                                                            <div class="ms-4">
-                                                                <h6 class="fs-16 mb-1">Project Manager</h6>
-                                                                <p class="mb-2 text-muted">Jobvia Technology Pvt.Ltd - (Pressent)</p>
-                                                                <p class="text-muted mb-0">There are many variations of passages of available, but the majority alteration in some form. As a highly skilled and successfull product development and design specialist with more than 4 Years of My experience.</p>
-                                                            </div>
+                                                            <p> No experince listed !</p>
                                                         </div>
+                                                        {% endfor %}
+                                                       
+                                                        
                                                     </div>
                                                     <div class="mt-4">
                                                         <h5 class="fs-18 fw-bold">Skills</h5>
                                                         
                                                         <span class="badge fs-13 bg-soft-blue mt-2">{{profile.skills}}</span>
                                                     </div>
-                                                    <!-- Template file -->
-<form id="education-form" action="" class="contact-form mt-4" method="post">
-
-  {% csrf_token %}
-  {{ formset.management_form }}
-
-  <div id="education-fields">
-    <!-- Existing education fields (if any) -->
-    {% for form in formset %}
-    <div class="education-field">
-      <!-- Education input fields -->
-      {{ form | crispy }}
-     
-    </div>
-    {% endfor %}
+                                                   
   </div>
-  
 
-   <div class="d-grid gap-2 d-md-flex justify-content-md-around">
-                                                <button type="button" id="add-education" class="btn btn-secondary"> Add Education</button>
-                                                <button type="submit" id="submit" name="submit" class="btn btn-info"> Save</button>
-                                            </div>
- 
-</form>
-
-                                                   
-                                                   
-                                                </div>
-                                               
-                                            </div>
-                                            <!--end tab-content-->
-                                             
-                                              <div class="tab-content" id="pills-tabContent">
-                                                <div class="tab-pane fade show active" id="experience" role="tabpanel"
-                                                    aria-labelledby="overview-tab">
-                                                   
-                                                    
-                                        <div class="text-center"> <u>Add Education</u></div>           
+  <div class="tab-pane fade" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabindex="0">
+  	<div class="text-center"> <u>Add Education</u></div>           
                                                    
 <form action="" class="contact-form mt-4" method="post">
 
@@ -449,15 +374,27 @@
 <button type="submit" id="submit" name="submit" class="btn btn-info"> Save</button>
    </div>
  
-</form>
+</form>                                     
+  </div>
 
+  <div class="tab-pane fade" id="experience-tab-pane" role="tabpanel" aria-labelledby="experience-tab" tabindex="0">
+  	<div class="text-center"> <u>Add Experience.</u></div>           
                                                    
-                                                   
-                                                </div>
-                                               
-                                            </div>
-                                            <!--end tab-content-->
-                                                                                      
+<form action="" class="contact-form mt-4" method="post">
+
+  {% csrf_token %}
+  
+      {{ experienceForm | crispy }}
+    
+   <div class="d-grid gap-2 d-md-flex justify-content-md-around">
+                                                
+<button type="submit" id="submit" name="submit" class="btn btn-info"> Save</button>
+   </div>
+ 
+</form>
+  </div>
+  
+</div>                                                  
                                         </div>
                                         <!--end card-body-->
                                     </div>

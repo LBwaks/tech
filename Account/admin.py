@@ -1,6 +1,6 @@
 from typing import Any
 from django.contrib import admin
-from .models import Profile,ProfileCV,Rating,Education
+from .models import Profile,ProfileCV,Rating,Education,Experience
 # Register your models here.
 
 @admin.register(Profile)
@@ -43,12 +43,14 @@ class RatingAdmin(admin.ModelAdmin):
     '''Admin View for Rating'''
 
     list_display = ('ratings','profile_id','reviews')
+    
+    
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
     '''Admin View for Education'''
 
     list_display = ('course','institution','start_date','end_date')
-    # list_filter = ('',)
+    list_filter = ('course','institution')
     # inlines = [
     #     Inline,
     # ]
@@ -57,3 +59,11 @@ class EducationAdmin(admin.ModelAdmin):
     # search_fields = ('',)
     # date_hierarchy = ''
     # ordering = ('',)
+    
+@admin.register(Experience)
+class ExperienceAdmin(admin.ModelAdmin):
+    '''Admin View for Experience'''
+
+    list_display = ('title','employer','start_date','end_date')
+    list_filter = ('title',)
+   

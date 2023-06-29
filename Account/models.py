@@ -201,3 +201,34 @@ class Education(models.Model):
         return ('')
 
     # TODO: Define custom methods here
+class Experience(models.Model):
+    """Model definition for Experience."""
+
+    # TODO: Define fields here
+    user_profile = models.ForeignKey(Profile,related_name='user_experince', verbose_name=_(""), on_delete=models.CASCADE)
+    slug=models.UUIDField(default=uuid.uuid4, editable=False)
+    title = models.CharField(_("Title"), max_length=150)
+    employer = models.CharField(_("Employer"), max_length=50)
+    description = models.TextField(_("Explain Your Role"),blank=True, null=True)
+    start_date = models.DateField(_("Start Date"), auto_now=False, auto_now_add=False)
+    end_date = models.DateField(_("End Date"),null=True,blank=True, auto_now=False, auto_now_add=False)
+    created = models.DateTimeField( auto_now_add=True)
+    class Meta:
+        """Meta definition for Experience."""
+
+        verbose_name = 'Experience'
+        verbose_name_plural = 'Experiences'
+
+    def __str__(self):
+        """Unicode representation of Experience."""
+        return self.title
+
+    # def save(self):
+    #     """Save method for Experience."""
+    #     pass
+
+    def get_absolute_url(self):
+        """Return absolute url for Experience."""
+        return ('')
+
+    # TODO: Define custom methods here
