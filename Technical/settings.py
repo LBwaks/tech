@@ -13,9 +13,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
-
+import logging.config
 from django.conf import settings
 from dotenv import load_dotenv
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # cloudnary
 import cloudinary
@@ -467,3 +469,76 @@ cloudinary.config(
 )
 import cloudinary.uploader
 import cloudinary.api
+
+
+LOGGING_CONFIG =None
+LOGGING ={
+    "version" : 1,
+    "disable_existing_loggers":False,
+    "formatters":{
+        "verbose":{
+            "()":"colorlog.ColoredFormatter",
+            "format":"%(log_color)s %(levelname)-8s %(asctime)s %(request_id)s %(process)s %(filename)s %(lineno)-8s [%(name)s] %(funcName)-24s : %(message)s",
+            "log_colors":{
+                "DEBUG":"blue",
+                "INFO":"white",
+                "ERROR":"red",
+                "WARNING":"yellow"
+            },
+
+            
+        },
+        "simple":{
+            "format": "%(levelname)s %(asctime)s %(name)s %(module)s %(filename)s %(lineno)d %(funcName)s %(message)s",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    "filters":{
+        "request_id" : {"()": "log_request_id.filters.RequestIDFilter"},
+        
+    },
+    "handlers":{
+        "console":{
+            "class":"logging.StreamHandler",
+            "formatter":"verbose",
+            "filters":["request_id"]
+        },
+        "sentry":{
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+        },
+    },
+    "loggers":{
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+        "django.server":{
+            'handlers':["console","sentry"],
+            "level":"DEBUG",
+            'propagate': False,
+        },
+    }
+        
+    },
+DEBUG_PROPAGATE_EXCEPTIONS = True
+
+COMPRESS_ENABLED = os.getenv('COMPRESS_ENABLED', False)
+
+
+
+sentry_sdk.init(
+    dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
+    integrations=[
+        DjangoIntegration(
+            transaction_style="url",
+            middleware_spans=True,
+            signals_spans=False,
+            ),
+    ],
+
+  
+    traces_sample_rate=1.0,   
+    send_default_pii=True
+)
