@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+<section class="login" class="d-flex justify-content-center align-items-center align-content-around "style="background-color: #F4F7FA;height:100vh;
+">     
+  <div class="container">
+    <div class="login-content">
+    <div class="row d-flex justify-content-center align-items-center align-content-around px-2 ">
+
+      <div class="col-xl-6 col-md-8 col-12   bg-white p-3 rounded">
+    <h3 class="inner-title text-center">{% trans "Verify Your E-mail Address" %}</h3>
+
+     <p class="font-monospace">{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. If you do not see the verification e-mail in your main inbox, check your spam folder. Please contact us if you do not receive the verification e-mail within a few minutes.{% endblocktrans %}</p>
+</div>
+</div>
+        </div>
+      </div>
+    
+  
+    </section>
+{% endblock %}

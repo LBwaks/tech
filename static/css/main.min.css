@@ -2532,4 +2532,58 @@ lSSlideOuter .lSPager.lSGallery li.active:hover, .lSSlideOuter .lSPager.lSGaller
     height: 64px;
     max-width: 100%;
 }
+
+
+
+/*======================================
+	login CSS
+========================================*/
+.login{
+  position: relative;
+  z-index: 3;
+  padding-top: 120px;
+  overflow: hidden;
+  
+}
+.login .login-content{
+  padding: 50px 0px;
+  border-radius: 5px;
+  /* overflow: hidden; */
+}
+.login .inner-title {
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1px dashed #473BF0;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.login .reset{
+  background-color: #F4F7FA;
+}
+
+.or-seperator {
+    margin: 20px 0 10px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+.or-seperator i {
+    padding: 0 10px;
+    background: #f7f7f7;
+    position: relative;
+    top: -11px;
+    z-index: 1;
+}
+.social-btn  {
+    margin: 10px 0;
+    font-size: 15px;
+    /* text-align: left;  */
+    line-height: 24px;       
+}
+
+.i-google{
+float: left;
+margin: 4px 15px  0 5px;
+min-width: 15px;
+}
 /*# sourceMappingURL=app.min.css.map */
