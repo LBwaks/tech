@@ -9,34 +9,48 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import environ
 import os
 from datetime import timedelta
 from pathlib import Path
 import logging.config
 from django.conf import settings
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
+
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 # cloudnary
 import cloudinary
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# Set the project base directory
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-load_dotenv(os.path.join(BASE_DIR, ".env"))
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
+# DEBUG=True
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+  ]
 
 
 # Application definition
@@ -134,11 +148,11 @@ WSGI_APPLICATION = "Technical.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "NAME": env("NAME"),
+        "USER": env("USER"),
+        "PASSWORD": env("PASSWORD"),
+        "HOST": env("HOST"),
+        "PORT": env("PORT"),
     }
 }
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
@@ -147,14 +161,14 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-# SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
-RECIPIENT_ADDRESS = os.getenv("RECIPIENT_ADDRESS")
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", default="noreply@gmail.com")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+# SENDGRID_API_KEY = env("SENDGRID_API_KEY")
+RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL",)
 # twilio
-TWILIO_ACCOUNT_SID = os.getenv("account_sid")
-TWILIO_AUTH_TOKEN = os.getenv("auth_token")
+TWILIO_ACCOUNT_SID = env("account_sid")
+TWILIO_AUTH_TOKEN = env("auth_token")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -228,8 +242,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         "APP": {
-            "client_id": os.getenv("client_id"),
-            "secret": os.getenv("secret"),
+            "client_id": env("client_id"),
+            "secret": env("secret"),
             "key": "",
         }
     }
@@ -325,8 +339,8 @@ MPESA_ENVIRONMENT = "sandbox"
 
 # Credentials for the daraja app
 
-MPESA_CONSUMER_KEY = os.getenv("MPESA_CONSUMER_KEY")
-MPESA_CONSUMER_SECRET = os.getenv("MPESA_CONSUMER_SECRET")
+MPESA_CONSUMER_KEY = env("MPESA_CONSUMER_KEY")
+MPESA_CONSUMER_SECRET = env("MPESA_CONSUMER_SECRET")
 
 # Shortcode to use for transactions. For sandbox  use the Shortcode 1 provided on test credentials page
 
@@ -462,9 +476,9 @@ CKEDITOR_CONFIGS = {
 # cloudinary
 
 cloudinary.config( 
-  cloud_name = os.getenv("cloud_name"), 
-  api_key = os.getenv("api_key"), 
-  api_secret = os.getenv("api_secret"),
+  cloud_name = env("cloud_name"), 
+  api_key = env("api_key"), 
+  api_secret = env("api_secret"),
   secure = True
 )
 import cloudinary.uploader
@@ -511,7 +525,7 @@ LOGGING ={
     "loggers":{
         "django": {
             "handlers": ["console"],
-            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "level": env("DJANGO_LOG_LEVEL", "INFO"),
             "propagate": False,
         },
         "django.server":{
@@ -524,7 +538,7 @@ LOGGING ={
     },
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-COMPRESS_ENABLED = os.getenv('COMPRESS_ENABLED', False)
+COMPRESS_ENABLED = env('COMPRESS_ENABLED', False)
 
 
 
@@ -542,3 +556,29 @@ sentry_sdk.init(
     traces_sample_rate=1.0,   
     send_default_pii=True
 )
+
+# aws settings
+
+AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
+AWS_DEFAULT_ACL = "public-read"
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+# AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+AWS_QUERYSTRING_AUTH = False
+AWS_QUERYSTRING_EXPIRE= 8
+# AWS_S3_OBJECT_PARAMETERS = {"Access-Control-Allow-Origin": "*"}
+
+# AWS_S3_CUSTOM_DOMAIN = 'https://d2n7j1cvfar59p.cloudfront.net'
+# AWS_CLOUDFRONT_KEY = env("AWS_CLOUDFRONT_KEY",None).encode('ascii')
+# AWS_CLOUDFRONT_KEY_ID =env("AWS_CLOUDFRONT_KEY_ID",None)
+# s3 static settings
+# AWS_LOCATION = "static"
+# STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
+# MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+
+# boto3
+# for media 
+STORAGES = {"default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"}}
+# for static files
+STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
