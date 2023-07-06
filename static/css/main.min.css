@@ -199,7 +199,7 @@ body[data-layout-mode=dark] .top-bar .topbar-social-menu .social-link:hover{
     }
 }
 .page-title-box{
-    /* background-image:url(../images/home/page-title.png); */
+    /* background-image:url(../images/img-01.jpg); */
     /* background-size:cover; */
     background-color:#029663;
     position:relative;
@@ -248,7 +248,7 @@ body[data-layout-mode=dark] .top-bar .topbar-social-menu .social-link:hover{
 } */
 /* Bread Crumbs */
 .breadcrumbs {
-  /* background-image: url("../images/breadcrumb/breadcrumb-bg.jpg"); */
+  /* background-image: url("../images/img-01.jpg"); */
   /* background-size: cover; */
   /* background-position: center; */
   /* background-repeat: no-repeat; */
@@ -1036,7 +1036,7 @@ body[data-layout-mode=dark] .choices__list--dropdown .choices__item--selectable.
     }
 }
 .bg-home .bg-overlay{
-    background:url(../images/home/img-01.png);
+    background:url(../images/img-01.jpg);
     background-size:cover;
     background-position:center
 }
@@ -1932,7 +1932,7 @@ body[data-layout-mode=dark] .blog-grid-box{
     transform:translateY(-8px)
 }
 .pricing-counter{
-    background-image:url(../images/bg-counter.svg);
+    background-image:url(../images/404.png);
     background-size:cover;
     background-position:center;
     padding:35px;
@@ -2586,4 +2586,4 @@ float: left;
 margin: 4px 15px  0 5px;
 min-width: 15px;
 }
-/*# sourceMappingURL=app.min.css.map */
+
