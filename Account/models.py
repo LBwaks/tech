@@ -79,13 +79,13 @@ class Profile(models.Model):
         """Unicode representation of Profile."""
         return f"{self.firstname} {self.lastname}"
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        img = Image.open(self.profile.path)
-        max_size = (300, 300)
-        if img.height > max_size[0] or img.width > max_size[1]:
-            img.thumbnail(max_size)
-            img.save(self.profile.path)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     img = Image.open(self.profile.path)
+    #     max_size = (300, 300)
+    #     if img.height > max_size[0] or img.width > max_size[1]:
+    #         img.thumbnail(max_size)
+    #         img.save(self.profile.path)
 
     def get_absolute_url(self):
         return reverse("user-profile", kwargs={"slug": self.slug})
@@ -176,8 +176,8 @@ class Education(models.Model):
     # TODO: Define fields here
     user_profile = models.ForeignKey(Profile,related_name='user_education', verbose_name=_(""), on_delete=models.CASCADE)
     slug=models.UUIDField(default=uuid.uuid4, editable=False)
-    course = models.CharField(_("Course"))
-    institution = models.CharField(_("Institution"))
+    course = models.CharField(_("Course"),max_length=256)
+    institution = models.CharField(_("Institution"),max_length=256)
     description = models.TextField(_("Description"), null=True, blank=True, max_length=250)
     start_date = models.DateField(_("Start Date"), auto_now=False, auto_now_add=False)
     end_date = models.DateField(_("End Date"), auto_now=False, auto_now_add=False)
