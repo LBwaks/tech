@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
             model_name="job",
             name="NewGinIndex",
         ),
-        migrations.AddIndex(
-            model_name="job",
-            index=django.contrib.postgres.indexes.GinIndex(
-                fields=["title"], name="NewGinIndex", opclasses=["gin_trgm_ops"]
-            ),
-        ),
+        # migrations.AddIndex(
+        #     model_name="job",
+        #     index=django.contrib.postgres.indexes.GinIndex(
+        #         fields=["title"], name="NewGinIndex", opclasses=["gin_trgm_ops"]
+        #     ),
+        # ),
     ]

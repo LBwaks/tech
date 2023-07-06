@@ -579,8 +579,8 @@ AWS_QUERYSTRING_EXPIRE= 8
 
 # boto3
 # for media 
-# STORAGES = {"default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"}}
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+STORAGES = {"default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"}}
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 # for static files
-# STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
+STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'

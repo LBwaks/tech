@@ -95,9 +95,9 @@ class Job(models.Model, HitCountMixin):
         verbose_name = "Job"
         verbose_name_plural = "Jobs"
         ordering = ["-created"]
-        indexes = [
-            GinIndex(name='NewGinIndex',fields=['title',],opclasses=['gin_trgm_ops']),
-        ]
+        # indexes = [
+        #     GinIndex(name='NewGinIndex',fields=['title',],opclasses=['gin_trgm_ops']),
+        # ]
 
     def __str__(self):
         """Unicode representation of Job."""
