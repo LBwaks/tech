@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
-import logging.config
+# import logging.config
 from django.conf import settings
 from dotenv import load_dotenv
 import dj_database_url
@@ -40,7 +40,7 @@ DEBUG = os.getenv('DEBUG')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1',]
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
