@@ -89,7 +89,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    # "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -586,9 +586,9 @@ STORAGES = {
         {
             "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
         },
-    #     "staticfiles": {
-    #         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    # },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
         }
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 # for static files
