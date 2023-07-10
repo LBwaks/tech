@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     # providers
     "allauth.socialaccount.providers.google",
     "channels",
+     'django_cleanup.apps.CleanupConfig',
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
@@ -547,20 +548,6 @@ COMPRESS_ENABLED = os.getenv('COMPRESS_ENABLED', False)
 
 
 
-sentry_sdk.init(
-    dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
-    integrations=[
-        DjangoIntegration(
-            transaction_style="url",
-            middleware_spans=True,
-            signals_spans=False,
-            ),
-    ],
-
-  
-    traces_sample_rate=1.0,   
-    send_default_pii=True
-)
 
 # aws settings
 
@@ -597,3 +584,19 @@ STORAGES = {
 # for static files
 # STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
+
+
+sentry_sdk.init(
+    dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
+    integrations=[
+        DjangoIntegration(
+            transaction_style="url",
+            middleware_spans=True,
+            signals_spans=False,
+            ),
+    ],
+
+  
+    traces_sample_rate=1.0,   
+    send_default_pii=True
+)

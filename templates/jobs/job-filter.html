@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
-{% block title %} Job {% endblock title %}
+{% block title %} Filtered Jobs {% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="main-content">
 
                 <div class="page-content">
+                   <div class="breadcrumbs overlay  mt-1" >
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-6 col-md-6 col-12">
+<div class="breadcrumbs-content">
+<h1 class="page-title">Filtered Jobs</h1>
 
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-12">
+<ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
+<li><a href="{% url 'home' %}">Home</a></li>
+<li> <a href="{% url 'jobs' %}">Jobs</a> </li>
+<li>Filtered Jobs</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
                    
                     <!-- START JOB-LIST -->
                     <section class="section">
@@ -87,6 +105,17 @@
                                                 </div>
                                             </div>
                                             <!--end job-box-->
+                                             {% empty %} 
+                                <div class="col-lg-12">
+                                    
+                                    
+                                    <div class="job-box  card mt-5">
+                                                <div class="p-4 text-center ">
+                                                    <p> No Filtered Jobs found ! </p>
+                                                </div>
+                                                
+                                            </div>
+                                </div><!--end col-->
                     {% endfor %}
                                            
                                         </div>
@@ -159,7 +188,7 @@
                                                             
                                                             <a href="{% url 'tag-jobs' tag.slug %}" class="badge tag-cloud fs-13 mt-2">{{tag.name}}</a>
                                                             {% empty %}
-                                                            no tags
+                                                         No Tags Found !
                                                             {% endfor %}
                                                             
                                                             
@@ -179,6 +208,8 @@
                                                             {% for category in categories %}
                                                             
                                                             <a href="{% url 'category-jobs' category.slug %}" class="badge tag-cloud fs-13 mt-2">{{category.name}}</a>
+                                                            {% empty %}
+                                                         No Categories Found !
                                                             {% endfor %}
                                                             
                                                             

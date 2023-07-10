@@ -1036,7 +1036,7 @@ body[data-layout-mode=dark] .choices__list--dropdown .choices__item--selectable.
     }
 }
 .bg-home .bg-overlay{
-    background:url(../images/img-01.jpg);
+    /* background:url(../images/img-01.jpg); */
     background-size:cover;
     background-position:center
 }

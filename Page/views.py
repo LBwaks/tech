@@ -12,7 +12,7 @@ from .forms import JobSearchForm,ContactForm
 from django.template.loader import render_to_string
 from django.core.mail import BadHeaderError,EmailMultiAlternatives
 from Page.tasks import send_contact_email
-
+from django.db.models import Count
 # Create your views here.
 
 
@@ -34,8 +34,10 @@ class Home(TemplateView):
         # popular_jobs.
         popular_jobs = Job.objects.select_related('user','category').prefetch_related('tags').order_by('-hit_count_generic__hits')[:6]
         
+        popular_tags  =Tag.objects.annotate(num_jobs=Count('job')).order_by('-num_jobs')[:5]
         
-        context={'tags':tags,'featured_jobs':featured_jobs,'recent_jobs':recent_jobs,'popular_jobs':popular_jobs}
+        
+        context={'tags':tags,'featured_jobs':featured_jobs,'recent_jobs':recent_jobs,'popular_jobs':popular_jobs,'popular_tags':popular_tags}
         
         return context
     

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Job {% endblock title %}
+{% block title %}Bookmarks {% endblock title %}
 
 {% block content %}
 <div>
@@ -86,14 +86,14 @@
                                    
                                 </div><!--end col--> 
                                 {% empty %}
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="job-box card mt-4">
-                                        <div class="card-body p-4">
+                                        <div class="card-body p-4 text-center">
                                             <div class="row">
                                               <p>No Bookmarks Found ! </p>
                                             </div><!--end row-->
                                         </div>
-                                    </div><
+                                    </div>
 {% endfor %}
                             </div><!--end row-->
 

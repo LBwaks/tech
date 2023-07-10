@@ -27,6 +27,21 @@
 </div>
 </div>
 </div>
+ {% if user.user_profile.firstname == "" and user.user_profile.lastname == "" %}
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+  <strong class="pl-2">Hello {{user.username}} !  </strong> Please complete your profile first for you to post job. <a href="{% url 'user-profile' user.user_profile.slug %}" class="pl-3 alert-link">Update Profile</a>.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div> 
+        </div>
+    </div>
+</div>
+<br>
+{% endif %}
                     <!-- START JOB-LIST -->
                     <section class="section" style="padding-top:0px;padding-bottom:0px;"> 
                           <div class="add-blog">
@@ -47,10 +62,26 @@
                                    <form action="" method="post" enctype="multipart/form-data" class="p-5 mb-3 mt-4 border rounded-3 bg-white">
     {% csrf_token %}
     {{form | crispy }}
-    
+     {% if user.user_profile.firstname == "" and user.user_profile.lastname == "" %}
+
+     <br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+  <strong class="pl-2">Hello {{user.username}} !  </strong> Please complete your profile first for you to post job. <a href="{% url 'user-profile' user.user_profile.slug %}" class="pl-3 alert-link">Update Profile</a>.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div> 
+        </div>
+    </div>
+</div>
+<br>
+{% else %}
     <div class="d-grid gap-2 col-6 mx-auto pt-2">
     <button type="submit" class="btn btn-success">Submit </button>
     </div>
+    {% endif %}
 </form> 
                                     
                                 </div><!--end col-->

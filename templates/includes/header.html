@@ -1,3 +1,8 @@
+            {% load admin_urls %}
+            {% with request.resolver_match.url_name as url_name %}
+                
+           
+                
             <!--Navbar Start-->
             <nav class="navbar navbar-expand-lg fixed-top sticky" id="navbar">
                 <div class="container-fluid custom-container">
@@ -14,17 +19,24 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav mx-auto navbar-center">
                             <li class="nav-item">
-                                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                                <a href="{% url 'home' %}" class="nav-link {% if url_name == 'home' %} active {% endif %}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'jobs' %}" class="nav-link">Jobs</a>
+                                <a href="{% url 'jobs' %}" class="nav-link {% if url_name == 'jobs' %} active {% endif %}">Jobs</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'add-jobs' %}" class="nav-link">Add jobs</a>
+                                <a href="{% url 'add-jobs' %}" class="nav-link {% if url_name == 'add-jobs' %} active {% endif %}">Add jobs</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+                                <a href="{% url 'contact' %}" class="nav-link {% if url_name == 'contact' %} active {% endif %}">Contact</a>
                             </li>
+                            
+                            {% if user.is_staff %}
+                                <li class="nav-item">
+                                <a href="{% url 'admin:index' %}" class="nav-link">Dashboard</a>
+                            </li>
+                            {% endif %}
+                                
                             
                             <li class="nav-item dropdown dropdown-hover">
                                 <a class="nav-link" href="javascript:void(0)" id="productdropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -137,9 +149,9 @@
                             </div>
                         </li>
                         <li class="list-inline-item dropdown">
-                            <a href="javascript:void(0)" class="header-item" id="userdropdown" data-bs-toggle="dropdown"
+                            <a href="javascript:void(0)" class="header-item " id="userdropdown" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                <img src="{{user.user_profile.profile.url}}" alt="mdo" width="35" height="35" class="rounded-circle me-1"> <span class="d-none d-md-inline-block fw-medium">{{user.username}}</span>
+                                <img src="{{user.user_profile.profile.url}}" alt=" " width="35" height="35" class="rounded-circle me-1"> <span class="d-none d-md-inline-block fw-medium">{{user.username}}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userdropdown">
                                 <li><a class="dropdown-item" href="{% url 'my-jobs' %}">My Jobs</a></li>
@@ -155,10 +167,10 @@
     <ul class="header-menu list-inline d-flex align-items-center mb-0">
                        
                         <li class="nav-item list-inline-item me-4">
-                                <a href="{% url 'account_login' %}" class="nav-link">Login</a>
+                                <a href="{% url 'account_login' %}" class="nav-link {% if url_name == 'account_login' %} active {% endif %}">Login</a>
                             </li>
                               <li class="nav-item list-inline-item">
-                                <a href="{% url 'account_signup' %}" class="nav-link">Signup</a>
+                                <a href="{% url 'account_signup' %}" class="nav-link {% if url_name == 'account_signup' %} active {% endif %}">Signup</a>
                             </li>
                     </ul>
                     
@@ -167,6 +179,8 @@
     
                 </div>
                 <!--end container-->
+                
             </nav>
             <!-- Navbar End -->
-           
+            {% endwith %}
+            

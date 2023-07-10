@@ -8,6 +8,7 @@
      <div class="main-content">
 
                 <div class="page-content">
+                    
 
                                      <div class="breadcrumbs overlay  mt-1" >
 <div class="container">
@@ -129,9 +130,11 @@
                                                 </div>
                                             </div>
 
-                                                    {% comment %} {% if user.is_authenticated and job.user == request.user %} {% endcomment %}
+ 
   
                                             <div class="mt-4 pt-3 flex-sm-wrap ">
+{% if user.is_authenticated and job.user == request.user %} 
+
                                                 <ul class="list-inline mb-0 d-flex justify-content-around">
                                                     <li class="list-inline-item mt-1">
                                                         <a href="{% url 'delete-job' job.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
@@ -144,27 +147,28 @@
                              
                                                     </li>
 
-{% comment %} {% elif user.is_authenticated and job.user != request.user %} {% endcomment %}
-                                                    <li class="list-inline-item mt-1">
-                                                        <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
-                                                    </li>
-                                                     <li class="list-inline-item mt-1"> 
-                                                        
-                                                                                                                
-                                                       {% if job.savedJobs.exists %}
+{% elif user.is_authenticated and job.user != request.user %} 
+       <li class="list-inline-item mt-1">
+        <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
+    </li>
+     <li class="list-inline-item mt-1"> 
+        
+                
+{% if job.savedJobs.exists %}
                                                        
-  <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-secondary" ><i class="uil uil-bookmark"></i> Bookmarked </a>
+        <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-secondary" ><i class="uil uil-bookmark"></i> Bookmarked </a>
   
-  {% else %}
-  <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-outline-secondary" ><i class="uil uil-bookmark"></i> Bookmark </a>
+ {% else %}
+          <a href="{% url 'save-job' job.slug %}" class="btn btn-sm btn-outline-secondary" ><i class="uil uil-bookmark"></i> Bookmark </a>
   
-  {% endif %}
+{% endif %}
                                                     </li>
                                                      
                                                 </ul>
+
+                                            {% endif %} 
                                             </div>
 
-                                            {% comment %} {% endif %} {% endcomment %}
                                         </div><!--end card-body-->
                                     </div><!--end job-detail-->
 

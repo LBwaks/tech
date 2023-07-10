@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Job Details {% endblock title %}
+{% block title %} Profile {% endblock title %}
 {% load humanize %}
 {% load custom_filters %}
 {% load crispy_forms_tags %}
@@ -142,7 +142,14 @@
                                                             <div class="d-flex">
                                                                 <label>Phone Number</label>
                                                                 <div>
-                                                                    <p class="text-muted mb-0">{{profile.tell}}</p>
+
+                                                                    <p class="text-muted mb-0">
+                                                                        
+                                                                        {% if profile.tell %}
+                                                                            {{profile.tell}}
+                                                                        {% endif %}
+                                                                            
+                                                                        </p>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -183,7 +190,13 @@
                                                             <div class="d-flex">
                                                                 <label>Date Of Birth</label>
                                                                 <div>
-                                                                    <p class="text-muted mb-0">{{profile.dob}} </p>
+                                                                    <p class="text-muted mb-0">
+                                                                        
+                                                                        {% if  profile.dob %}
+                                                                              {{profile.dob}}   
+                                                                        {% endif %}
+                                                                            
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                         </li>
