@@ -108,10 +108,10 @@ INTERNAL_IPS = [
 ROOT_URLCONF = "Technical.urls"
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": os.getenv("REDIS_URL"),
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CLIENT_CLASS":"django_redis.client.DefaultClient",
             "IGNORE_EXCEPTIONS": True,
         },
         "KEY_PREFIX": "Technical",
