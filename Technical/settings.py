@@ -296,11 +296,11 @@ ACCOUNT_USERNAME_REQUIRED = True
 # phonenumber_field
 PHONENUMBER_DEFAULT_REGION = "KE"
 # celery redis
-CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_BROKER_URL =os.getenv("REDIS_URL"),
 # CELERY_ACCEPT_CONTENT =['json']
 # CELERY_TASK_SERIALIZER = ['json']
 
-# CELERY_RESULT_BACKEND = "redis://localhost:6379"
+# CELERY_RESULT_BACKEND =os.getenv("REDIS_URL"),
 # Specify the default queue name for Celery
 CELERY_DEFAULT_QUEUE = "default"
 # Specify additional Celery configuration (optional)
