@@ -109,9 +109,10 @@ ROOT_URLCONF = "Technical.urls"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://default:j2I5SW8zzEdIqFxuxjci@containers-us-west-100.railway.app:5576",
+        "LOCATION": os.getenv("REDIS_URL"),
         "OPTIONS": {
-            # "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True,
         },
         "KEY_PREFIX": "Technical",
         "TIMEOUT": 86400,
