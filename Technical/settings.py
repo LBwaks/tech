@@ -587,17 +587,17 @@ STORAGES = {
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
 
 
-sentry_sdk.init(
-    dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
-    integrations=[
-        DjangoIntegration(
-            transaction_style="url",
-            middleware_spans=True,
-            signals_spans=False,
-            ),
-    ],
+# sentry_sdk.init(
+#     dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
+#     integrations=[
+#         DjangoIntegration(
+#             transaction_style="url",
+#             middleware_spans=True,
+#             signals_spans=False,
+#             ),
+#     ],
 
   
-    traces_sample_rate=1.0,   
-    send_default_pii=True
-)
+#     traces_sample_rate=1.0,   
+#     send_default_pii=True
+# )

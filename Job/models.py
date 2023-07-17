@@ -73,7 +73,7 @@ class Job(models.Model, HitCountMixin):
     job_type = models.CharField(_("Job type"), choices=JOB_TYPE, max_length=50)
     seeker_type = models.CharField(_("Seeker Type"), choices=SEEKER_TYPE, max_length=50)
     industry = models.CharField(_("Industry"), choices=INDUSTRY, max_length=50)
-    positions = models.IntegerField(_("Available Slots"))
+    # positions = models.IntegerField(_("Available Slots"))
 
     hit_count_generic = GenericRelation(
     HitCount, object_id_field='object_pk',

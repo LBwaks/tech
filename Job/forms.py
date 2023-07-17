@@ -38,7 +38,7 @@ class JobForm(forms.ModelForm):
             'industry',
             "job_type",
             "seeker_type",
-            "positions",
+           
             "county",
             "location",
             "address",
@@ -51,7 +51,7 @@ class JobForm(forms.ModelForm):
             "job_type": forms.Select(attrs={'class': 'control-select job_type', 'required': True}),
             "seeker_type": forms.Select(attrs={'class': 'control-select seeker_type', 'required': True}),
             "industry": forms.Select(attrs={'class': 'control-select industry', 'required': True}),
-            "positions": forms.NumberInput(attrs={'min': '1', 'class': 'control-select positions', 'required': True}),
+            # "positions": forms.NumberInput(attrs={'min': '1', 'class': 'control-select positions', 'required': True}),
             "county": forms.Select(attrs={'class': 'control-select county', 'required': True}),
             "location": forms.TextInput(attrs={'class': 'control-form location', 'required': True}),
             "address": forms.TextInput(attrs={'class': 'control-form address', 'required': True}),
@@ -88,13 +88,13 @@ class JobEditForm(forms.ModelForm):
             'industry',         
             "job_type",
             "seeker_type",
-            "positions",
+            # "positions",
             "county",
             "location",
             "address",
         )
         label ={
-            "positions":"Available slots",
+            # "positions":"Available slots",
         }
         # def __init__(self,*args, **kwargs):
         #     super().__init__(*args, **kwargs)
@@ -107,7 +107,7 @@ class JobEditForm(forms.ModelForm):
             "job_type": forms.Select(attrs={'class': 'control-select job_type', 'required': True}),
             "seeker_type": forms.Select(attrs={'class': 'control-select seeker_type', 'required': True}),
             "industry": forms.Select(attrs={'class': 'control-select industry', 'required': True}),
-            "positions": forms.NumberInput(attrs={'min': '1', 'class': 'control-select positions', 'required': True}),
+            # "positions": forms.NumberInput(attrs={'min': '1', 'class': 'control-select positions', 'required': True}),
             "county": forms.Select(attrs={'class': 'control-select county', 'required': True}),
             "location": forms.TextInput(attrs={'class': 'control-form location', 'required': True}),
             "address": forms.TextInput(attrs={'class': 'control-form address', 'required': True}),
