@@ -98,7 +98,7 @@ class ApplicationUpdateView(LoginRequiredMixin,UpdateView):
         return obj
 
     def get_success_url(self):
-        return reverse_lazy("application-details", kwargs={"slug": self.object.uuid})
+        return reverse_lazy("applications:my-applications")
 
 
 class ApplicationDeleteView(DeleteView):
@@ -106,7 +106,7 @@ class ApplicationDeleteView(DeleteView):
     template_name = "applications/delete-application.html"
 
     def get_success_url(self):
-        return reverse("jobs")
+        return reverse_lazy("applications:my-applications")
 
     def get_queryset(self):
         queryset = super().get_queryset()

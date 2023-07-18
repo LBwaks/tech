@@ -4,12 +4,15 @@ from Job.models import Job
 from ckeditor.widgets import CKEditorWidget
 class ApplicationForm(forms.ModelForm):
     """Form definition for Application."""
-    description = (forms.CharField(widget=CKEditorWidget(attrs={'class':'form-control''required'}),))
+    description = (forms.CharField(label="Why You charge Above Fees !",widget=CKEditorWidget(attrs={'class':'form-control''required'}),))
     class Meta:
         """Meta definition for Applicationform."""
 
         model = Application
         fields = ('charge','description')
+        label ={
+            "description":"Why You charge Above Fees!"
+        }
         widget ={
             'charge':forms.NumberInput(attrs={'class':'form-select charge''required'}),
             # 'job': forms.HiddenInput(), 
@@ -22,7 +25,7 @@ class ApplicationForm(forms.ModelForm):
 
 class ApplicationEditForm(forms.ModelForm):
     """Form definition for Application."""
-    description = (forms.CharField(widget=CKEditorWidget(attrs={'class':'form-control''required'}),))
+    description = (forms.CharField(label="Why You charge Above Fees !",widget=CKEditorWidget(attrs={'class':'form-control''required'}),))
     class Meta:
         """Meta definition for Applicationform."""
 

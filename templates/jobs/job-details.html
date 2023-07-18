@@ -148,11 +148,20 @@
                                                     </li>
 
 {% elif user.is_authenticated and job.user != request.user %} 
-       <li class="list-inline-item mt-1">
+
+ {% if user.user_profile.firstname == "" and user.user_profile.lastname == "" %}
+    <li class="list-inline-item mt-1">
+
+<a tabindex="0" class="btn btn-sm btn-outline-info" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Profile Not Found !" data-bs-content="Please update your profile first.">Apply Now</a>
+
+    </li>
+ {% else %}
+ <li class="list-inline-item mt-1">
         <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
     </li>
-
-<a tabindex="0" class="btn btn-lg btn-danger" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Dismissible popover" data-bs-content="And here's some amazing content. It's very engaging. Right?">Dismissible popover</a>
+{% endif %}
+    
+      
 
 
      <li class="list-inline-item mt-1"> 

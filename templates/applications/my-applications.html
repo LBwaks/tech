@@ -39,7 +39,7 @@
                     <section class="section">
                         <div class="container-fluid mx-2">
                           <div class="row"> <div class="col-md-11 mx-auto">
-                            <table id="my-applications" class="table  table-sm table-striped  dt-responsive nowrap" style="width:100%">
+                            <table id="my-applications" class="table  table-sm table-striped  nowrap" style="width:100%">
         <caption>My Applications</caption>
                                 <thead >
             <tr>
@@ -48,8 +48,8 @@
                 <th>Charge</th>
                 <th>Application Status</th>
                 <th>Application Date</th>
-                <th>Salary</th>
-                <th>Extn.</th>
+                <th>Actions</th>
+                <th>Canceled/Approved Time</th>
                 <th> </th>
             </tr>
         </thead>
@@ -74,8 +74,8 @@
                 {% endif %}
                     
                 
-                <td class="bg-warning">{{application.created}}</td>
-                <td class="bg-danger">
+                <td >{{application.created}}</td>
+                <td >
                 <div class="d-flex flex-row justify-content-around ">
 {% if application.status == 'AcceptJob' %}
     <form method="POST" action="">
