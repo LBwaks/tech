@@ -178,6 +178,12 @@
                                                     </li>
                                                      
                                                 </ul>
+                                                {% else %}
+                                                 <ul class="list-inline mb-0 d-flex justify-content-around">
+ <li class="list-inline-item mt-1">
+        <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
+    </li>
+    </ul>
 
                                             {% endif %} 
                                             </div>
