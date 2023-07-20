@@ -323,7 +323,7 @@ class ApplicationApprovalView(UpdateView):
         if new_status == "Accepted":
             job.status = "Waiting"
             Application.objects.filter(job=job).exclude(pk=self.object.pk).update(
-                status="Not Accepted"
+                status="Not Accepted", approved_canceled_time = datetime.now()
             )
             # sending email notification
             applicant_email =self.object.user.email
@@ -348,7 +348,7 @@ class ApplicationApprovalView(UpdateView):
             
         else:
             self.object.status = new_status
-            self.object.approved_canceled_time= datetime.now()
+            self.approved_canceled_time = datetime.now()
         self.object.save()
         job.save()
         return super().form_valid(form)
@@ -435,5 +435,4 @@ class ApplicantRatingsViews(LoginRequiredMixin,CreateView):
         r.save()
         return super().form_valid(form)
     
-# def ApplicantRatings(request):
-#      return  render(request,'ratings/ratings.html')
+# def ApplicantRatings

@@ -134,7 +134,7 @@
                                                         </div>
                                                         <!--end col-->
                                                         <div class="col-md-3">
-                                                            
+                                                            {% if job.status == 'Open' %}
                                                             {% if job.user != request.user %}
                                                                 <div class="text-md-end">
                                                                     {% if user.user_profile.firstname == "" and user.user_profile.lastname == "" %}
@@ -146,7 +146,8 @@
                                                                     {% endif %}
                                                                
                                                             </div>
-                                                            {% endif %}
+                                                            
+                                                            {% endif %}{% endif %}
                                                                 
                                                             
                                                         </div>

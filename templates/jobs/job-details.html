@@ -149,6 +149,10 @@
 
 {% elif user.is_authenticated and job.user != request.user %} 
 
+{% if job.status == 'Open' %}
+    
+
+    
  {% if user.user_profile.firstname == "" and user.user_profile.lastname == "" %}
     <li class="list-inline-item mt-1">
 
@@ -176,6 +180,9 @@
   
 {% endif %}
                                                     </li>
+
+
+{% endif %}
                                                      
                                                 </ul>
                                                 {% else %}

@@ -20,7 +20,7 @@ class Application(models.Model):
     charge = models.IntegerField(_("Fees (ksh)"))    
     description = RichTextField(_("Why You charge Above Fees!"))
     status = models.CharField(default='Pending', max_length=50, db_index=True)
-    approved_canceled_time= models.DateTimeField(_("Approved / Rejected time"), blank=True,null=True,auto_now=False, auto_now_add=False)
+    approved_canceled_time = models.DateTimeField(_("Approved / Rejected time"), blank=True, null=True)
     created = models.DateTimeField( auto_now_add=True)
 
     class Meta:

@@ -118,7 +118,7 @@
 {% for rating in application.user.profile.user_rating %}
 {{rating.id}}
 {% endfor %}
-{{application.job.user.user_profile.averageview}}
+
     <a href="{% url 'ratings' application.user.user_profile.slug %}" class="btn btn-warning">Rate user</a>
      <form method="POST" action="">
         {% csrf_token %}
