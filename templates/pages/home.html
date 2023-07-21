@@ -45,6 +45,7 @@
                                             <div class="filter-search-form filter-border mt-3 mt-lg-0">
                                                 <i class="uil uil-clipboard-notes"></i>
                                                 <select class="form-select" data-trigger name="tag" id="choices-single-location" aria-label="Default select example">
+                                                    {% comment %} <option value="00">-----</option> {% endcomment %}
                                                     <option value="0">All Tags</option>
                                                      {% for tag in tags %}
         <option value="{{ tag.pk }}">{{ tag.name }}</option>

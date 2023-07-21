@@ -62,13 +62,7 @@ class JobSearchView(ListView):
             tag= get_object_or_404(Tag,pk=tag)
             queryset = queryset.filter(Q(tags__name__icontains=tag.name)|Q(tags=tag))
          
-        # if title :
-        #         search_vector =SearchVector('title',weight="A")
-        
-        #         search_query =SearchQuery(title)
-        #         search_headline = SearchHeadline('title',search_query)
-        #         queryset = queryset.annotate(search=search_vector,rank=SearchRank(search_vector,search_query)).annotate(headline=search_headline).filter(rank__gte=0.3).order_by('-rank')
-           
+       
         if title :
             search_vector =SearchVector('title',weight="A")
             search_query =SearchQuery(title)

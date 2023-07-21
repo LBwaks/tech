@@ -59,6 +59,7 @@ class JobListView(ListView):
         context = super().get_context_data(**kwargs)
         tags = Tag.objects.all()
         context['tags']=tags
+        context['has_applied'] = set(Application.objects.filter(user=self.request.user).values_list("job__id",flat=True))
         context['categories']=Category.objects.select_related('user')
         context['popular_tags'] =Tag.objects.annotate(num_jobs=Count('job')).order_by('-num_jobs')[:5]
         context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
@@ -82,7 +83,7 @@ class JobDetailView(HitCountDetailView):
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
        job = self.object
-       
+       has_applied = Application.objects.filter(user=self.request.user,job=job).exists()
         # Get IDs of the tags associated with the current job
     #    tag_ids = job.tags.values_list('id', flat=True)
     #     # Fetch similar jobs based on category and tags
@@ -95,6 +96,7 @@ class JobDetailView(HitCountDetailView):
     #      cache.set(f'similar_job_{job.id}',similar_jobs,60*15)
        
        context['job']=job
+       context['has_applied']=has_applied
     #    context['similar_jobs']=similar_jobs
        
        return context

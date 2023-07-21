@@ -160,9 +160,18 @@
 
     </li>
  {% else %}
+    
+    {% if has_applied %}
+         <li class="list-inline-item mt-1">
+        <button class="btn btn-sm btn-outline-success">Applied</button>
+    </li>
+        {% else %}
+   
  <li class="list-inline-item mt-1">
         <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
     </li>
+     {% endif %}
+        
 {% endif %}
     
       
@@ -292,7 +301,14 @@
                                                     </li>
                                                 </ul>
                                                 <div class="mt-3">
-                                                    <a href="{% url 'applications:apply-job' job.slug %}"  class="btn btn-primary btn-hover w-100 mt-2">Apply Now <i class="uil uil-arrow-right"></i></a>
+                                                    
+                                                    {% if has_applied %}
+<button class="btn  btn-success btn-hover w-100 mt-2">Applied</button>
+                                                    {% else %}
+ <a href="{% url 'applications:apply-job' job.slug %}"  class="btn btn-primary btn-hover w-100 mt-2">Apply Now <i class="uil uil-arrow-right"></i></a>
+                                                    {% endif %}
+                                                        
+                                                   
                                                     {% if job.savedJobs.exists %}
                                                     <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-warning  w-100 mt-2"><i class="uil uil-bookmark"></i> Add Bookmark</a>
                                                
