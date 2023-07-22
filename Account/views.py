@@ -3,9 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .forms import ProfileForm,EducationForm,ExperienceForm
 from django.views.generic import UpdateView,TemplateView,View
-from .models import Profile,ProfileCV,Education,Experience
+from .models import Profile,ProfileCV,Education,Experience,Rating
 from django.shortcuts import get_object_or_404
-
+from django.db.models import Avg
 
 # from 
 
@@ -19,6 +19,7 @@ class UserProfile(TemplateView):
     def get_context_data(self, slug,**kwargs):
         context = super().get_context_data(**kwargs)
         profile = get_object_or_404(Profile.objects.select_related('user'),slug=slug)
+        user_ratings = Rating.objects.filter(profile=profile).aggregate(average=Avg('ratings'))
         educations= Education.objects.filter(user_profile_id=profile.id)
         experiences = Experience.objects.filter(user_profile_id=profile.id)
         jobs = profile.user.job_set.count()
@@ -27,7 +28,9 @@ class UserProfile(TemplateView):
         form = EducationForm()
         experienceForm = ExperienceForm()
        
-        context= {'jobs':jobs,'applications':applications, 'experiences':experiences, 'experienceForm':experienceForm, 'educations':educations,'form':form, 'successful_applications':successful_applications,'profile':profile}
+        context= {
+            # 'user_ratings':user_ratings['average'],
+            'jobs':jobs,'applications':applications, 'experiences':experiences, 'experienceForm':experienceForm, 'educations':educations,'form':form, 'successful_applications':successful_applications,'profile':profile}
         return context
     
     def post(self,request,slug,**kwargs):

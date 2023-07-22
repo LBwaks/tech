@@ -96,16 +96,21 @@ class Profile(models.Model):
             return self.profile.url
     def averageview(self):
         rating = Rating.objects.filter(profile=self).aggregate(average=Avg('ratings'))
-        avg= 0
-        if rating['average'] is not None:
-            avg = float(rating['average'])
-            return avg
+        # avg= 0
+        # if rating['average'] is not None:
+        #     avg = float(rating['average'])
+        #     return avg
+        avg= rating['average'] or 0
+        return float(avg)
+    
     def ratingsCounter(self):
         ratings =Rating.objects.filter(profile=self).aggregate(count = Count('id'))
-        cnt = 0
-        if ratings['count'] is not None:
-                    cnt = int(ratings['count'])
-                    return cnt
+        # cnt = 0
+        # if ratings['count'] is not None:
+        #             cnt = int(ratings['count'])
+        #             return cnt
+        cnt = ratings['count'] or 0
+        return int(cnt)
         
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
@@ -143,8 +148,8 @@ class Rating(models.Model):
     """Model definition for Rating."""
 
     # TODO: Define fields here
-    user = models.ForeignKey(User, related_name="user_rating", on_delete=models.CASCADE)
-    profile = models.ForeignKey(Profile, related_name="user_rating", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="rater", on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, related_name="user_ratee", on_delete=models.CASCADE)
     ratings = models.IntegerField(_("Ratings"),choices=RATINGS)
     reviews = models.TextField(_("Review"))
     created = models.DateTimeField( auto_now=False, auto_now_add=True)
@@ -157,7 +162,7 @@ class Rating(models.Model):
 
     def __str__(self):
         """Unicode representation of Rating."""
-        return self.ratings
+        return str(self.ratings)
         # return f"Ratbrangs: {self.get_ratings_display()}"
 
     # def save(self):

@@ -436,5 +436,7 @@ class ApplicantRatingsViews(LoginRequiredMixin,CreateView):
         r.profile = profile
         r.save()
         return super().form_valid(form)
+    def get_success_url(self):
+        return reverse_lazy("jobs")
     
 # def ApplicantRatings
