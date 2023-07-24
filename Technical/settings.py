@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "Application",
     "Account",
     "Page",
+    'Marketing',
     # installed
     # 'django-environ',
     'cloudinary',
@@ -601,3 +602,9 @@ STORAGES = {
 #     traces_sample_rate=1.0,   
 #     send_default_pii=True
 # )
+
+
+# mailchimp
+MAILCHIMP_API_KEY = os.getenv("MAILCHIMP_API_KEY")
+MAILCHIMP_REGION = os.getenv("MAILCHIMP_REGION")
+MAILCHIMP_MARKETING_AUDIENCE_ID = os.getenv("MAILCHIMP_MARKETING_AUDIENCE_ID")

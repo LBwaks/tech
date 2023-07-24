@@ -26,6 +26,7 @@ from django.views.defaults import page_not_found
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("jobs/", include("Job.urls")),
+    path("marketing/" , include("Marketing.urls")),
     path("applications/", include("Application.urls")),
     path("", include("Page.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
