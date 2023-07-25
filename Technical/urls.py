@@ -24,6 +24,7 @@ from django.views.defaults import page_not_found
 # from Blog.sitemaps import BlogSitemap
 
 urlpatterns = [
+    path('admin/defender/', include('defender.urls')), # defender admin
     path('admin/', admin.site.urls),
     path("jobs/", include("Job.urls")),
     path("marketing/" , include("Marketing.urls")),
@@ -35,6 +36,7 @@ urlpatterns = [
     path("profile/", include("Account.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("accounts/", include("allauth.urls")),
+    path('hijack/', include('hijack.urls')),
     
     # path("hitcount/", include(("hitcount.urls", "hitcount"), namespace="hitcount")),
     
