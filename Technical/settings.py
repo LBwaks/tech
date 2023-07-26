@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     'django.contrib.humanize',
     'hijack.contrib.admin',
+    'django.contrib.sitemaps',
     # created
     "Job",
     "Application",

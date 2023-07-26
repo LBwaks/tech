@@ -21,8 +21,12 @@ from django.conf.urls import handler404
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.views.defaults import page_not_found
-# from Blog.sitemaps import BlogSitemap
-
+from Page.sitemaps import StaticViewSitemap
+from Job.sitemaps import JobSitemap
+sitemaps={
+    "jobs":JobSitemap,
+    "static":StaticViewSitemap
+}
 urlpatterns = [
     path('admin/defender/', include('defender.urls')), # defender admin
     path('admin/', admin.site.urls),
@@ -37,6 +41,7 @@ urlpatterns = [
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("accounts/", include("allauth.urls")),
     path('hijack/', include('hijack.urls')),
+    path('sitemap.xml',sitemap,{"sitemaps":sitemaps},name="django.contrib.sitemaps.views.sitemap"),
     
     # path("hitcount/", include(("hitcount.urls", "hitcount"), namespace="hitcount")),
     
