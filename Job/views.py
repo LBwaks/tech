@@ -406,16 +406,17 @@ class ApplicationCancelView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
     def get_success_url(self):
         return reverse_lazy('job-applications', kwargs={'slug': self.object.job.slug})
     
-class MakePaymentView(View):
-    def get(self, request, *args, **kwargs):
+
+def MakePaymentView(request,):
         cl = MpesaClient()
         # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
         phone_number = '0714900634'
         amount = 1
-        account_reference = 'reference'
-        transaction_desc = 'Description'
-        callback_url = 'https://api.darajambili.com/express-payment'
+        account_reference = 'Kazi-Yangu'
+        transaction_desc = 'Payment For job id 2345332435'
+        callback_url =  'https://api.darajambili.com/express-payment'
         response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+        print(response)
         return HttpResponse(response)
 
 

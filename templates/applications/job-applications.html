@@ -120,11 +120,12 @@
 {% endfor %}
 
     <a href="{% url 'ratings' application.user.user_profile.slug %}" class="btn btn-warning">Rate user</a>
-     <form method="POST" action="">
+     <form method="POST" action="{% url 'make-payment' %}">
         {% csrf_token %}
         <input type="hidden" name="status" value="Accepted">
         <button type="submit" class="btn btn-success btn-hover w-100 mt-2"><i class="mdi mdi-dollar"></i>Make Payments</button>
     </form>
+    <a class="btn btn-sm btn-info" href="{% url 'make-payment'%}">Mpesa</a>
 {% endif %}
                                                     
                                                     {% comment %} <a href="candidate-details.html" class="btn btn-info btn-hover w-100 mt-2"><i class="mdi mdi-eye"></i> View Profile</a> {% endcomment %}
