@@ -53,9 +53,9 @@
                                 <div class="footer-item mt-4 mt-lg-0">
                                     <p class="fs-16 text-white mb-4">Company</p>
                                     <ul class="list-unstyled footer-list mb-0">
-                                        <li><a href="about.html"><i class="mdi mdi-chevron-right"></i> About Us</a></li>
-                                        <li><a href="contact.html"><i class="mdi mdi-chevron-right"></i> Contact Us</a></li>
-                                        <li><a href="services.html"><i class="mdi mdi-chevron-right"></i> Services</a></li>
+                                        <li><a href="{% url 'about' %}"><i class="mdi mdi-chevron-right"></i> About Us</a></li>
+                                        <li><a href="{% url 'contact' %}"><i class="mdi mdi-chevron-right"></i> Contact Us</a></li>
+                                        <li><a href=""><i class="mdi mdi-chevron-right"></i> Services</a></li>
                                         <li><a href="{% url 'unsubscribe' %}"><i class="mdi mdi-chevron-right"></i> Unsubscribe</a></li>
                                         
                                     </ul>
@@ -77,8 +77,8 @@
                                 <div class="footer-item mt-4 mt-lg-0">
                                     <p class="fs-16 text-white mb-4">Support</p>
                                     <ul class="list-unstyled footer-list mb-0">
-                                        <li><a href="contact.html"><i class="mdi mdi-chevron-right"></i> Help Center</a></li>
-                                        <li><a href="faqs.html"><i class="mdi mdi-chevron-right"></i> FAQ'S</a></li>
+                                        <li><a href="{% url 'contact' %}"><i class="mdi mdi-chevron-right"></i> Help Center</a></li>
+                                        <li><a href="{% url 'faq' %}"><i class="mdi mdi-chevron-right"></i> FAQ'S</a></li>
                                         <li><a href="privacy-policy.html"><i class="mdi mdi-chevron-right"></i> Privacy Policy</a></li>
                                     </ul>
                                 </div>

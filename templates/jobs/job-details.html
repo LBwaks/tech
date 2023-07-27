@@ -161,16 +161,16 @@
     </li>
  {% else %}
     
-    {% if has_applied %}
+    {% comment %} {% if has_applied %}
          <li class="list-inline-item mt-1">
         <button class="btn btn-sm btn-outline-success">Applied</button>
     </li>
-        {% else %}
+        {% else %} {% endcomment %}
    
  <li class="list-inline-item mt-1">
         <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
     </li>
-     {% endif %}
+     {% comment %} {% endif %} {% endcomment %}
         
 {% endif %}
     

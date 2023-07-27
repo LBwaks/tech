@@ -139,28 +139,39 @@
                                                             
                                                             
                                                                 
-                                                            {% if job.status == 'Open' %}
-                                                            {% if job.user != request.user %}
-                                                                <div class="text-md-end">
-                                                                    {% if user.user_profile.firstname == "" and user.user_profile.lastname == "" %}
-                                                                   
+ {% if job.status == 'Open' %}
+
+
+{% if user.is_authenticated %}
+
+
+ {% if job.user != request.user %}
+ <div class="text-md-end">
+ {% if user.user_profile.firstname == "" and user.user_profile.lastname == "" %}
+        
 <a tabindex="0" class="btn btn-sm btn-outline-info" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Profile Not Found !" data-bs-content="Please update your profile first.">Apply Now</a>
 
-                                                                    {% else %}
-{% if job.id in has_applied %}
-
- <button class="btn btn-sm btn-outline-success">Applied</button>
- {% else %}
+  
     <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
-      
- {% endif %}     
+
           
           {% endif %}
-                                                               
-                                                            </div>
-                                                            
-                                                            {% endif %}{% endif %}
-                                                                
+    
+ </div>
+ 
+ {% endif %}
+
+{% else %}
+<div class="text-md-end">
+ 
+<a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
+
+          
+ </div>
+{% endif %}
+    
+ {% endif %}
+     
                                                             
                                                         </div>
                                                         <!--end col-->

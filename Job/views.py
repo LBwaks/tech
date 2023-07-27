@@ -51,7 +51,7 @@ class JobListView(ListView):
     
     
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(status="Open",deadline__gte=datetime.now())
         queryset = queryset.select_related('category','user').prefetch_related('tags')
         return queryset
     
@@ -59,7 +59,7 @@ class JobListView(ListView):
         context = super().get_context_data(**kwargs)
         tags = Tag.objects.all()
         context['tags']=tags
-        context['has_applied'] = set(Application.objects.filter(user=self.request.user).values_list("job__id",flat=True))
+        # context['has_applied'] = set(Application.objects.filter(user=self.request.user).values_list("job__id",flat=True))
         context['categories']=Category.objects.select_related('user')
         context['popular_tags'] =Tag.objects.annotate(num_jobs=Count('job')).order_by('-num_jobs')[:5]
         context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
@@ -83,7 +83,7 @@ class JobDetailView(HitCountDetailView):
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
        job = self.object
-       has_applied = Application.objects.filter(user=self.request.user,job=job).exists()
+    #    has_applied = Application.objects.filter(user=self.request.user,job=job).exists()
         # Get IDs of the tags associated with the current job
     #    tag_ids = job.tags.values_list('id', flat=True)
     #     # Fetch similar jobs based on category and tags
@@ -96,7 +96,7 @@ class JobDetailView(HitCountDetailView):
     #      cache.set(f'similar_job_{job.id}',similar_jobs,60*15)
        
        context['job']=job
-       context['has_applied']=has_applied
+    #    context['has_applied']=has_applied
     #    context['similar_jobs']=similar_jobs
        
        return context
@@ -229,7 +229,7 @@ class JobsByUserView(ListView):
         user = User.objects.filter(username=slugified_username).first()
         if not user:
             return Job.objects.none()
-        return Job.objects.filter(user=user).select_related('category').prefetch_related('tags').order_by('-created')
+        return Job.objects.filter(user=user,status="Open",deadline__gte=datetime.now()).select_related('category').prefetch_related('tags').order_by('-created')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -243,8 +243,8 @@ class JobsByCategoryView(ListView):
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs.get('slug'))
-        return Job.objects.filter(category=self.category).select_related('category').prefetch_related('tags').order_by('-created')
-
+        return Job.objects.filter(category=self.category,status="Open",deadline__gte=datetime.now()).select_related('category').prefetch_related('tags').order_by('-created')
+# .filter(status="Open",deadline__gte=datetime.now())
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = self.category
@@ -260,7 +260,7 @@ class JobsByTagView(ListView):
     def get_queryset(self):
         tag_slug = self.kwargs.get('slug')
         tag = get_object_or_404(Tag, slug=tag_slug)
-        return Job.objects.filter(tags=tag).select_related('category').prefetch_related('tags').order_by('-created')
+        return Job.objects.filter(tags=tag,status="Open",deadline__gte=datetime.now()).select_related('category').prefetch_related('tags').order_by('-created')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -283,7 +283,7 @@ class JobFilterView(FilterView):
         return render(request,self.template_name,{'jobs':jobs,'job_filter':job_filter})
     
     def get_queryset(self):
-        queryset = Job.objects.select_related('category','user').prefetch_related('tags').order_by('-created')
+        queryset = Job.objects.filter(status="Open",deadline__gte=datetime.now()).select_related('category','user').prefetch_related('tags').order_by('-created')
         job_filter = JobFilter(self.request.GET, queryset=queryset)
         if 'latest' in self.request.GET:
             queryset = queryset.order_by('-created')
