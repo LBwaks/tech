@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "Account",
     "Page",
     'Marketing',
+    "Blog",
     # installed
     # 'django-environ',
     'cloudinary',
