@@ -82,7 +82,7 @@ class JobDetailView(HitCountDetailView):
     
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
-       job = self.object
+       job = self.get_object()
     #    has_applied = Application.objects.filter(user=self.request.user,job=job).exists()
         # Get IDs of the tags associated with the current job
     #    tag_ids = job.tags.values_list('id', flat=True)

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %} About{% endblock title %}
+{% load static %}
+    {% block content %}
+
+     <div class="page-content">
+
+                   <div class="breadcrumbs overlay  mt-1" >
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-6 col-md-6 col-12">
+<div class="breadcrumbs-content">
+<h1 class="page-title">Search Results</h1>
+
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-12">
+<ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
+<li>{{results_count }} Results for:</li>
+<li>{{query}}</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+  <!-- START BLOG-GRID -->
+                    <section class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="blog-post">
+                                        <div class="row">
+                                           {% for blog in results %}
+                                            <div class="col-lg-4 col-md-4 mb-4">
+                                                <div class="card blog-grid-box p-2">
+                                                    <img src="{{blog.photo.url}}" alt="..." class="img-fluid">
+                                                    <div class="card-body">
+                                                        <ul class="list-inline d-flex justify-content-between mb-3">
+                                                            <li class="list-inline-item">
+                                                                <p class="text-muted mb-0"><a href="blog-author.html" class="text-muted fw-medium"><i class="uil uil-user"></i> {{blog.user.username}}</a>  </p>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <p class="text-muted mb-0"><i class="uil uil-calender"></i> {{blog.created}}</p>
+                                                            </li>
+                                                        </ul>
+                                                        <a href="{{blog.get_absolute_url}}" class="primary-link"><h6 class="fs-17">{{blog.title}}</h6></a>
+                                                        <p class="text-muted">{{blog.content | truncatewords:30}}</p>
+                                                        
+                                                    </div>
+                                                </div><!--end blog-grid-box-->
+                                            </div><!--end col-->
+
+                                           {% endfor %}
+                                         
+                                        </div><!--end row-->
+                                        
+                                       
+
+                                            <div class="row">
+                                            <div class="col-lg-12 mt-4 pt-2">
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination job-pagination mb-0 justify-content-center">
+                                                         {% if results.has_previous %}
+                                                        <li class="page-item ">
+                                                            <a class="page-link" href="?page={{ results.previous_page_number }}" tabindex="-1">
+                                                                <i class="mdi mdi-chevron-double-left fs-15"></i>
+                                                            </a>
+                                                        </li>
+                                                         {% if results.number > 3 %}
+    <a class="page-link" href="?page=1">1</a>
+    {% if results.number > 4 %}
+      <span>.....</span>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% for num in results.paginator.page_range %}
+  {% if results.number == num %}
+
+                                                        <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                                        {% elif num > results.number|add:'-3' and num < results.number|add:'3' %}
+
+                                                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                                        {% endif %}
+{% endfor %}
+
+{% if results.has_next %}
+  {% if results.number < results.paginator.num_pages|add:'-3' %}
+    <span>...</span> 
+
+                                                        <li class="page-item"><a class="page-link" href="?page={{ results.paginator.num_pages }}">{{ results.paginator.num_pages }}</a></li>
+                                                       {% elif results.number < results.paginator.num_pages|add:'-2' %}
+                                                        <li class="page-item"><a class="page-link" href="?page={{ results.paginator.num_pages }}">{{ results.paginator.num_pages }}</a></li>
+                                                         {% endif %}
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="?page={{ results.next_page_number }}">
+                                                                <i class="mdi mdi-chevron-double-right fs-15"></i>
+                                                            </a>
+                                                        </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </nav>
+                                            </div><!--end col-->
+                                        </div><!-- end row -->
+
+                                    </div><!--end blog-post-->
+                                </div><!--end col-->
+
+                               
+                            </div><!--end row-->
+                        </div><!--end container-->
+                    </section>
+                    <!-- END BLOG-GRID -->
+</div>
+
+     {% endblock content %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} About{% endblock title %}
+{% block title %} Ca{% endblock title %}
 {% load static %}
     {% block content %}
 
@@ -11,7 +11,7 @@
 <div class="row align-items-center">
 <div class="col-lg-6 col-md-6 col-12">
 <div class="breadcrumbs-content">
-<h1 class="page-title">Blogs</h1>
+<h1 class="page-title">Blog By Category</h1>
 
 </div>
 </div>
@@ -28,11 +28,11 @@
                     <section class="section">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-8 col-md-7">
+                                <div class="col-lg-12 col-md-12">
                                     <div class="blog-post">
                                         <div class="row">
                                            {% for blog in blogs %}
-                                            <div class="col-lg-6 mb-4">
+                                            <div class="col-lg-4 mb-4">
                                                 <div class="card blog-grid-box p-2">
                                                     <img src="{{blog.photo.url}}" alt="..." class="img-fluid">
                                                     <div class="card-body">
@@ -107,71 +107,7 @@
                                     </div><!--end blog-post-->
                                 </div><!--end col-->
 
-                                <div class="col-lg-4 col-md-5">
-                                    <div class="sidebar ms-lg-4 ps-lg-4 mt-5 mt-lg-0">
-                                        <!-- Search widget-->
-                                        <aside class="widget widget_search">
-                                            <form class="position-relative" action="{% url 'blog-search' %}" method="get">
-                                                <input class="form-control" type="search" name="q" placeholder="Search...">
-                                                <button class="bg-transparent border-0 position-absolute top-50 end-0 translate-middle-y me-2" type="submit"><span class="mdi mdi-magnify text-muted"></span></button>
-                                            </form>
-                                        </aside>
-                                         <div class="mt-4 pt-2">
-                                            <div class="sd-title">
-                                                <h6 class="fs-16 mb-3">Categories</h6>
-                                            </div>
-                                            <div class="tagcloud mt-3">
-                                               {% for category in categories %}
-                                               <a class="badge tag-cloud fs-12 mt-2"
-                                                    href="{% url 'category' category.slug %}">{{category.name}}</a>
-                                               {% endfor %}                                                
-                                                
-                                            </div>
-                                        </div><!--end Latest Tags-->
-
-                                        {% comment %} <div class="mt-4 pt-2">
-                                            <div class="sd-title">
-                                                <h6 class="fs-16 mb-3">Popular Post</h6>
-                                            </div>
-                                            <ul class="widget-popular-post list-unstyled my-4">
-                                                <li class="d-flex mb-3 align-items-center pb-3 border-bottom">
-                                                    <img src="assets/images/blog/img-01.jpg" alt="" class="widget-popular-post-img rounded" />
-                                                    <div class="flex-grow-1 text-truncate ms-3">
-                                                        <a href="blog-details.html" class="text-dark">The evolution of landing page creativity</a>
-                                                        <span class="d-block text-muted fs-14">Aug 10, 2021</span>
-                                                    </div>
-                                                </li>
-                                                <li class="d-flex mb-3 align-items-center pb-3 border-bottom">
-                                                    <img src="assets/images/blog/img-02.jpg" alt="" class="widget-popular-post-img rounded" />
-                                                    <div class="flex-grow-1 text-truncate ms-3"><a href="blog-details.html" class="text-dark">Beautiful day with friends in paris</a>
-                                                        <span class="d-block text-muted fs-14">Jun 24, 2021</span>
-                                                    </div>
-                                                </li>
-                                                <li class="d-flex mb-3 align-items-center pb-3 border-bottom">
-                                                    <img src="assets/images/blog/img-03.jpg" alt="" class="widget-popular-post-img rounded" />
-                                                    <div class="flex-grow-1 text-truncate ms-3"><a href="blog-details.html" class="text-dark">Project discussion with team</a>
-                                                        <span class="d-block text-muted fs-14">July 13, 2021</span>
-                                                    </div>
-                                                </li>
-                                                <li class="d-flex mb-3 align-items-center">
-                                                    <img src="assets/images/blog/img-10.jpg" alt="" class="widget-popular-post-img rounded" />
-                                                    <div class="flex-grow-1 text-truncate ms-3"><a href="blog-details.html" class="text-dark">Smartest Applications for Business</a>
-                                                        <span class="d-block text-muted fs-14">Feb 01, 2021</span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div><!--end Polular Post-->
-
-                                         {% endcomment %}
-
-                                        
-
-                                       
-
-                                        
-                                    </div>
-                                    <!--end sidebar-->
-                                </div><!--end col-->
+                                
                             </div><!--end row-->
                         </div><!--end container-->
                     </section>
