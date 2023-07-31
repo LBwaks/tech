@@ -2,7 +2,7 @@
 {% block title %} Home {% endblock title %}
 {% load humanize %}
 {% load i18n %}
-
+{% load static  %}
 {% block content %}
 
  <div class="main-content">
@@ -80,23 +80,7 @@
                     </section>
                     <!-- End Home -->
 
-                    {% comment %} <!-- START SHAPE -->
-                    <div class="position-relative">
-                        <div class="shape">
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="150" preserveAspectRatio="none" viewBox="0 0 1440 220">
-                                <g mask="url(&quot;#SvgjsMask1004&quot;)" fill="none">
-                                    <path d="M 0,213 C 288,186.4 1152,106.6 1440,80L1440 250L0 250z" fill="rgba(255, 255, 255, 1)"></path>
-                                </g>
-                                <defs>
-                                    <mask id="SvgjsMask1004">
-                                        <rect width="1440" height="250" fill="#ffffff"></rect>
-                                    </mask>
-                                </defs>
-                            </svg>
-                        </div>
-                    </div>
-                    <!-- END SHAPE --> {% endcomment %}
-                    
+                   
                    
                     <!-- START JOB-LIST -->
                     <section class="section bg-light">
@@ -457,13 +441,13 @@
                                 <div class="col-lg-6">
                                     <div class="tab-content" id="v-pills-tabContent">
                                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                            <img src="assets/images/process-01.png" alt="" class="img-fluid">
+                                            <img src="{% static 'images/pexels-trushotz-3635300.jpg' %}" alt="" class="img-fluid">
                                         </div>
                                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                            <img src="assets/images/process-02.png" alt="" class="img-fluid">
+                                            <img src="{% static 'images/wildberries-1317712.jpg' %}" alt="" class="img-fluid">
                                         </div>
                                         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                                            <img src="assets/images/process-03.png" alt="" class="img-fluid">
+                                            <img src="{% static 'images/pexels-trushotz-3635300.jpg' %}" alt="" class="img-fluid">
                                         </div>
                                     </div>
                                 </div>
@@ -483,7 +467,7 @@
                                         <p class="text-muted">Post a job to tell us about your project. We'll quickly match you with
                                             the right freelancers.</p>
                                         <div class="mt-4 pt-2">
-                                            <a href="javascript:void(0)" class="btn btn-primary btn-hover">Started Now <i class="uil uil-rocket align-middle ms-1"></i></a>
+                                            <a href="{% url 'jobs' %}" class="btn btn-primary btn-hover">Started Now <i class="uil uil-rocket align-middle ms-1"></i></a>
                                         </div>
                                     </div>
                                 </div><!--end col-->
@@ -509,94 +493,35 @@
                             </div>
                             <!--end row-->
                             <div class="row">
+                              
+                               {% for blog in blogs %}
                                 <div class="col-lg-4 col-md-6">
-                                    <div class="blog-box card p-2 mt-3">
-                                        <div class="blog-img position-relative overflow-hidden">
-                                            <img src="assets/images/blog/img-01.jpg" alt="" class="img-fluid">
-                                            <div class="bg-overlay"></div>
-                                            <div class="author">
-                                                <p class=" mb-0"><i class="mdi mdi-account text-light"></i> <a href="javascript:void(0)"
-                                                        class="text-light user">Dirio Walls</a></p>
-                                                <p class="text-light mb-0 date"><i class="mdi mdi-calendar-check"></i> 01 July, 2021</p>
-                                            </div>
-                                            <div class="likes">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-white"><i
-                                                                class="mdi mdi-heart-outline me-1"></i> 33</a></li>
-                                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-white"><i
-                                                                class="mdi mdi-comment-outline me-1"></i> 08</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <a href="blog-details.html" class="primary-link">
-                                                <h5 class="fs-17">How apps is the IT world ?</h5>
-                                            </a>
-                                            <p class="text-muted">The final text is not yet avaibookmark-label. Dummy texts have Internet tend
-                                                been in use by typesetters since century.</p>
-                                            <a href="blog-details.html" class="form-text text-primary">Read more <i class="mdi mdi-chevron-right align-middle"></i></a>
-                                        </div>
-                                    </div><!--end blog-box-->
-                                </div><!--end col-->
+                                    
 
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="blog-box card p-2 mt-3">
-                                        <div class="blog-img position-relative overflow-hidden">
-                                            <img src="assets/images/blog/img-02.jpg" alt="" class="img-fluid">
-                                            <div class="bg-overlay"></div>
-                                            <div class="author">
-                                                <p class=" mb-0"><i class="mdi mdi-account text-light"></i> <a href="javascript:void(0)"
-                                                        class="text-light user">Brandon Carney</a></p>
-                                                <p class="text-light mb-0 date"><i class="mdi mdi-calendar-check"></i> 25 June, 2021</p>
-                                            </div>
-                                            <div class="likes">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-white"><i
-                                                                class="mdi mdi-heart-outline me-1"></i> 44</a></li>
-                                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-white"><i
-                                                                class="mdi mdi-comment-outline me-1"></i> 25</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <a href="blog-details.html" class="primary-link">
-                                                <h5 class="fs-17">Smartest Applications for Business ?</h5>
-                                            </a>
-                                            <p class="text-muted">Due to its widespread use as filler text for layouts, non-readability
-                                                is of great importance: human perception.</p>
-                                            <a href="blog-details.html" class="form-text text-primary">Read more <i class="mdi mdi-chevron-right align-middle"></i></a>
-                                        </div>
-                                    </div><!--end blog-box-->
-                                </div><!--end col-->
 
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="blog-box card p-2 mt-3">
-                                        <div class="blog-img position-relative overflow-hidden">
-                                            <img src="assets/images/blog/img-03.jpg" alt="" class="img-fluid">
-                                            <div class="bg-overlay"></div>
-                                            <div class="author">
-                                                <p class=" mb-0"><i class="mdi mdi-account text-light"></i> <a href="javascript:void(0)"
-                                                        class="text-light user">William Mooneyhan</a></p>
-                                                <p class="text-light mb-0 date"><i class="mdi mdi-calendar-check"></i> 16 March, 2021
-                                                </p>
-                                            </div>
-                                            <div class="likes">
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-white"><i class="mdi mdi-heart-outline me-1"></i> 68</a></li>
-                                                    <li class="list-inline-item"><a href="javascript:void(0)" class="text-white"><i class="mdi mdi-comment-outline me-1"></i> 20</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <a href="blog-details.html" class="primary-link">
-                                                <h5 class="fs-17">Design your apps in your own way ?</h5>
-                                            </a>
-                                            <p class="text-muted">One disadvantage of Lorum Ipsum is that in Latin certain letters
-                                                appear more frequently than others.</p>
-                                            <a href="blog-details.html" class="form-text text-primary">Read more <i class="mdi mdi-chevron-right align-middle"></i></a>
-                                        </div>
-                                    </div><!--end blog-box-->
+                                     <div class="card blog-grid-box p-2">
+                                                     <div class="image">
+                                                    <img src="{{blog.photo.url}}" alt="..." class="img-fluid">
+                                                     </div>
+                                                    <div class="card-body">
+                                                        <ul class="list-inline d-flex justify-content-between mb-3">
+                                                            <li class="list-inline-item">
+                                                                <p class="text-muted mb-0"><a href="blog-author.html" class="text-muted fw-medium"><i class="uil uil-user"></i> {{blog.user.username}}</a>  </p>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <p class="text-muted mb-0"><i class="uil uil-calender"></i> {{blog.created}}</p>
+                                                            </li>
+                                                        </ul>
+                                                        <h3><a href="{{blog.get_absolute_url}}" class="primary-link text-dark "><h6 class="fs-17 title-blog">{{blog.title}}</h6></a>
+                                                        </h3>
+                                                        <p class="text-muted">{{blog.content | truncatewords:30}}</p>
+                                                         <a href="{{blog.get_absolute_url}}" class="form-text text-primary">Read more <i class="mdi mdi-chevron-right align-middle"></i></a>
+                                                    </div>
+                                                </div><!--end blog-grid-box-->
                                 </div><!--end col-->
+                               {% empty %}
+                               <p class="text-center"> No Blogs Found !</p>
+                               {% endfor %}
                             </div>
                             <!--end row-->
                         </div>

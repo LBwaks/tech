@@ -1658,6 +1658,30 @@ body[data-layout-mode=dark] .process-menu .nav-link.active{
     -webkit-transform:translateY(-8px);
     transform:translateY(-8px)
 }
+.blog-grid-box h3
+{
+    line-height:24px 
+}
+.blog-grid-box h3 a
+{
+    color:#081828;font-size:17px;line-height:25px;font-weight:600 
+}
+.blog-grid-box h3 a:hover
+{
+    color:#473bf0 
+}
+.blog-grid-box .icon
+{
+    margin-top:25px 
+}
+.blog-grid-box .icon i
+{
+    font-size:32px;color:#473bf0 
+}
+.blog-grid-box p
+{
+    font-size:14px;font-weight:500;color:#888;line-height:24px;margin-top:25px 
+}
 .blog-modern-box .bg-overlay{
     background:-webkit-gradient(linear,left bottom,left top,color-stop(10%,rgba(0,0,0,.55)),to(transparent));
     background:linear-gradient(to top,rgba(0,0,0,.55) 10%,transparent)
@@ -2481,6 +2505,9 @@ body[data-layout-mode=dark] .card{
 .add-blog .blog_form .button .btn {
   height: 50px;
   border: none;
+}
+.title-blog{
+
 }
 
 /* astrick */

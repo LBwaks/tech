@@ -34,7 +34,9 @@
                                            {% for blog in blogs %}
                                             <div class="col-lg-6 mb-4">
                                                 <div class="card blog-grid-box p-2">
+                                                     <div class="image">
                                                     <img src="{{blog.photo.url}}" alt="..." class="img-fluid">
+                                                     </div>
                                                     <div class="card-body">
                                                         <ul class="list-inline d-flex justify-content-between mb-3">
                                                             <li class="list-inline-item">
@@ -44,7 +46,8 @@
                                                                 <p class="text-muted mb-0"><i class="uil uil-calender"></i> {{blog.created}}</p>
                                                             </li>
                                                         </ul>
-                                                        <a href="{{blog.get_absolute_url}}" class="primary-link"><h6 class="fs-17">{{blog.title}}</h6></a>
+                                                        <h3><a href="{{blog.get_absolute_url}}" class="primary-link text-dark "><h6 class="fs-17 title-blog">{{blog.title}}</h6></a>
+                                                        </h3>
                                                         <p class="text-muted">{{blog.content | truncatewords:30}}</p>
                                                         
                                                     </div>
