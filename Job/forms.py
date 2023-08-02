@@ -15,11 +15,11 @@ class JobForm(forms.ModelForm):
     }))
     tags = forms.ModelMultipleChoiceField(label="Tags", widget=forms.SelectMultiple(attrs={"class": "form-select form-control tag-multiple", "style": "width:100%", "multiple": "multiple", "required": True}), queryset=Tag.objects.all())
    
-    content = forms.CharField(label="Job Descripion",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
-    responsibility = forms.CharField(widget=CKEditorWidget( config_name='non_main', attrs={'class': 'form-control', 'required': True}))
-    qualification = forms.CharField(widget=CKEditorWidget(config_name='non_main',attrs={'class': 'form-control', 'required': True}))
+    content = forms.CharField(label="Descripion For The Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
+    responsibility = forms.CharField(label="Responsibility For This Job",widget=CKEditorWidget(  attrs={'class': 'form-control', 'required': True}))
+    qualification = forms.CharField(label="Qualification Needed For This Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     
-    skills = forms.CharField(widget=CKEditorWidget(config_name='non_main',attrs={'class': 'form-control', 'required': True}))
+    skills = forms.CharField(label="Skills Needed For This Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
 
     class Meta:
         """Meta definition for Jobform."""
@@ -66,10 +66,10 @@ class JobEditForm(forms.ModelForm):
     }))
     tags = forms.ModelMultipleChoiceField(label="Tags", widget=forms.SelectMultiple(attrs={"class": "form-select form-control tag-multiple", "style": "width:100%", "multiple": "multiple", "required": True}), queryset=Tag.objects.all())
    
-    content = forms.CharField(label="Job Description",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
-    responsibility = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
-    qualification = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
-    skills = forms.CharField(widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
+    content = forms.CharField(label="Descripion For The Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
+    responsibility = forms.CharField(label="Responsibility For This Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
+    qualification = forms.CharField(label="Qualification Needed For This Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
+    skills = forms.CharField(label="Skills Needed For This Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
 
     class Meta:
         """Meta definition for Jobform."""

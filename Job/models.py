@@ -55,7 +55,7 @@ class Job(models.Model, HitCountMixin):
 
     # TODO: Define fields here
     user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE,db_index=True)
-    reference_id = models.CharField(_("reference_id"), unique=True)
+    reference_id = models.CharField(_("reference_id"), unique=True, max_length=250)
     title = models.CharField(_("Title"), max_length=150)
     slug = AutoSlugField(populate_from="title",db_index=True)
     category = models.ForeignKey(Category,db_index=True, verbose_name=_("Category"), on_delete=models.CASCADE)

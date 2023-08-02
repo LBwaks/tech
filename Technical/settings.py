@@ -115,9 +115,11 @@ INTERNAL_IPS = [
     # ...
 ]
 ROOT_URLCONF = "Technical.urls"
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
+       
         "LOCATION": os.getenv("REDIS_URL"),
         "OPTIONS": {
             "CLIENT_CLASS":"django_redis.client.DefaultClient",
@@ -150,24 +152,24 @@ WSGI_APPLICATION = "Technical.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # development db settings
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.getenv("NAME"),
-#         "USER": os.getenv("USER"),
-#         "PASSWORD": os.getenv("PASSWORD"),
-#         "HOST": os.getenv("HOST"),
-#         "PORT": os.getenv("PORT"),
-#     }
-# }
-# production db settings
-DATABASE_URL = os.getenv("DATABASE_URL")
 DATABASES = {
-    "default": dj_database_url.config(
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("NAME"),
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
+    }
 }
+# production db settings
+# DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     )
+# }
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_HOST = "smtp.sendgrid.net"
