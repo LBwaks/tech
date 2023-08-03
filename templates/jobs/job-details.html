@@ -161,11 +161,7 @@
     </li>
  {% else %}
     
-    {% comment %} {% if has_applied %}
-         <li class="list-inline-item mt-1">
-        <button class="btn btn-sm btn-outline-success">Applied</button>
-    </li>
-        {% else %} {% endcomment %}
+  
    
  <li class="list-inline-item mt-1">
         <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
@@ -197,7 +193,7 @@
                                                 {% else %}
                                                  <ul class="list-inline mb-0 d-flex justify-content-around">
  <li class="list-inline-item mt-1">
-        <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now</a>
+        <a href="{% url 'applications:apply-job' job.slug %}" class="btn btn-sm btn-outline-info">Apply Now 555</a>
     </li>
     </ul>
 
@@ -301,19 +297,29 @@
                                                     </li>
                                                 </ul>
                                                 <div class="mt-3">
+                                                   {% comment %} {% if user.is_authenticated and job.user == request.user %}  {% endcomment %}
+                                                    {% if user.is_authenticated and job.user != request.user %}  
+
+                                                    {% if job.status == 'Open' %}
+                                                    {% if user.user_profile.firstname == "" and user.user_profile.lastname == "" %}
+                                                  <li class="list-inline-item mt-1">
+
+                                                    <a tabindex="0" class="btn btn-sm btn-outline-info" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Profile Not Found !" data-bs-content="Please update your profile first.">Apply Now</a>
+
+                                                        </li>
+                                                            {% else %}
+                                                   
+                                <a href="{% url 'applications:apply-job' job.slug %}"  class="btn btn-primary btn-hover w-100 mt-2">Apply Now <i class="uil uil-arrow-right"></i></a>
                                                     
-                                                    {% if has_applied %}
-<button class="btn  btn-success btn-hover w-100 mt-2">Applied</button>
-                                                    {% else %}
- <a href="{% url 'applications:apply-job' job.slug %}"  class="btn btn-primary btn-hover w-100 mt-2">Apply Now <i class="uil uil-arrow-right"></i></a>
-                                                    {% endif %}
-                                                        
+                                                        {% endif %}
+                                                        {% endif %}
                                                    
                                                     {% if job.savedJobs.exists %}
                                                     <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-warning  w-100 mt-2"><i class="uil uil-bookmark"></i> Add Bookmark</a>
                                                
   {% else %}
   <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-secondary  w-100 mt-2"><i class="uil uil-bookmark"></i> Remove Bookmark</a>
+  {% endif %}
   {% endif %}
                                                   </div>
                                             </div><!--end card-body-->

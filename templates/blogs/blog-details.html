@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} About{% endblock title %}
+{% block title %} Blog Details {% endblock title %}
 {% load static %}
     {% block content %}
 
@@ -18,7 +18,8 @@
 <div class="col-lg-6 col-md-6 col-12">
 <ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
 <li><a href="{% url 'home' %}">Home</a></li>
-<li>Blogs</li>
+<li><a href="{% url 'blogs' %}">Blog</a></li>
+<li>Blog Details</li>
 </ul>
 </div>
 </div>

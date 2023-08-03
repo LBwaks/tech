@@ -152,9 +152,10 @@
 <a tabindex="0" class="btn btn-sm btn-outline-info" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Profile Not Found !" data-bs-content="Please update your profile first.">Apply Now</a>
 
   
-    <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
+    
+          {% else %}
+         <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
 
-          
           {% endif %}
     
  </div>

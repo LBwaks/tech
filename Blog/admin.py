@@ -7,6 +7,7 @@ class CategoryAdmin(admin.ModelAdmin):
     '''Admin View for Category'''
 
     list_display = ('name',"is_published","is_featured","created_date")
+    readonly_fields = ('user',)
     def save_model(self, request, obj, form, change):
         obj.user=request.user
         return super().save_model(request, obj, form, change)

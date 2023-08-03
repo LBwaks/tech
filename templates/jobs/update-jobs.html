@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Job Details {% endblock title %}
+{% block title %} Update Job {% endblock title %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
@@ -15,14 +15,15 @@
 <div class="row align-items-center">
 <div class="col-lg-6 col-md-6 col-12">
 <div class="breadcrumbs-content">
-<h1 class="page-title">Contact Us</h1>
+<h1 class="page-title">Update Jobs</h1>
 
 </div>
 </div>
 <div class="col-lg-6 col-md-6 col-12">
 <ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
 <li><a class="text-decoration-none" href="{% url 'home' %}">Home</a></li>
-<li>Contact Us</li>
+<li><a class="text-decoration-none" href="{% url 'jobs' %}">Jobs</a></li>
+<li>Update Job</li>
 </ul>
 </div>
 </div>

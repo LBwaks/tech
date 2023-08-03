@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Ca{% endblock title %}
+{% block title %} Blogs Per Category {% endblock title %}
 {% load static %}
     {% block content %}
 
@@ -11,14 +11,15 @@
 <div class="row align-items-center">
 <div class="col-lg-6 col-md-6 col-12">
 <div class="breadcrumbs-content">
-<h1 class="page-title">Blog By Category</h1>
+<h1 class="page-title">Blogs Per Category</h1>
 
 </div>
 </div>
 <div class="col-lg-6 col-md-6 col-12">
 <ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
 <li><a href="{% url 'home' %}">Home</a></li>
-<li>Blogs</li>
+<li><a href="{% url 'blogs' %}">Blogs</a></li>
+<li>Blogs Per Category </li>
 </ul>
 </div>
 </div>

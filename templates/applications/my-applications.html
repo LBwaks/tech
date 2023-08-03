@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} Job Details {% endblock title %}
+{% block title %} My Applications {% endblock title %}
 {% load static %}
 {% load humanize %}
 {% load crispy_forms_tags %}
@@ -27,6 +27,7 @@
 <div class="col-lg-6 col-md-6 col-12">
 <ul class="breadcrumb-nav float-sm-start float-lg-end float-md-end">
 <li><a href="{% url 'home' %}">Home</a></li>
+<li> <a href="{% url 'jobs' %}">Jobs</a> </li>
 <li> <a href="{% url 'my-jobs' %}">My Jobs</a> </li>
 <li>My Applications</li>
 </ul>
