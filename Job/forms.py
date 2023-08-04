@@ -13,8 +13,8 @@ class JobForm(forms.ModelForm):
         'class': 'form-control images',
         'multiple': True
     }))
-    tags = forms.ModelMultipleChoiceField(label="Tags", widget=forms.SelectMultiple(attrs={"class": "form-select form-control tag-multiple", "style": "width:100%", "multiple": "multiple", "required": True}), queryset=Tag.objects.all())
-   
+    tags = forms.ModelMultipleChoiceField(label="Tags", widget=forms.SelectMultiple(attrs={"class": "form-select form-control", "id":"job_tags", "required": True}), queryset=Tag.objects.all())
+    
     content = forms.CharField(label="Descripion For The Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     responsibility = forms.CharField(label="Responsibility For This Job",widget=CKEditorWidget(  attrs={'class': 'form-control', 'required': True}))
     qualification = forms.CharField(label="Qualification Needed For This Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
@@ -64,7 +64,7 @@ class JobEditForm(forms.ModelForm):
         'class': 'form-control images',
         'multiple': True
     }))
-    tags = forms.ModelMultipleChoiceField(label="Tags", widget=forms.SelectMultiple(attrs={"class": "form-select form-control tag-multiple", "style": "width:100%", "multiple": "multiple", "required": True}), queryset=Tag.objects.all())
+    tags = forms.ModelMultipleChoiceField(label="Tags", widget=forms.SelectMultiple(attrs={"class": "form-select form-control ", "id":"job_tags", "multiple": "multiple", "required": True}), queryset=Tag.objects.all())
    
     content = forms.CharField(label="Descripion For The Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
     responsibility = forms.CharField(label="Responsibility For This Job",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
