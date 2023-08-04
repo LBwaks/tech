@@ -280,7 +280,9 @@ class JobFilterView(FilterView):
         paginator = Paginator(job_filter.qs,self.paginate_by)
         page_number = request.GET.get('page')
         jobs = paginator.get_page(page_number)
-        return render(request,self.template_name,{'jobs':jobs,'job_filter':job_filter})
+        tags =Tag.objects.all()
+        categories = Category.objects.select_related('user')
+        return render(request,self.template_name,{'jobs':jobs,'tags':tags,'categories':categories,'job_filter':job_filter})
     
     def get_queryset(self):
         queryset = Job.objects.filter(status="Open",deadline__gte=datetime.now()).select_related('category','user').prefetch_related('tags').order_by('-created')
@@ -292,8 +294,8 @@ class JobFilterView(FilterView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["job_filter"] = JobFilter(self.request.GET,queryset=self.get_queryset())        
-        context['tags']=Tag.objects.all()
-        context['categories']=Category.objects.select_related('user')
+        # context['tags']=Tag.objects.all()
+        # context['categories']=Category.objects.select_related('user')
         return context
     
 class JobApplicationsListView(LoginRequiredMixin,ListView):

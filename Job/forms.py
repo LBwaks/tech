@@ -1,6 +1,6 @@
 from django import forms
 from .models import Job,JobImage
-from taggit.forms import *
+# from taggit.forms import *
 from taggit.models import Tag
 from ckeditor.widgets import CKEditorWidget
 from Account.models import Rating
