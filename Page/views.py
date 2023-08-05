@@ -4,7 +4,7 @@ from django.contrib.postgres.search import (SearchHeadline, SearchQuery,
                                             SearchRank, SearchVector)
 from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import FormView, ListView, TemplateView,FormView
+from django.views.generic import FormView, ListView, TemplateView,FormView,DetailView
 from taggit.models import Tag
 from django.core.paginator import Paginator
 from Job.models import Job
@@ -45,7 +45,7 @@ class Home(TemplateView):
         
         return context
     
-    
+
     
 
 class JobSearchView(ListView):
