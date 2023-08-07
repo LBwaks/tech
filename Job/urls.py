@@ -19,6 +19,8 @@ from .views import (
     MakePaymentView,
     # ApplicantRatings,
     ApplicantRatingsViews,
+    initiate_stk_push,
+    get_access_token
    
 )
 
@@ -39,6 +41,8 @@ urlpatterns = [
     path('approve-application/<uuid:pk>',ApplicationApprovalView.as_view(),name='approve-application'),     
     path('application/<uuid:pk>/cancel/', ApplicationCancelView.as_view(), name='cancel-application'),
     path('make-payment/', MakePaymentView, name='make-payment'),
+    path("lipa-na-mpesa/", initiate_stk_push, name="lipa-na-mpesa"),
+    path("access_token/", get_access_token, name="access_token"),
     path('ratings/<slug>/ratings',ApplicantRatingsViews.as_view(),name="ratings")
      
 ]
