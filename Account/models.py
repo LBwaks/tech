@@ -112,14 +112,14 @@ class Profile(models.Model):
         cnt = ratings['count'] or 0
         return int(cnt)
         
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
+# @receiver(post_save, sender=User)
+# def create_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    instance.user_profile.save()
+# @receiver(post_save, sender=User)
+# def save_profile(sender, instance, **kwargs):
+#     instance.user_profile.save()
    
    
 def user_documents_path(instance, filename):

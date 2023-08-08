@@ -335,7 +335,7 @@ class ApplicationApprovalView(UpdateView):
             )
             # sending email notification
             applicant_email =self.object.user.email
-            applicant_email ='victorobwaku@gmail.com'
+            # applicant_email ='victorobwaku@gmail.com'
             subject = 'Application Accepted'
             context ={
                 'job':job,
@@ -369,7 +369,7 @@ class ApplicationApprovalView(UpdateView):
 class ApplicationCancelView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Application
     fields = ["status"]
-    template_name_suffix = '_confirm_delete'
+    # template_name_suffix = '_confirm_delete'
     
     def test_func(self):
         application = self.get_object()
@@ -384,9 +384,10 @@ class ApplicationCancelView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
                 status="Pending"
             )
             # sending email notification
-            job_owner_email =self.object.job.user.email
-            job_owner_email='victorobwaku@gmail.com'
-            subject = 'Application Accepted'
+            job_owner_email =self.object.user.email
+            # job_owner_email='victorobwaku@gmail.com'
+            
+            subject = 'Approved Application Cancelled'
             context ={
                 'job':job,
                 'application': self.object,

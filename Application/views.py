@@ -137,12 +137,12 @@ class ApplicationRejectView(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
             ).update(status="Pending")
             # sending email notification
             job_owner_email =self.object.job.user.email
-            job_owner_email='victorobwaku@gmail.com'
-            subject = 'Application Accepted'
+            # job_owner_email='victorobwaku@gmail.com'
+            subject = 'Approved Application Rejected'
             context ={
                 'job':job,
-                'application': self.object,
-                'applicant':self.object.user
+                'application': self.get_object(),
+                'applicant':self.get_object().user
             }
             message = render_to_string('emails/reject-accepted-application.html',context)           
             send_email_notification.delay(subject,message,job_owner_email)
@@ -186,8 +186,8 @@ class ApplicationApprovalAcceptedView(LoginRequiredMixin, UserPassesTestMixin,Up
             ).update(status="Failed")
             
             # sending email notification
-            job_owner_email =self.object.job.user.email
-            job_owner_email='victorobwaku@gmail.com'
+            job_owner_email =self.get_object().job.user.email
+            # job_owner_email='victorobwaku@gmail.com'
             subject = 'Application Accepted'
             context ={
                 'job':job,
