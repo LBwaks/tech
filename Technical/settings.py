@@ -47,7 +47,7 @@ ALLOWED_HOSTS = ['*',]
 
 INSTALLED_APPS = [
     'jazzmin',
-    # "daphne",
+    "daphne",
     #  "whitenoise.runserver_nostatic",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -234,7 +234,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # asgi
 ASGI_APPLICATION = "Technical.asgi.application"
-CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
+# CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
+CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [("localhost", 6379)],
+            },
+        },
+    }
+
 
 
 SITE_ID = 2

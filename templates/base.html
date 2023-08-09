@@ -101,9 +101,9 @@
 
 
 </head>
-{% comment %} <body hx-ext="ws" ws-connect="/ws/notifications/"> {% endcomment %}
+<body hx-ext="ws" ws-connect="/ws/notifications/">
      <!-- Preloader -->
-<body>
+{% comment %} <body> {% endcomment %}
      <!-- Preloader -->
    <!--start page Loader -->
          {% comment %} <div id="preloader">
@@ -131,18 +131,7 @@
     <![endif]-->
 {% include 'includes/header.html' %}
 {% endblock %}
-{% comment %} {% if debug %}
-    if (typeof window.htmx !== "undefined") {
-        htmx.on("htmx:afterSettle", function(detail) {
-            if (
-                typeof window.djdt !== "undefined"
-                && detail.target instanceof HTMLBodyElement
-            ) {
-                djdt.show_toolbar();
-            }
-        });
-    }
-{% endif %} {% endcomment %}
+
 {% block content %}
     
 
@@ -267,6 +256,26 @@ var swiper = new Swiper(".testimonialSlider", {
 
   </script>
   <script>
+   // notification counter
+    let numberSpan = document.getElementById('notification-number');
+
+        document.body.addEventListener('htmx:wsAfterMessage', (e) => {
+            let numberOfNotifications = numberSpan.innerHTML;
+            console.log(numberOfNotifications)
+            if (!numberOfNotifications) {
+                numberSpan.innerHTML = 1;
+            } else {
+                numberSpan.innerHTML = parseInt(numberOfNotifications) + 1;                
+            }
+        });
+    let clearBtn = document.getElementById('clear-btn');
+
+        clearBtn.addEventListener('click', (e) => {
+            let dropdown = document.getElementById('notification-dropdown');
+            let notifications = dropdown.querySelectorAll('div')
+            notifications.forEach(notification => notification.remove())
+            numberSpan.innerHTML = ''
+        });
           /*for popover in detail-page */
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
