@@ -20,7 +20,8 @@ from .views import (
     # ApplicantRatings,
     ApplicantRatingsViews,
     initiate_stk_push,
-    get_access_token
+    get_access_token,
+    CheckoutView
    
 )
 
@@ -43,6 +44,7 @@ urlpatterns = [
     path('make-payment/', MakePaymentView, name='make-payment'),
     path("lipa-na-mpesa/", initiate_stk_push, name="lipa-na-mpesa"),
     path("access_token/", get_access_token, name="access_token"),
-    path('ratings/<slug>/ratings',ApplicantRatingsViews.as_view(),name="ratings")
+    path('ratings/<slug>/ratings',ApplicantRatingsViews.as_view(),name="ratings"),
+    # path("checkout/<slug>", CheckoutView.as_view(), name="checkout")
      
 ]

@@ -10,7 +10,7 @@ from django.shortcuts import render,redirect
 from django.views import View
 import requests
 from .models import Category,Job,JobImage,SavedJob
-from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
+from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,TemplateView
 from django.shortcuts import get_object_or_404
 from .forms import JobForm,JobEditForm ,RatingForm
 from django.contrib.messages.views import SuccessMessageMixin
@@ -501,4 +501,13 @@ def initiate_stk_push(request):
             return JsonResponse({'error':'Access token not found.'})
     else:
         return JsonResponse({"error":'Failed to retrieve access token'})
-from .generateAccessToken import get_access_token
+# from .generateAccessToken import get_access_token
+
+class CheckoutView(TemplateView):
+    model = Job
+    template_name = "payments/checkout.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["job"] = get_object_or_404(Job, slug=self.kwargs.get('slug'))
+        return context
+    

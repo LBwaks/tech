@@ -15,6 +15,7 @@ from django.views.generic import (
     DetailView,
     ListView,
     UpdateView,
+    TemplateView
 )
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -218,3 +219,10 @@ class ApplicationApprovalAcceptedView(LoginRequiredMixin, UserPassesTestMixin,Up
 
 # def Ratings(request):
 #      return (render,'ratings/ratings.html')
+class CheckoutView(TemplateView):
+    model = Application
+    template_name = "payments/checkout.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["application"] = get_object_or_404(Application, uuid=self.kwargs.get('slug'))
+        return context
