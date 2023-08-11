@@ -159,7 +159,9 @@ DATABASES = {
         "USER": os.getenv("USER"),
         "PASSWORD": os.getenv("PASSWORD"),
         "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        # "PORT": os.getenv("PORT"),
+        "PORT":5432,
+        # 
     }
 }
 # production db settings
