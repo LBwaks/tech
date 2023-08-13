@@ -121,6 +121,7 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
        
         "LOCATION": os.getenv("REDIS_URL"),
+        # "LOCATION":"redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS":"django_redis.client.DefaultClient",
             "IGNORE_EXCEPTIONS": True,
@@ -155,12 +156,14 @@ WSGI_APPLICATION = "Technical.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("NAME"),
+        # "NAME": os.getenv("NAME"),
+        'NAME':'technical',
         "USER": os.getenv("USER"),
         "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
+        # "HOST": os.getenv("HOST"),
+        "HOST":"tech_db",
         # "PORT": os.getenv("PORT"),
-        "PORT":5432,
+        "PORT":"5432",
         # 
     }
 }
@@ -246,8 +249,6 @@ CHANNEL_LAYERS = {
         },
     }
 
-
-
 SITE_ID = 2
 LOGIN_REDIRECT_URL = "jobs"
 LOGOUT_REDIRECT_URL="jobs"
@@ -319,10 +320,12 @@ ACCOUNT_USERNAME_REQUIRED = True
 PHONENUMBER_DEFAULT_REGION = "KE"
 # celery redis
 CELERY_BROKER_URL =os.getenv("REDIS_URL"),
+# CELERY_BROKER_URL ="redis://127.0.0.1:6379/1",
 # CELERY_ACCEPT_CONTENT =['json']
 # CELERY_TASK_SERIALIZER = ['json']
 
-# CELERY_RESULT_BACKEND =os.getenv("REDIS_URL"),
+CELERY_RESULT_BACKEND =os.getenv("REDIS_URL"),
+# CELERY_RESULT_BACKEND=
 # Specify the default queue name for Celery
 CELERY_DEFAULT_QUEUE = "default"
 # Specify additional Celery configuration (optional)
