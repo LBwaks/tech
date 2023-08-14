@@ -1,14 +1,14 @@
             {% load admin_urls %}
             {% with request.resolver_match.url_name as url_name %}
+            {% load static %}
                 
            
                 
             <!--Navbar Start-->
             <nav class="navbar navbar-expand-lg fixed-top sticky" id="navbar">
                 <div class="container-fluid custom-container">
-                    <a class="navbar-brand text-dark fw-bold me-auto" href="index.html">
-                        <img src="assets/images/logo-dark.png" height="22" alt="" class="logo-dark" />
-                        <img src="assets/images/logo-light.png" height="22" alt="" class="logo-light" />Logo
+                    <a class="navbar-brand text-dark fw-bold me-auto" href="{% url 'home' %}">                     
+                        <img src="{% static 'images/logo-color.png' %}" height="22" alt="" class="logo-dark" />Logo
                     </a>
                     <div>
                         <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse"

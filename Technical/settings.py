@@ -160,8 +160,8 @@ DATABASES = {
         'NAME':'technical',
         "USER": os.getenv("USER"),
         "PASSWORD": os.getenv("PASSWORD"),
-        # "HOST": os.getenv("HOST"),
-        "HOST":"tech_db",
+        "HOST": os.getenv("HOST"),
+        # "HOST":"tech_db",
         # "PORT": os.getenv("PORT"),
         "PORT":"5432",
         # 

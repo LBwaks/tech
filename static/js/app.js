@@ -91,3 +91,31 @@ isCounters.forEach(function(e) {
     };
     window.addEventListener("scroll", o), o()
 });
+var btn = document.getElementById("mode");
+btn.addEventListener("click", function(t) {
+    var e = localStorage.getItem("theme");
+    "light" == e || "" == e ? (document.body.setAttribute("data-layout-mode", "dark"), localStorage.setItem("theme", "dark")) : (document.body.removeAttribute("data-layout-mode"), localStorage.setItem("theme", "light"))
+});
+var mybutton = document.getElementById("back-to-top");
+
+function scrollFunction() {
+    100 < document.body.scrollTop || 100 < document.documentElement.scrollTop ? mybutton.style.display = "block" : mybutton.style.display = "none"
+}
+
+function topFunction() {
+    document.body.scrollTop = 0, document.documentElement.scrollTop = 0
+}
+window.onscroll = function() {
+    scrollFunction()
+};
+// var preloader = document.getElementById("preloader");
+// window.addEventListener("load", function() {
+//     preloader.style.opacity = "0", preloader.style.visibility = "hidden"
+// });
+for (var favouriteBtn = document.getElementsByClassName("bookmark-btn"), i = 0; i < favouriteBtn.length; i++) {
+    var favouriteBtns = favouriteBtn[i];
+    favouriteBtns.onclick = function() {
+        favouriteBtns.classList.toggle("active")
+    }
+}
+
