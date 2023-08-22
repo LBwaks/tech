@@ -572,20 +572,20 @@ STORAGES = {
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
 
 
-# sentry_sdk.init(
-#     dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
-#     integrations=[
-#         DjangoIntegration(
-#             transaction_style="url",
-#             middleware_spans=True,
-#             signals_spans=False,
-#             ),
-#     ],
+sentry_sdk.init(
+    dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
+    integrations=[
+        DjangoIntegration(
+            transaction_style="url",
+            middleware_spans=True,
+            signals_spans=False,
+            ),
+    ],
 
   
-#     traces_sample_rate=1.0,   
-#     send_default_pii=True
-# )
+    traces_sample_rate=1.0,   
+    send_default_pii=True
+)
 
 
 # mailchimp
@@ -741,4 +741,27 @@ JAZZMIN_SETTINGS = {
 
 # hijack
 HIJACK_PERMISSION_CHECK = "hijack.permissions.superusers_and_staff"
+
+# after https is configured
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+ # #  allauth
+USE_X_FORWARDED_HOST = True
+
+SECURE_BROWSER_XSS_FILTER = True
+# http sttrict transport security
+
+SECURE_HSTS_SECONDS = 1
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+REFERRER_POLICY = "same-origin"
+
+# SECURE SSL REDIRECT
+SECURE_SSL_REDIRECT = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
