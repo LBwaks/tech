@@ -13,7 +13,7 @@ class JobFilter(django_filters.FilterSet):
     category = django_filters.ModelChoiceFilter(queryset=Category.objects.all())
     tags = django_filters.ModelChoiceFilter(queryset=Tag.objects.all())
     county = django_filters.ChoiceFilter(choices=COUNTY)
-    location = django_filters.CharFilter(lookup_expr="iexact", field_name="location")
+    # location = django_filters.CharFilter(lookup_expr="iexact", field_name="location")
     job_type = django_filters.MultipleChoiceFilter(
         choices=JOB_TYPE,
         widget=forms.RadioSelect
@@ -51,7 +51,7 @@ class JobFilter(django_filters.FilterSet):
             "tags",
             "industry",
             "county",
-            "location",
+            # "location",
             "job_type",
             "seeker_type",
         ]

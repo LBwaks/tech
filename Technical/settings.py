@@ -239,15 +239,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # asgi
 ASGI_APPLICATION = "Technical.asgi.application"
-# CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
-CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [("localhost", 6379)],
-            },
-        },
-    }
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
+# CHANNEL_LAYERS = {
+#         "default": {
+#             "BACKEND": "channels_redis.core.RedisChannelLayer",
+#             "CONFIG": {
+#                 "hosts": [("localhost", 6379)],
+#             },
+#         },
+#     }
 
 SITE_ID = 2
 LOGIN_REDIRECT_URL = "jobs"
@@ -743,25 +743,25 @@ JAZZMIN_SETTINGS = {
 HIJACK_PERMISSION_CHECK = "hijack.permissions.superusers_and_staff"
 
 # after https is configured
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
- # #  allauth
-USE_X_FORWARDED_HOST = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+#  # #  allauth
+# USE_X_FORWARDED_HOST = True
 
-SECURE_BROWSER_XSS_FILTER = True
-# http sttrict transport security
+# SECURE_BROWSER_XSS_FILTER = True
+# # http sttrict transport security
 
-SECURE_HSTS_SECONDS = 1
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_SECONDS = 1
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
 
-SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = "DENY"
-REFERRER_POLICY = "same-origin"
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# X_FRAME_OPTIONS = "DENY"
+# REFERRER_POLICY = "same-origin"
 
-# SECURE SSL REDIRECT
-SECURE_SSL_REDIRECT = True
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# # SECURE SSL REDIRECT
+# SECURE_SSL_REDIRECT = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 

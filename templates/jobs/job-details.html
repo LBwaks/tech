@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% load social_share %}
 {% load hitcount_tags %}
 {% block title %} Job Details {% endblock title %}
@@ -290,7 +291,7 @@
                                                             <i class="uil uil-calender icon bg-soft-primary"></i>
                                                             <div class="ms-3">
                                                                 <h6 class="fs-14 mb-2">Date Posted</h6>
-                                                                <p class="text-muted mb-0"> {{job.created}}</p> 
+                                                                <p class="text-muted mb-0"> {{job.created|naturalday}}</p> 
                                                             </div>
                                                         </div>
                                                        
@@ -315,10 +316,10 @@
                                                         {% endif %}
                                                    
                                                     {% if job.savedJobs.exists %}
-                                                    <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-warning  w-100 mt-2"><i class="uil uil-bookmark"></i> Add Bookmark</a>
+                                                    <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-warning  w-100 mt-2"><i class="uil uil-bookmark"></i> Bookmarked</a>
                                                
   {% else %}
-  <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-secondary  w-100 mt-2"><i class="uil uil-bookmark"></i> Remove Bookmark</a>
+  <a href="{% url 'save-job' job.slug %}" class="btn btn-outline-secondary  w-100 mt-2"><i class="uil uil-bookmark"></i> Bookmark</a>
   {% endif %}
   {% endif %}
                                                   </div>
@@ -413,7 +414,7 @@
                                                                     <p class="text-muted fs-14 mb-0"><i class="mdi mdi-map-marker"></i>{{job.county}} ,{{job.location}},{{job.address}}</p>
                                                                 </li>
                                                                 <li class="list-inline-item">
-                                                                    <p class="text-muted fs-14 mb-0"><i class="uil uil-wallet"></i> {{job.created}}</p>
+                                                                    <p class="text-muted fs-14 mb-0"><i class="uil uil-wallet"></i> {{job.created |naturalday}}</p>
                                                                 </li>
                                                             </ul>
                                                             <div class="mt-2">
