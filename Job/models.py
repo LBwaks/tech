@@ -137,6 +137,8 @@ class Job(models.Model, HitCountMixin):
     def update_expiry_status(self):
         if self.deadline <= timezone.now() and self.status == "Open":
             self.status = 'Expired'
+    def has_user_applied(self, user):
+        return self.job_application.filter(user=user).exists() 
 @receiver(pre_save,sender =Job)
 def update_job_expiry_status(sender,instance,**kwargs):
         instance.update_expiry_status()

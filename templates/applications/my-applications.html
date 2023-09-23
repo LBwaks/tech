@@ -11,7 +11,7 @@
           
 
           
-            <div class="main-content">
+            <div class="main-content" style="min-height:100vh;">
 
                 <div class="page-content">
 
@@ -54,7 +54,7 @@
                 <th> </th>
             </tr>
         </thead>
-        <tbody class="table-group-divider  text-muted">
+        <tbody class="table-group-divider  text-muted" style="font-size:15px;">
             {% for application in applications %}
             <tr>
                 <td> <a href="{{application.job.get_absolute_url}}" class="text-decoration-none">{{application.job.reference_id}}</a> </td>

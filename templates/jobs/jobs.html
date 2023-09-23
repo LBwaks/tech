@@ -155,7 +155,12 @@
   
     
           {% else %}
-         <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
+          
+          {% if job.id   not in has_applied %}
+            <a href="{% url 'applications:apply-job' job.slug %}"  class="primary-link">Apply Now <i class="mdi mdi-chevron-double-right"></i></a>
+          {% endif %}
+            
+         
 
           {% endif %}
     

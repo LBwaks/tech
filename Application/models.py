@@ -29,6 +29,7 @@ class Application(models.Model):
         verbose_name = 'Application'
         verbose_name_plural = 'Applications'
         ordering =['-approved_canceled_time']
+        unique_together =['user','job']
 
     def __str__(self):
         """Unicode representation of Application."""
