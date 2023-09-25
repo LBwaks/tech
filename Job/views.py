@@ -63,11 +63,13 @@ class JobListView(ListView):
         context = super().get_context_data(**kwargs)
         tags = Tag.objects.all()
         context['tags']=tags
-        context['has_applied'] = set(Application.objects.filter(user=self.request.user).values_list("job__id",flat=True))
+        
         context['categories']=Category.objects.select_related('user')
         context['popular_tags'] =Tag.objects.annotate(num_jobs=Count('job')).order_by('-num_jobs')[:5]
         context['filter'] = JobFilter(self.request.GET, queryset=self.get_queryset())
         # update_job_expiry_status.delay()
+        if self.request.user.is_authenticated:
+            context['has_applied'] = set(Application.objects.filter(user=self.request.user).values_list("job__id",flat=True))
         return context
     
     def dispatch(self, request, *args, **kwargs):
@@ -88,7 +90,8 @@ class JobDetailView(HitCountDetailView):
        context = super().get_context_data(**kwargs)
        job = self.get_object()
     #    has_user_applied = job.has_user_applied(self.request.user)
-       has_applied = Application.objects.filter(user=self.request.user,job=job).exists()
+       if self.request.user.is_authenticated:
+         context['has_applied']= Application.objects.filter(user=self.request.user,job=job).exists()
         # Get IDs of the tags associated with the current job
     #    tag_ids = job.tags.values_list('id', flat=True)
     #     # Fetch similar jobs based on category and tags
@@ -102,7 +105,7 @@ class JobDetailView(HitCountDetailView):
        
        context['job']=job
     #    context['has_user_applied']=has_user_applied
-       context['has_applied']=has_applied
+    #    context['has_applied']=has_applied
     #    context['similar_jobs']=similar_jobs
        
        return context
@@ -435,12 +438,12 @@ class ApplicantRatingsViews(LoginRequiredMixin,CreateView):
     template_name ='ratings/ratings.html'
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
-        slug = self.kwargs['slug']
-        context["user_profile"] = get_object_or_404(Profile,slug=self.kwargs['slug'])
+        # slug = self.kwargs['profile_slug']
+        context["user_profile"] = get_object_or_404(Profile,slug=self.kwargs['profile_slug'])
         return context
     
     def form_valid(self, form):
-        profile = get_object_or_404(Profile, slug=self.kwargs['slug'])
+        profile = get_object_or_404(Profile, slug=self.kwargs['profile_slug'])
         r = form.save(commit=False)        
         r.user = self.request.user
         r.profile = profile
