@@ -13,6 +13,10 @@ INDUSTRY =[
     ('Home','Home'),
     
 ]
+SUBJECTS =[
+    ('Suggestion','Suggestion'),
+    ('Complaints','Complaints')
+]
 PUBLISHED =[
    ('', 'Any'),
    ('hour', 'Last hour'),

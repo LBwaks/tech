@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
-from .choices import COUNTY, JOB_TYPE, SEEKER_TYPE,INDUSTRY
+from .choices import COUNTY, JOB_TYPE, SEEKER_TYPE,INDUSTRY,SUBJECTS
 import hashlib
 import random
 from django.db.models.signals import pre_save
@@ -16,6 +16,7 @@ from django.contrib.postgres.indexes import GinIndex
 from hitcount.models import HitCountMixin,HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 from cloudinary.models import CloudinaryField
+# from Application.models import Application
 # Create your models here.
 
 
@@ -192,3 +193,26 @@ class SavedJob(models.Model):
     #     return ('')
 
     # TODO: Define custom methods here
+    
+class Complaints(models.Model):
+    """Model definition for Complaints."""
+
+    # TODO: Define fields here
+    job = models.ForeignKey(Job, verbose_name=_(""),related_name='job_complaints', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name=_(""), on_delete=models.CASCADE)
+    title= models.CharField(_("Title"), max_length=50)
+    subject =models.CharField(_("Subject"),choices=SUBJECTS, max_length=50)
+    description =RichTextField(_("Description"),null=False,blank=False)
+    created = models.DateTimeField(auto_now=False, auto_now_add=True)
+    
+
+    class Meta:
+        """Meta definition for Complaints."""
+
+        verbose_name = 'Complaints'
+        verbose_name_plural = 'Complaints'
+
+    def __str__(self):
+        """Unicode representation of Complaints."""
+        return self.title
+

@@ -119,12 +119,15 @@
 {{rating.id}}
 {% endfor %}
 <hr>
-<span>
-    <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-warning">Rate user</a>
-     <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-warning">JOb Done</a>
+<span class="d-flex flex-row justify-content-between">
+    <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-outline-primary">Rate user</a>
+     <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-outline-success">Job Done</a>
 </span>
      <hr>
-     <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-warning">Complaints And Suggestions</a>
+     <span class="d-flex flex-row justify-content-between">
+        <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-outline-secondary">Complaints And Suggestions</a>
+     </span>
+     
     {% comment %} <a href="{% url 'applications:checkout' application.uuid %}">Make pAyMEN</a>
     <a href="{% url 'lipa-na-mpesa' %}">Lipa na mpesa</a> {% endcomment %}
 {% endif %}

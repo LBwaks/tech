@@ -1,6 +1,6 @@
 from typing import Any
 from django.contrib import admin
-from .models import Category,Job,JobImage
+from .models import Category,Job,JobImage,Complaints
 
 # Register your models here.
 @admin.register(Category)
@@ -57,3 +57,14 @@ class JobImageAdmin(admin.ModelAdmin):
     # search_fields = ('',)
     # date_hierarchy = ''
     # ordering = ('',)
+@admin.register(Complaints)
+class ComplaintsyAdmin(admin.ModelAdmin):
+    '''Admin View for Complaintsy'''
+
+    list_display = ('title','subject','created')
+    
+    readonly_fields = ('user',)
+    
+    def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
+        obj.user = request.user
+        return super().save_model(request, obj, form, change)

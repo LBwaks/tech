@@ -64,3 +64,7 @@ RATINGS = [
     (5, 5)
     ]
 
+SUBJECTS =[
+    ('Complaints','Complaints'),
+    ('Subjects','Subjects')
+]
