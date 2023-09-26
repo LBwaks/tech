@@ -440,6 +440,7 @@ class ApplicantRatingsViews(LoginRequiredMixin,CreateView):
         context = super().get_context_data(**kwargs)
         # slug = self.kwargs['profile_slug']
         context["user_profile"] = get_object_or_404(Profile,slug=self.kwargs['profile_slug'])
+        context["application"]  =get_object_or_404(Application,uuid=self.kwargs['application_slug'])
         return context
     
     def form_valid(self, form):
