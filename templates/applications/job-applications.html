@@ -125,7 +125,7 @@
 </span>
      <hr>
      <span class="d-flex flex-row justify-content-between">
-        <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-outline-secondary">Complaints And Suggestions</a>
+        <a href="{% url 'complaints' slug=application.job.slug %} " class="btn btn-outline-secondary">Complaints And Suggestions</a>
      </span>
      
     {% comment %} <a href="{% url 'applications:checkout' application.uuid %}">Make pAyMEN</a>

@@ -9,10 +9,10 @@ from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.views import View
 import requests
-from .models import Category,Job,JobImage,SavedJob
+from .models import Category,Job,JobImage,SavedJob,Complaints
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView,TemplateView
 from django.shortcuts import get_object_or_404
-from .forms import JobForm,JobEditForm ,RatingForm
+from .forms import JobForm,JobEditForm ,RatingForm,ComplaintsForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.urls import reverse_lazy,reverse
@@ -516,4 +516,18 @@ class CheckoutView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["job"] = get_object_or_404(Job, slug=self.kwargs.get('slug'))
         return context
+    
+
+class ComplaintsCreateView(LoginRequiredMixin,CreateView):
+    model = Complaints
+    template_name = "jobs/complaints.html"
+    form_class = ComplaintsForm
+    success_url = reverse_lazy('jobs')
+    def form_valid(self, form):
+        f = form.save(commit=False)
+        f.user = self.request.user
+        slug = self.kwargs['slug']        
+        f.job = Job.objects.get(slug =slug)
+        f.save()
+        return super(ComplaintsCreateView,self).form_valid(form)
     

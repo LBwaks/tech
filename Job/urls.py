@@ -21,7 +21,8 @@ from .views import (
     ApplicantRatingsViews,
     initiate_stk_push,
     get_access_token,
-    CheckoutView
+    CheckoutView,
+    ComplaintsCreateView
    
 )
 
@@ -45,6 +46,7 @@ urlpatterns = [
     path("lipa-na-mpesa/", initiate_stk_push, name="lipa-na-mpesa"),
     path("access_token/", get_access_token, name="access_token"),
     path('ratings/<profile_slug>/<application_slug>/ratings',ApplicantRatingsViews.as_view(),name="ratings"),
+    path("complaints/<slug>", ComplaintsCreateView.as_view(), name="complaints")
     # path("checkout/<slug>", CheckoutView.as_view(), name="checkout")
      
 ]

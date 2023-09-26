@@ -1,5 +1,5 @@
 from django import forms
-from .models import Job,JobImage
+from .models import Job,JobImage,Complaints
 # from taggit.forms import *
 from taggit.models import Tag
 from ckeditor.widgets import CKEditorWidget
@@ -123,6 +123,23 @@ class RatingForm(forms.ModelForm):
             'reviews':'Review Applicant'
         }
         widget={
-            'ratings': forms.Select(attrs={'class': 'form-control ratings', 'required': True}),
+            'ratings': forms.Select(attrs={'class': 'form-select ratings', 'required': True}),
             'reviews': forms.Textarea(attrs={'class': 'form-control reviews', 'required': True})
+        }
+class ComplaintsForm(forms.ModelForm):
+    """ComplaintsForm definition."""
+    # description=forms.CharField(label="Description ",widget=CKEditorWidget(attrs={'class': 'form-control', 'required': True}))
+    class Meta:
+        model = Complaints
+        fields =("title",'subject','description')
+        labels={
+            'description':"Please describe you complaint or suggestion"
+        }
+
+    # TODO: Define form fields here
+        widget ={
+            "title":forms.TextInput(attrs={"class":"form-control",'required':True}),
+            "subjects":forms.Select(attrs={"class":"form-select",'required':True}),
+            'description':forms.Textarea(attrs={'class': 'form-control', 'required': True})
+            
         }
