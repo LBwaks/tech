@@ -42,7 +42,7 @@
                                     <div class="col-lg-4 col-md-6">
                                         <div class="candidate-grid-box card mt-4">
                                             <div class="card-body p-4" 
-                                        {% if application.status == 'AcceptJob' or application.status == 'Accepted'  %}
+                                        {% if application.status == 'AcceptJob' or application.status == 'Accepted' or application.job.status == 'Done' and application.status != 'Failed' %}
                                         style= 'background-color:beige;'
                                         
                                     {% endif %}>
@@ -115,21 +115,30 @@
         <button type="submit" class="btn btn-danger btn-hover w-100 mt-2"><i class="mdi mdi-account-check"></i> Cancel Hiring</button>
     </form>
     {% elif application.status == 'AcceptJob' %}
-{% for rating in application.user.profile.user_rating %}
-{{rating.id}}
-{% endfor %}
+
 <hr>
 <span class="d-flex flex-row justify-content-between">
-    <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-outline-primary">Rate user</a>
-     <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-outline-success">Job Done</a>
+    <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-outline-primary">Rate user</a>   
+    
+    <form method="POST" action="{% url 'job-done' application.uuid %}">
+        {% csrf_token %}
+        <input type="hidden" name="status" value="Done">
+        <button type="submit" class="btn btn-outline-success btn-hover w-100 mt-2"> Job Done</button>
+    </form>
+     
 </span>
      <hr>
      <span class="d-flex flex-row justify-content-between">
         <a href="{% url 'complaints' slug=application.job.slug %} " class="btn btn-outline-secondary">Complaints And Suggestions</a>
      </span>
-     
-    {% comment %} <a href="{% url 'applications:checkout' application.uuid %}">Make pAyMEN</a>
-    <a href="{% url 'lipa-na-mpesa' %}">Lipa na mpesa</a> {% endcomment %}
+
+     {% elif application.job.status == 'Done' and application.status != 'Failed'  %}
+      <span class="d-flex flex-row justify-content-between">
+        <a href="{% url 'complaints' slug=application.job.slug %} " class="btn btn-outline-secondary">Complaints And Suggestions</a>
+        <a href="{% url 'ratings' profile_slug=application.user.user_profile.slug application_slug=application.uuid %} " class="btn btn-outline-primary">Rate user</a>   
+    
+     </span>
+    
 {% endif %}
                                                     
                                                     {% comment %} <a href="candidate-details.html" class="btn btn-info btn-hover w-100 mt-2"><i class="mdi mdi-eye"></i> View Profile</a> {% endcomment %}

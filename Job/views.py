@@ -419,17 +419,43 @@ class ApplicationCancelView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
         return reverse_lazy('job-applications', kwargs={'slug': self.object.job.slug})
     
 
-def MakePaymentView(request,):
-        cl = MpesaClient()
-        # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
-        phone_number = '0714900634'
-        amount = 1
-        account_reference = 'Kazi-Yangu'
-        transaction_desc = 'Payment For job id 2345332435'
-        callback_url =  'https://api.darajambili.com/express-payment'
-        response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-        print(response)
-        return HttpResponse(response)
+class JobDoneView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Application
+    fields = ["status"]
+        
+    def test_func(self):
+        application = self.get_object()
+        return self.request.user == application.job.user
+    
+    def form_valid(self, form):
+        job = self.get_object().job
+        new_status = form.cleaned_data["status"]
+        if new_status == "Done":
+            job.status = "Done"
+            Application.objects.filter(job=job).exclude(pk=self.object.pk).update(status="Failed")
+            
+        else:
+            self.get_object().status = new_status
+            self.get_object().approved_canceled_time= datetime.now()
+        self.get_object().save()
+        job.save()
+        return super().form_valid(form)    
+    
+    def get_success_url(self):
+        return reverse_lazy('job-applications', kwargs={'slug': self.object.job.slug})
+    
+
+# def MakePaymentView(request,):
+#         cl = MpesaClient()
+#         # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+#         phone_number = '0714900634'
+#         amount = 1
+#         account_reference = 'Kazi-Yangu'
+#         transaction_desc = 'Payment For job id 2345332435'
+#         callback_url =  'https://api.darajambili.com/express-payment'
+#         response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+#         print(response)
+#         return HttpResponse(response)
 
 
 class ApplicantRatingsViews(LoginRequiredMixin,CreateView):
@@ -454,68 +480,68 @@ class ApplicantRatingsViews(LoginRequiredMixin,CreateView):
         return reverse_lazy("jobs")
     
 # def ApplicantRatings
-def initiate_stk_push(request):
-    access_token_responce = get_access_token(request)
-    if isinstance(access_token_responce,JsonResponse):
-        access_token = access_token_responce.content.decode("utf-8")
-        access_token_json = json.loads(access_token)
-        access_token=access_token_json.get("access_token")
-        if access_token:
-            amount = 1
-            phone = "254714900634"
-            process_request_url ="https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
-            callback_url= 'https://kariukijames.com/pesa/callback.php'
-            passkey ="bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
-            business_short_code ="174379"
-            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-            password = base64.b64encode((business_short_code + passkey + timestamp).encode()).decode()
-            party_a = phone
-            party_b = '254708374149'
-            account_reference = "Technical"
-            transaction_desc ="stkpush test"
-            stk_push_headers = {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + access_token
-            }
-            stk_push_payload ={
-                'BusinessShortCode':business_short_code,
-                'Password':password,
-                "Timestamp":timestamp,    
-                "TransactionType": "CustomerPayBillOnline",    
-                "Amount": amount,    
-                "PartyA":party_a,    
-                "PartyB":business_short_code,    
-                "PhoneNumber":party_a,    
-                "CallBackURL": callback_url,   
-                "AccountReference":account_reference,    
-                "TransactionDesc":transaction_desc
-            }
-            try:
-                response = requests.post(process_request_url,headers=stk_push_headers,json=stk_push_payload)
-                response.raise_for_status()
-                 # Raise exception for non-2xx status codes
-                response_data = response.json()
-                checkout_request_id = response_data['CheckoutRequestID']
-                response_code = response_data['ResponseCode']
-                if response_code == '0':
-                    return JsonResponse({'CheckoutRequestID':checkout_request_id})
-                else :
-                    return JsonResponse({'error':"STK push failed."})
-            except requests.exceptions.RequestException as e:
-                return JsonResponse({'error':str(e)})
-        else: 
-            return JsonResponse({'error':'Access token not found.'})
-    else:
-        return JsonResponse({"error":'Failed to retrieve access token'})
+# def initiate_stk_push(request):
+#     access_token_responce = get_access_token(request)
+#     if isinstance(access_token_responce,JsonResponse):
+#         access_token = access_token_responce.content.decode("utf-8")
+#         access_token_json = json.loads(access_token)
+#         access_token=access_token_json.get("access_token")
+#         if access_token:
+#             amount = 1
+#             phone = "254714900634"
+#             process_request_url ="https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+#             callback_url= 'https://kariukijames.com/pesa/callback.php'
+#             passkey ="bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
+#             business_short_code ="174379"
+#             timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+#             password = base64.b64encode((business_short_code + passkey + timestamp).encode()).decode()
+#             party_a = phone
+#             party_b = '254708374149'
+#             account_reference = "Technical"
+#             transaction_desc ="stkpush test"
+#             stk_push_headers = {
+#                 'Content-Type': 'application/json',
+#                 'Authorization': 'Bearer ' + access_token
+#             }
+#             stk_push_payload ={
+#                 'BusinessShortCode':business_short_code,
+#                 'Password':password,
+#                 "Timestamp":timestamp,    
+#                 "TransactionType": "CustomerPayBillOnline",    
+#                 "Amount": amount,    
+#                 "PartyA":party_a,    
+#                 "PartyB":business_short_code,    
+#                 "PhoneNumber":party_a,    
+#                 "CallBackURL": callback_url,   
+#                 "AccountReference":account_reference,    
+#                 "TransactionDesc":transaction_desc
+#             }
+#             try:
+#                 response = requests.post(process_request_url,headers=stk_push_headers,json=stk_push_payload)
+#                 response.raise_for_status()
+#                  # Raise exception for non-2xx status codes
+#                 response_data = response.json()
+#                 checkout_request_id = response_data['CheckoutRequestID']
+#                 response_code = response_data['ResponseCode']
+#                 if response_code == '0':
+#                     return JsonResponse({'CheckoutRequestID':checkout_request_id})
+#                 else :
+#                     return JsonResponse({'error':"STK push failed."})
+#             except requests.exceptions.RequestException as e:
+#                 return JsonResponse({'error':str(e)})
+#         else: 
+#             return JsonResponse({'error':'Access token not found.'})
+#     else:
+#         return JsonResponse({"error":'Failed to retrieve access token'})
 # from .generateAccessToken import get_access_token
 
-class CheckoutView(TemplateView):
-    model = Job
-    template_name = "payments/checkout.html"
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["job"] = get_object_or_404(Job, slug=self.kwargs.get('slug'))
-        return context
+# class CheckoutView(TemplateView):
+#     model = Job
+#     template_name = "payments/checkout.html"
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["job"] = get_object_or_404(Job, slug=self.kwargs.get('slug'))
+#         return context
     
 
 class ComplaintsCreateView(LoginRequiredMixin,CreateView):

@@ -16,13 +16,14 @@ from .views import (
     JobFilterView,
     ApplicationApprovalView,
     ApplicationCancelView,
-    MakePaymentView,
+    # MakePaymentView,
     # ApplicantRatings,
     ApplicantRatingsViews,
-    initiate_stk_push,
-    get_access_token,
-    CheckoutView,
-    ComplaintsCreateView
+    # initiate_stk_push,
+    # get_access_token,
+    # CheckoutView,
+    ComplaintsCreateView,
+    JobDoneView
    
 )
 
@@ -42,9 +43,10 @@ urlpatterns = [
     path('job/<slug>/applications/', JobApplicationsListView.as_view(), name='job-applications'),
     path('approve-application/<uuid:pk>',ApplicationApprovalView.as_view(),name='approve-application'),     
     path('application/<uuid:pk>/cancel/', ApplicationCancelView.as_view(), name='cancel-application'),
-    path('make-payment/', MakePaymentView, name='make-payment'),
-    path("lipa-na-mpesa/", initiate_stk_push, name="lipa-na-mpesa"),
-    path("access_token/", get_access_token, name="access_token"),
+    path('application/<uuid:pk>/done/', JobDoneView.as_view(), name='job-done'),
+    # path('make-payment/', MakePaymentView, name='make-payment'),
+    # path("lipa-na-mpesa/", initiate_stk_push, name="lipa-na-mpesa"),
+    # path("access_token/", get_access_token, name="access_token"),
     path('ratings/<profile_slug>/<application_slug>/ratings',ApplicantRatingsViews.as_view(),name="ratings"),
     path("complaints/<slug>", ComplaintsCreateView.as_view(), name="complaints")
     # path("checkout/<slug>", CheckoutView.as_view(), name="checkout")
