@@ -1,9 +1,12 @@
+from typing import Any
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
-
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 from .models import Education, Profile, ProfileCV,Experience
+from django.utils.translation import gettext as _
 
 
 class  ProfileForm(forms.ModelForm):
@@ -73,8 +76,14 @@ class EducationForm(forms.ModelForm):
             "institution":forms.TextInput(attrs={'class':'form-class institution','required':True}),
             "description":forms.Textarea(attrs={'class':'form-class description',}),
             "start_date":forms.DateInput(attrs={'class': 'control-select start_date', 'required': True, 'type': 'date'}),
-            "end_date":forms.DateInput(attrs={'class': 'control-select end_date', 'required': True, 'type':"date"}),
+            "end_date":forms.DateInput(attrs={'class': 'control-select end_date', 'type':"date"}),
         }
+    def clean(self):
+        cleaned_data= super().clean()
+        start_date= cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        if (start_date is not None and end_date is not None) and start_date  >= end_date:
+            raise ValidationError(_('Start Date shuold should not be greater than end date '))
         
 class ExperienceForm(forms.ModelForm):
     
@@ -86,5 +95,11 @@ class ExperienceForm(forms.ModelForm):
             "employer":forms.TextInput(attrs={'class':'form-class employer','required':True}),
             "description":forms.Textarea(attrs={'class':'form-class description',}),
             "start_date":forms.DateInput(attrs={'class': 'control-select start_date', 'required': True, 'type': 'date'}),
-            "end_date":forms.DateInput(attrs={'class': 'control-select end_date', 'required': True, 'type':"date"}),
+            "end_date":forms.DateInput(attrs={'class': 'control-select end_date', 'type':"date"}),
         }
+    def clean(self):
+        cleaned_data= super().clean()
+        start_date= cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        if (start_date is not None and end_date is not None) and start_date  >= end_date:
+            raise ValidationError(_('Start Date should should not be greater than end date '))

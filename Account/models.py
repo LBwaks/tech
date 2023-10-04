@@ -14,7 +14,7 @@ from django.core.exceptions import ValidationError
 from datetime import date, timedelta
 from .choices import USER_TYPE,MY_GENDER,COUNTY,RATINGS
 from phonenumber_field.modelfields import PhoneNumberField
-
+from .validators import validate_file_size
 ext_validator = FileExtensionValidator(['jpg', 'png', 'jpeg'])
 cv_validator = FileExtensionValidator(['pdf'])
 
@@ -35,7 +35,7 @@ class Profile(models.Model):
 
     # TODO: Define fields here
     user = models.OneToOneField(User, related_name="user_profile", on_delete=models.CASCADE)
-    title =models.CharField(_("Job Title"), max_length=50)
+    title =models.CharField(_("Job Title"), max_length=50,blank=True,null=True)
     firstname = models.CharField(_("Firstname"), max_length=50)
     lastname = models.CharField(_("Lastname"), max_length=50)
     user_type= models.CharField(_("User Type"), choices=USER_TYPE,max_length=50)
@@ -57,7 +57,7 @@ class Profile(models.Model):
         upload_to='profiles',
        
         default="profiles/default_profile.png",
-        validators=[ext_validator],
+        validators=[ext_validator,validate_file_size],
     )
     status = models.CharField(_("Status"),default='Active', max_length=50)
     is_suspended=models.BooleanField(_("Suspended") ,default=False)
@@ -131,7 +131,7 @@ class ProfileCV(models.Model):
     # TODO: Define fields here
     user =models.ForeignKey(User,  on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, related_name='profile_cv', on_delete=models.CASCADE)
-    cv = models.FileField(upload_to=user_documents_path, blank=True, null=True,validators=[cv_validator])
+    cv = models.FileField(upload_to=user_documents_path, blank=True, null=True,validators=[cv_validator,validate_file_size])
     created = models.DateTimeField( auto_now_add=True)
     class Meta:
         """Meta definition for ProfileCV."""
@@ -185,7 +185,7 @@ class Education(models.Model):
     institution = models.CharField(_("Institution"),max_length=256)
     description = models.TextField(_("Description"), null=True, blank=True, max_length=250)
     start_date = models.DateField(_("Start Date"), auto_now=False, auto_now_add=False)
-    end_date = models.DateField(_("End Date"), auto_now=False, auto_now_add=False)
+    end_date = models.DateField(_("End Date"), auto_now=False, auto_now_add=False ,null=True,blank=True)
     created = models.DateTimeField(_(""), auto_now=False, auto_now_add=True)
     class Meta:
         """Meta definition for Education."""

@@ -2122,7 +2122,7 @@ body[data-layout-mode=dark] .profile-active{
     padding:10px 0
 }
 .candidate-profile-overview li label,.profile-contact li label{
-    min-width:118px;
+    min-width:120px;
     font-weight:500
 }
 .candidate-education-content{
