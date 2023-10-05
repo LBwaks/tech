@@ -116,20 +116,20 @@ INTERNAL_IPS = [
 ]
 ROOT_URLCONF = "Technical.urls"
 
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
        
-#         "LOCATION": os.getenv("REDIS_URL"),
-#         # "LOCATION":"redis://127.0.0.1:6379/1",
-#         "OPTIONS": {
-#             "CLIENT_CLASS":"django_redis.client.DefaultClient",
-#             "IGNORE_EXCEPTIONS": True,
-#         },
-#         "KEY_PREFIX": "Technical",
-#         "TIMEOUT": 86400,
-#     }
-# }
+        "LOCATION": os.getenv("REDIS_URL"),
+        # "LOCATION":"redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS":"django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True,
+        },
+        "KEY_PREFIX": "Technical",
+        "TIMEOUT": 86400,
+    }
+}
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -319,29 +319,29 @@ ACCOUNT_USERNAME_REQUIRED = True
 # phonenumber_field
 PHONENUMBER_DEFAULT_REGION = "KE"
 # celery redis
-# CELERY_BROKER_URL =os.getenv("REDIS_URL"),
-# # CELERY_BROKER_URL ="redis://127.0.0.1:6379/1",
-# # CELERY_ACCEPT_CONTENT =['json']
-# # CELERY_TASK_SERIALIZER = ['json']
+CELERY_BROKER_URL =os.getenv("REDIS_URL"),
+# CELERY_BROKER_URL ="redis://127.0.0.1:6379/1",
+# CELERY_ACCEPT_CONTENT =['json']
+# CELERY_TASK_SERIALIZER = ['json']
 
-# CELERY_RESULT_BACKEND =os.getenv("REDIS_URL"),
-# # CELERY_RESULT_BACKEND=
-# # Specify the default queue name for Celery
-# CELERY_DEFAULT_QUEUE = "default"
-# # Specify additional Celery configuration (optional)
-# CELERY_CONFIG = {
-#     "worker_prefetch_multiplier": 1,
-#     "task_acks_late": True,
-# }
-# # Set the Celery beat schedule
-# CELERY_BEAT_SCHEDULE = {
-#     "update_job_status": {
-#         "task": "Job.tasks.update_job_expiry_status",
-#         "schedule": timedelta(minutes=15),  # Run every 15 minutes
-#     },
-# }
-# CELERY_RESULT_BACKEND = "django-db"
-# CELERY_CACHE_BACKEND = "default"
+CELERY_RESULT_BACKEND =os.getenv("REDIS_URL"),
+# CELERY_RESULT_BACKEND=
+# Specify the default queue name for Celery
+CELERY_DEFAULT_QUEUE = "default"
+# Specify additional Celery configuration (optional)
+CELERY_CONFIG = {
+    "worker_prefetch_multiplier": 1,
+    "task_acks_late": True,
+}
+# Set the Celery beat schedule
+CELERY_BEAT_SCHEDULE = {
+    "update_job_status": {
+        "task": "Job.tasks.update_job_expiry_status",
+        "schedule": timedelta(minutes=15),  # Run every 15 minutes
+    },
+}
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "default"
 
 # django setting.
 # CACHES = {
