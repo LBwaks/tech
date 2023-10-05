@@ -34,13 +34,13 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.getenv('DEBUG')
-DEBUG=False
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-
-ALLOWED_HOSTS = ['*',]
+DEBUG=True
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -168,13 +168,13 @@ WSGI_APPLICATION = "Technical.wsgi.application"
 #     }
 # }
 # production db settings
-DATABASE_URL = os.getenv("DATABASE_URL")
-DATABASES = {
-    "default": dj_database_url.config(
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
+# DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     )
+# }
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_HOST = "smtp.sendgrid.net"
