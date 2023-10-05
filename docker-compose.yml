@@ -1,28 +1,86 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file: 
+      - .env
+    container_name: tech_db
+    restart: always
+    # ports:
+      # - "5432:5432"
+    hostname: db
+    # local
+    environment:
+      # - POSTGRES_DB=technical
+      # - POSTGRES_PASSWORD=23C00KIE5 
+      # - POSTGRES_HOST=db
+    # production
+      # - POSTGRES_DB=railway
+      # - POSTGRES_PASSWORD=W8q0LTyybDqRSAGEAMyc
+      # - POSTGRES_HOST=containers-us-west-95.railway.app
+      - DATABASE_URL=${DATABASE_URL}
+
+
+  redis:
+     image: redis:7.0-alpine
+     container_name: tech_redis
+     
+
+  celery:
+    build:
+      context: .
+    command: celery -A Technical worker --loglevel=info
+    volumes:
+      - .:/celery
+    container_name: tech_celery
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+      - web
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    image: app:tech
+    container_name: tech_container
+    env_file: .env
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+
+
 # version: '3.8'
 
 # services:
 #   db:
 #     image: postgres:15-alpine
+#     # hostname: db
 #     volumes:
 #       - postgres_data:/var/lib/postgresql/data/
 #     env_file: 
 #       - .env
-#     container_name: tech_db
-#     restart: always
 #     # ports:
 #       # - "5432:5432"
-#     hostname: db
+#     container_name: tech_db
+#     restart: always
 #     environment:
-#       - POSTGRES_DB=technical
 #       - POSTGRES_PASSWORD=23C00KIE5 
-#       - POSTGRES_HOST=db
 
 #   redis:
 #      image: redis:7.0-alpine
 #      container_name: tech_redis
-     
 
 #   celery:
+#     restart: always
 #     build:
 #       context: .
 #     command: celery -A Technical worker --loglevel=info
@@ -36,80 +94,29 @@
 #       - redis
 #       - web
 
+
+
+
 #   web:
 #     build: .
+
 #     command: python manage.py runserver 0.0.0.0:8000
+#     volumes :
+#       - .:/tech
 #     ports:
 #       - "8000:8000"
 #     image: app:tech
 #     container_name: tech_container
-#     env_file: .env
+#     env_file: 
+#       - .env
+#     # environment:
+#     #   - POSTGRES_NAME=value
+#     #   - POSTGRES_USER=postgres 
+#     #   - POSTGRES_PASSWORD=postgres
 #     depends_on:
 #       - db
 
+  
 # volumes:
 #   postgres_data:
-
-
-# # version: '3.8'
-
-# # services:
-# #   db:
-# #     image: postgres:15-alpine
-# #     # hostname: db
-# #     volumes:
-# #       - postgres_data:/var/lib/postgresql/data/
-# #     env_file: 
-# #       - .env
-# #     # ports:
-# #       # - "5432:5432"
-# #     container_name: tech_db
-# #     restart: always
-# #     environment:
-# #       - POSTGRES_PASSWORD=23C00KIE5 
-
-# #   redis:
-# #      image: redis:7.0-alpine
-# #      container_name: tech_redis
-
-# #   celery:
-# #     restart: always
-# #     build:
-# #       context: .
-# #     command: celery -A Technical worker --loglevel=info
-# #     volumes:
-# #       - .:/celery
-# #     container_name: tech_celery
-# #     env_file:
-# #       - .env
-# #     depends_on:
-# #       - db
-# #       - redis
-# #       - web
-
-
-
-
-# #   web:
-# #     build: .
-
-# #     command: python manage.py runserver 0.0.0.0:8000
-# #     volumes :
-# #       - .:/tech
-# #     ports:
-# #       - "8000:8000"
-# #     image: app:tech
-# #     container_name: tech_container
-# #     env_file: 
-# #       - .env
-# #     # environment:
-# #     #   - POSTGRES_NAME=value
-# #     #   - POSTGRES_USER=postgres 
-# #     #   - POSTGRES_PASSWORD=postgres
-# #     depends_on:
-# #       - db
-
-  
-# # volumes:
-# #   postgres_data:
 

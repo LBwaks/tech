@@ -1,24 +1,24 @@
-# # selecting image to be used
-# FROM python:3.10-slim
+# selecting image to be used
+FROM python:3.10-slim
 
-# ENV PYTHONDONTWRITEBYTECODE 1
-# ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# # create working directory
-# WORKDIR /tech
+# create working directory
+WORKDIR /tech
 
-# # get requirements
-# COPY requirements.txt requirements.txt
+# get requirements
+COPY requirements.txt requirements.txt
 
-# # install dependencies
-# RUN pip install  --upgrade pip
+# install dependencies
+RUN pip install  --upgrade pip
 
-# # insatll packages
-# RUN pip install  -r requirements.txt
+# insatll packages
+RUN pip install  -r requirements.txt
 
-# # copy everything to the current working directory
-# COPY . .
+# copy everything to the current working directory
+COPY . .
 
-# CMD ["python","manage.py","runserver","0.0.0.0:8000"]
+CMD ["python","manage.py","runserver","0.0.0.0:8000"]
 
-# EXPOSE 8000
+EXPOSE 8000
