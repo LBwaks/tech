@@ -35,7 +35,7 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv('DEBUG')
-DEBUG=True
+DEBUG=False
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
@@ -566,26 +566,26 @@ COMPRESS_ENABLED = os.getenv('COMPRESS_ENABLED', False)
 #             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
 #     },
 #         }
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 # for static files
-# STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
+STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
 
 
-# sentry_sdk.init(
-#     dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
-#     integrations=[
-#         DjangoIntegration(
-#             transaction_style="url",
-#             middleware_spans=True,
-#             signals_spans=False,
-#             ),
-#     ],
+sentry_sdk.init(
+    dsn="https://1ff2e206a6434010802660bac1bdb13c@o4504099387342848.ingest.sentry.io/4505467134607360",
+    integrations=[
+        DjangoIntegration(
+            transaction_style="url",
+            middleware_spans=True,
+            signals_spans=False,
+            ),
+    ],
 
   
-#     traces_sample_rate=1.0,   
-#     send_default_pii=True
-# )
+    traces_sample_rate=1.0,   
+    send_default_pii=True
+)
 
 
 # mailchimp

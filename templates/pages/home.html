@@ -16,7 +16,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <div class="text-center text-white mb-5">
-                                        <h1 class="display-5 fw-semibold mb-3">Search Between More Then <span class="text-warning fw-bold">10,000+</span>
+                                        <h1 class="display-5 fw-semibold mb-3">Search Between More Than <span class="text-warning fw-bold">1,000+</span>
                                             Open Jobs.</h1>
                                         <p class="fs-17">Find jobs, create trackable resumes and enrich your applications.</p>
                                     </div>
@@ -89,8 +89,8 @@
                                 <div class="col-lg-6">
                                     <div class="section-title text-center mb-4 pb-2">
                                         <h4 class="title">New & Random Jobs</h4>
-                                        <p class="text-muted mb-1">Post a job to tell us about your project. We'll quickly match you
-                                            with the right freelancers.</p>
+                                        <p class="text-muted mb-1">Post a job describing us about your project. We'll quickly match you
+                                            with the right skilled personal</p>
                                     </div>
                                 </div><!--end col-->
                             </div><!--end row-->
@@ -488,6 +488,7 @@
                                         <p class="text-muted">Post a job to tell us about your project. We'll quickly match you with the
                                             right freelancers.</p>
                                     </div>
+                                    
                                 </div>
                                 <!--end col-->
                             </div>
@@ -512,7 +513,7 @@
                                                                 <p class="text-muted mb-0"><i class="uil uil-calender"></i> {{blog.created}}</p>
                                                             </li>
                                                         </ul>
-                                                        <h3><a href="{{blog.get_absolute_url}}" class="primary-link text-dark "><h6 class="fs-17 title-blog">{{blog.title}}</h6></a>
+                                                        <h3><a href="{{blog.get_absolute_url}}" class="primary-link text-dark "><h6 class="fs-17 title-blog">{{blog.title | truncatechars:36}}</h6></a>
                                                         </h3>
                                                         <p class="text-muted">{{blog.content | truncatewords:30}}</p>
                                                          <a href="{{blog.get_absolute_url}}" class="form-text text-primary">Read more <i class="mdi mdi-chevron-right align-middle"></i></a>
@@ -592,27 +593,6 @@
 {% endif %}
 
             <!-- end main content-->
-
-{% comment %} <form method="GET" action="{% url 'search' %}">
-  <div class="form-group">
-    <label for="id_tag">{% trans 'Tag' %}</label>
-    <select id="id_tag" name="tag" class="form-control">
-      <option value="0">{% trans 'All Tags' %}</option>
-      {% for tag in tags %}
-        <option value="{{ tag.pk }}">{{ tag.name }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="id_title">{% trans 'Title' %}</label>
-    <input type="text" id="id_title" name="title" class="form-control" maxlength="50">
-  </div>
-  <div class="form-group">
-    <label for="id_location">{% trans 'Location' %}</label>
-    <input type="text" id="id_location" name="location" class="form-control" maxlength="50">
-  </div>
-  <button type="submit" class="btn btn-primary">{% trans 'Search' %}</button>
-</form> {% endcomment %}
 
 {% endblock content %}
     
