@@ -34,13 +34,13 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
-
+DEBUG = os.getenv('DEBUG')
+# DEBUG=True
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG=True
-ALLOWED_HOSTS = ["*"]
+
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -116,7 +116,20 @@ INTERNAL_IPS = [
 ]
 ROOT_URLCONF = "Technical.urls"
 
-
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+       
+        "LOCATION": os.getenv("REDIS_URL"),
+        # "LOCATION":"redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS":"django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True,
+        },
+        "KEY_PREFIX": "Technical",
+        "TIMEOUT": 86400,
+    }
+}
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -135,11 +148,33 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "Technical.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # development db settings
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        # "NAME": os.getenv("NAME"),
+        'NAME':'technical',
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": os.getenv("HOST"),
+        # "HOST":"tech_db",
+        # "PORT": os.getenv("PORT"),
+        "PORT":"5432",
+        # 
+    }
+}
+# production db settings
+DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASES = {
+    "default": dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_HOST = "smtp.sendgrid.net"
@@ -202,7 +237,17 @@ CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
+# asgi
+ASGI_APPLICATION = "Technical.asgi.application"
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
+# CHANNEL_LAYERS = {
+#         "default": {
+#             "BACKEND": "channels_redis.core.RedisChannelLayer",
+#             "CONFIG": {
+#                 "hosts": [("localhost", 6379)],
+#             },
+#         },
+#     }
 
 SITE_ID = 2
 LOGIN_REDIRECT_URL = "jobs"
@@ -273,8 +318,38 @@ ACCOUNT_USERNAME_REQUIRED = True
 
 # phonenumber_field
 PHONENUMBER_DEFAULT_REGION = "KE"
+# celery redis
+CELERY_BROKER_URL =os.getenv("REDIS_URL"),
+# CELERY_BROKER_URL ="redis://127.0.0.1:6379/1",
+# CELERY_ACCEPT_CONTENT =['json']
+# CELERY_TASK_SERIALIZER = ['json']
 
+CELERY_RESULT_BACKEND =os.getenv("REDIS_URL"),
+# CELERY_RESULT_BACKEND=
+# Specify the default queue name for Celery
+CELERY_DEFAULT_QUEUE = "default"
+# Specify additional Celery configuration (optional)
+CELERY_CONFIG = {
+    "worker_prefetch_multiplier": 1,
+    "task_acks_late": True,
+}
+# Set the Celery beat schedule
+CELERY_BEAT_SCHEDULE = {
+    "update_job_status": {
+        "task": "Job.tasks.update_job_expiry_status",
+        "schedule": timedelta(minutes=15),  # Run every 15 minutes
+    },
+}
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "default"
 
+# django setting.
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         'LOCATION': 'my_cache_table',
+#     }
+# }
 
 # mpesa
 MPESA_ENVIRONMENT = "sandbox"
@@ -482,19 +557,19 @@ COMPRESS_ENABLED = os.getenv('COMPRESS_ENABLED', False)
 
 # boto3
 # for media 
-# STORAGES = {
-#     "default": 
-#         {
-#             "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
-#         },
-#         "staticfiles": {
-#             "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-#     },
-#         }
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+STORAGES = {
+    "default": 
+        {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage"
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+        }
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 # for static files
-STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
+# STORAGES = {"staticfiles": {"BACKEND": "storages.backends.s3boto3.S3StaticStorage"}}
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
 
 
 sentry_sdk.init(
