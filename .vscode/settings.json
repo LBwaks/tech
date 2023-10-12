@@ -40,5 +40,21 @@
           "titleBar.inactiveBackground": "#1857a499",
           "titleBar.inactiveForeground": "#e7e7e799"
      },
-     "peacock.color": "#1857a4"
+     "peacock.color": "#1857a4",
+     "sqltools.connections": [
+          {
+               "mysqlOptions": {
+                    "authProtocol": "default",
+                    "enableSsl": "Disabled"
+               },
+               "previewLimit": 50,
+               "server": "localhost",
+               "port": 3306,
+               "driver": "MySQL",
+               "name": "j1",
+               "database": "test",
+               "username": "root",
+               "password": "23C00K1E5"
+          }
+     ]
 }

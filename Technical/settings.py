@@ -153,20 +153,20 @@ WSGI_APPLICATION = "Technical.wsgi.application"
 
 # development db settings
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        # "NAME": os.getenv("NAME"),
-        'NAME':'technical',
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        # "HOST":"tech_db",
-        # "PORT": os.getenv("PORT"),
-        "PORT":"5432",
-        # 
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         # "NAME": os.getenv("NAME"),
+#         'NAME':'technical',
+#         "USER": os.getenv("USER"),
+#         "PASSWORD": os.getenv("PASSWORD"),
+#         "HOST": os.getenv("HOST"),
+#         # "HOST":"tech_db",
+#         # "PORT": os.getenv("PORT"),
+#         "PORT":"5432",
+#         # 
+#     }
+# }
 # production db settings
 DATABASE_URL = os.getenv("DATABASE_URL")
 DATABASES = {
