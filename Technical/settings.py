@@ -34,8 +34,8 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
-# DEBUG=True
+# DEBUG = os.getenv('DEBUG')
+DEBUG=True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
@@ -239,15 +239,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # asgi
 ASGI_APPLICATION = "Technical.asgi.application"
-CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
-# CHANNEL_LAYERS = {
-#         "default": {
-#             "BACKEND": "channels_redis.core.RedisChannelLayer",
-#             "CONFIG": {
-#                 "hosts": [("localhost", 6379)],
-#             },
-#         },
-#     }
+# CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
+REDIS_URL =os.getenv("REDIS_URL")
+CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [REDIS_URL],
+            },
+        },
+    }
 
 SITE_ID = 2
 LOGIN_REDIRECT_URL = "jobs"
