@@ -537,23 +537,23 @@ COMPRESS_ENABLED = os.getenv('COMPRESS_ENABLED', False)
 
 # aws settings
 
-# AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-# AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-# AWS_DEFAULT_ACL = "public-read"
-# # AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
-# # AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-# AWS_QUERYSTRING_AUTH = False
-# AWS_QUERYSTRING_EXPIRE= 8
-# # AWS_S3_OBJECT_PARAMETERS = {"Access-Control-Allow-Origin": "*"}
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_DEFAULT_ACL = "public-read"
+# AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+# AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+AWS_QUERYSTRING_AUTH = False
+AWS_QUERYSTRING_EXPIRE= 8
+# AWS_S3_OBJECT_PARAMETERS = {"Access-Control-Allow-Origin": "*"}
 
-# # AWS_S3_CUSTOM_DOMAIN = 'https://d2n7j1cvfar59p.cloudfront.net'
-# # AWS_CLOUDFRONT_KEY = os.getenv("AWS_CLOUDFRONT_KEY",None).encode('ascii')
-# # AWS_CLOUDFRONT_KEY_ID =os.getenv("AWS_CLOUDFRONT_KEY_ID",None)
-# # s3 static settings
-# # AWS_LOCATION = "static"
-# # STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
-# # MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
+# AWS_S3_CUSTOM_DOMAIN = 'https://d2n7j1cvfar59p.cloudfront.net'
+# AWS_CLOUDFRONT_KEY = os.getenv("AWS_CLOUDFRONT_KEY",None).encode('ascii')
+# AWS_CLOUDFRONT_KEY_ID =os.getenv("AWS_CLOUDFRONT_KEY_ID",None)
+# s3 static settings
+# AWS_LOCATION = "static"
+# STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
+# MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
 
 # boto3
 # for media 
