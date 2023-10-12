@@ -740,7 +740,7 @@ JAZZMIN_SETTINGS = {
 }
 
 # hijack
-# HIJACK_PERMISSION_CHECK = "hijack.permissions.superusers_and_staff"
+HIJACK_PERMISSION_CHECK = "hijack.permissions.superusers_and_staff"
 
 # after https is configured
 # CSRF_COOKIE_SECURE = True
