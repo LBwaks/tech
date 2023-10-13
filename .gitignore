@@ -11,8 +11,8 @@ db.sqlite3
 db.sqlite3-journal
 media
 ccccccccc.html
-Dockerfile
-docker-compose.yml
+# Dockerfile
+# docker-compose.yml
 pp.py
 s.py
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/

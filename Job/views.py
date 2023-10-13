@@ -72,9 +72,9 @@ class JobListView(ListView):
             context['has_applied'] = set(Application.objects.filter(user=self.request.user).values_list("job__id",flat=True))
         return context
     
-    # def dispatch(self, request, *args, **kwargs):
-    #     update_job_expiry_status.delay()
-    #     return super().dispatch(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        update_job_expiry_status.delay()
+        return super().dispatch(request, *args, **kwargs)
     
     
 
